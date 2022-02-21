@@ -1,0 +1,60 @@
+@mixin cx-prosemirror(
+   $name: 'prosemirror',
+   $state-style-map: $cx-textarea-state-style-map,
+   $placeholder: $cx-input-placeholder,
+   $empty-text: $cx-empty-text,
+   $tool-state-style-map: $cx-input-right-icon-state-style-map,
+   $icon-size: $cx-default-input-icon-size,
+   $width: $cx-default-textarea-width,
+   $besm: $cx-besm
+) {
+   @include cx-textarea(
+      $name: 'prosemirror',
+      $state-style-map: $state-style-map,
+      $placeholder: $placeholder,
+      $empty-text: $empty-text,
+      $width: $width,
+      $besm: $besm
+   );
+
+   .cxe-prosemirror-input:focus-within {
+      @extend .cxe-prosemirror-input:focus;
+   }
+
+   .cxb-prosemirror {
+      .ProseMirror-menubar-wrapper {
+         display: flex;
+         flex-direction: column;
+         height: 100%;
+      }
+
+      .ProseMirror-menubar {
+         flex-shrink: 0;
+         padding: 0 0 6px 0;
+      }
+
+      .ProseMirror {
+         flex-grow: 1;
+         overflow: auto;
+         padding-top: 8px;
+
+         &:focus {
+            outline: none;
+         }
+
+         ul {
+            li {
+               list-style: disc;
+            }
+         }
+
+         ol {
+            li {
+               list-style-type: decimal;
+            }
+         }
+      }
+   }
+}
+
+@include cx-prosemirror($width: 100%);

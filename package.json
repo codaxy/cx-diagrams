@@ -1,0 +1,17 @@
+{
+  "name": "cx-diagrams",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "cd docs && yarn start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": ["docs", "packages/cx-diagrams"]
+}

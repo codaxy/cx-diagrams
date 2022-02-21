@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind utilities;
+
+#app {
+   @apply h-full;
+}
+
+.text-reset {
+   font-size: 16px;
+   font-weight: 600;
+}
+
+.price-marker-shadow {
+   box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.28) 0px 1px 5px;
+}
+
+.fade-in {
+   animation: fadeIn ease-in 0.3s;
+}
+
+@keyframes fadeIn {
+   0% {
+      opacity: 0;
+   }
+   100% {
+      opacity: 1;
+   }
+}
+
+/* This doesn't work for some reason out of the box */
+
+.prose {
+   font-size: 15px;
+}
+
+.prose p,
+.prose ul {
+   margin-bottom: 8px;
+}
+
+.prose ul > li {
+   list-style: disc;
+   margin-left: 32px;
+   padding-left: 4px;
+   margin-bottom: 4px;
+}
+
+.prose ol > li {
+   list-style: decimal;
+   margin-left: 32px;
+   padding-left: 4px;
+   margin-bottom: 4px;
+}
+
+.prose a {
+   @apply text-red-600;
+}
+
+.prose blockquote {
+   @apply italic text-gray-600 pl-4 border-l-2 border-gray-300;
+}
+
+.prose b,
+.prose strong {
+   @apply font-bold;
+}

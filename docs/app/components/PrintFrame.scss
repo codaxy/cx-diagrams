@@ -1,0 +1,22 @@
+.cxb-printframe {
+   position: relative;
+   box-sizing: border-box;
+   background: white;
+
+   & > iframe {
+      border: none;
+      position: absolute;
+      margin: auto;
+      width: 100%;
+      height: 100%;
+   }
+}
+
+.cxe-printframe-page {
+   @page {
+      size: A4 portrait;
+   }
+
+   background: white;
+   pointer-events: none;
+}
