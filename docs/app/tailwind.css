@@ -30,7 +30,8 @@
 /* This doesn't work for some reason out of the box */
 
 .prose {
-   font-size: 15px;
+   font-weight: normal;
+   @apply text-gray-600;
 }
 
 .prose p,
@@ -57,10 +58,25 @@
 }
 
 .prose blockquote {
-   @apply italic text-gray-600 pl-4 border-l-2 border-gray-300;
+   @apply pl-4 italic text-gray-600 border-l-2 border-gray-300;
 }
 
 .prose b,
 .prose strong {
    @apply font-bold;
+}
+
+.prose h1 {
+   font-size: 32px;
+   font-weight: bold;
+   margin-bottom: 1rem;
+}
+
+.prose h2 {
+   font-size: 28px;
+   font-weight: 600;
+}
+
+.prose h2 a {
+   color: inherit;
 }

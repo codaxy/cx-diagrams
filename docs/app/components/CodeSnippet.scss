@@ -1,0 +1,91 @@
+.cxb-codesnippet {
+   position: relative;
+   background: white;
+   border-bottom: 1px solid #eee;
+   font-size: 13px;
+   padding: 16px 24px;
+
+   pre {
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+
+      & > code {
+         background: transparent;
+         border-radius: 0;
+      }
+
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      &::-webkit-scrollbar-track {
+         background-color: transparent;
+      }
+
+      &::-webkit-scrollbar {
+         height: 6px;
+         background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+         background-color: rgba(255, 255, 255, 0.2);
+         border-radius: 3px;
+      }
+   }
+}
+
+.cxe-codesnippet-link {
+   position: absolute;
+   right: 10px;
+   top: -16px;
+   background: rgb(231, 231, 231);
+   padding: 5px 10px;
+   text-decoration: none;
+   color: #376aff;
+   z-index: 2000;
+
+   opacity: 0;
+   transition: opacity 1s;
+   transition-delay: 0.2s;
+
+   .cxb-codesnippet:hover > & {
+      opacity: 1;
+   }
+}
+
+.cxe-codesplit-right .cxb-codesnippet {
+   background: transparent;
+}
+
+.cxe-codesplit-right .cxb-tab.cxm-code {
+   color: rgba(white, 0.5);
+   border-bottom-width: 2px;
+   margin-bottom: 10px;
+   background: transparent;
+   text-transform: none;
+
+   &:focus {
+      color: rgba(white, 0.7);
+      border-bottom-color: rgba(white, 0.7);
+   }
+
+   &:hover {
+      color: rgba(white, 0.7);
+      border-bottom-color: rgba(white, 0.5);
+   }
+
+   &.cxs-active {
+      color: rgba(white, 0.9);
+      border-bottom-color: rgba(white, 0.9);
+
+      &:focus {
+         color: white;
+         border-bottom-color: white;
+      }
+   }
+
+   & > code {
+      padding-left: 0;
+   }
+}

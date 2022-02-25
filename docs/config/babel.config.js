@@ -15,7 +15,7 @@ module.exports = {
 
             cx: {
                jsx: {
-                  trimWhitespace: true,
+                  trimWhitespace: false,
                },
                imports: {
                   useSrc: true,

@@ -1,0 +1,68 @@
+.cxb-configtable {
+   margin-top: 16px;
+   position: relative;
+   overflow-x: auto;
+   font-size: 14px;
+
+   table {
+      border-collapse: collapse;
+      min-width: 100%;
+   }
+
+   p:last-child {
+      margin-bottom: 0 !important;
+   }
+
+   th {
+      text-align: left;
+      padding: 4px 12px;
+      font-size: 11px;
+      color: gray;
+      font-weight: normal;
+      text-transform: uppercase;
+   }
+
+   td:first-child {
+      background: #fbfbfb;
+      padding-left: 24px;
+   }
+
+   th:first-child {
+      padding-left: 24px;
+   }
+
+   td:nth-child(2) {
+      min-width: 300px;
+   }
+
+   td:nth-child(3) {
+      //background: #fbfbfb;
+      font: 12px monospace;
+      padding-right: 20px;
+   }
+
+   td {
+      padding: 8px 12px;
+      border-top: 1px solid #ebebeb;
+   }
+
+   h5 {
+      font-family: monospace;
+      font-size: 13.5px;
+      margin: 0;
+      padding: 0;
+      font-weight: normal;
+
+      a {
+         color: inherit;
+      }
+   }
+
+   h5.cxs-important {
+      font-weight: bold;
+   }
+
+   h5.cxs-long {
+      font-size: 11px;
+   }
+}
