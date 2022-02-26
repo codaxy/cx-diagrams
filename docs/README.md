@@ -1,14 +1,8 @@
-# CxJS + Tailwind CSS
+# Documentation Project
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f800e2ee-d28a-4118-a149-9ba840fb4941/deploy-status)](https://twapp.cxjs.io) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/24e18bb1-be7c-4a3c-a2e2-77d508cae57d/deploy-status)](https://diagrams.cxjs.io) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
 
-> This project is undergoing development. Some of the features are missing or incomplete.
-
-This repository provides an application template based on CxJS and TailwindCSS. It offers a working application layout, sample pages, component gallery, Babel and webpack configurations, and others small bits and pieces.
-
-CxJS and Tailwind CSS mix really well together. CxJS brings JavaScript based application elements such as widgets, charts, state management, and routing, while Tailwind CSS offers a rapid way to combine these elements into higher-order visual structures - page elements, headers, toolbars, sections, layouts, etc.
-
-Both products require time to understand and master, but once everything settles, the productivity that this combination brings is great.
+This project contains online documentation for the `cx-diagrams` NPM package.
 
 ## Running the project locally
 
@@ -41,19 +35,3 @@ To analyze the deployment bundle size, run:
 yarn analyze
 npm run analyze
 ```
-
-## Packages and Libraries
-
-### Heroicons
-
-Icons used in the template come from the [Heroicons](https://heroicons.com/) library which offers beatiful hand-crafted SVG icons. Each icon needs to be registered in the `icons/index.js` before in can be used by CxJS components.
-
-### Mock Data
-
-There is a mock REST API implemented using the `msw` package. The application makes proper network requests using the `fetch` method which are intercepted by the service worker. Check the `data` folder for more details.
-
-This should be removed when you switch to a proper API.
-
-## License
-
-This project is available under the terms of [the MIT license](LICENSE.md).

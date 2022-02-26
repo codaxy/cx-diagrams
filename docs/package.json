@@ -21,7 +21,6 @@
       "cx-react": "^17.10.0",
       "heroicons": "^1.0.5",
       "highlight.js": "^11.4.0",
-      "illuminate-js": "^1.0.0-alpha.2",
       "marked": "^4.0.12",
       "prosemirror-example-setup": "^1.1.2",
       "prosemirror-markdown": "^1.7.0",

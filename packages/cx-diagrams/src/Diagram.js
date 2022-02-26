@@ -1,53 +1,49 @@
 import { VDOM } from "cx/ui";
 import { BoundedObject } from "cx/svg";
 import { DiagramState } from "./DiagramState";
-import { addEventListenerWithOptions } from "cx/util";
+import { addEventListenerWithOptions, debounce } from "cx/util";
 import { getCursorPos, captureMouseOrTouch } from "cx/widgets";
 
 export class Diagram extends BoundedObject {
-    declareData(...args) {
-        super.declareData(...args, {
-            offsetX: undefined,
-            offsetY: undefined,
-            zoom: undefined,
-            unitSize: undefined
-        });
-    }
+   declareData(...args) {
+      super.declareData(...args, {
+         offsetX: undefined,
+         offsetY: undefined,
+         zoom: undefined,
+         unitSize: undefined,
+      });
+   }
 
-    explore(context, instance) {
-        let { data } = instance;
-        let ds = (instance.diagramState = new DiagramState());
-        ds.sizeX = ds.sizeY = data.unitSize;
-        ds.offsetX = data.offsetX;
-        ds.offsetY = data.offsetY;
-        ds.zoom = data.zoom;
-        context.push("diagram", ds);
-        super.explore(context, instance);
-    }
+   explore(context, instance) {
+      let { data } = instance;
+      let ds = (instance.diagramState = new DiagramState());
+      ds.unitSize = data.unitSize;
+      context.push("diagram", ds);
+      super.explore(context, instance);
+   }
 
-    exploreCleanup(context, instance) {
-        context.pop("diagram");
-    }
+   exploreCleanup(context, instance) {
+      context.pop("diagram");
+   }
 
-    prepare(context, instance) {
-        super.prepare(context, instance);
-        context.push("diagram", instance.diagramState);
-    }
+   prepare(context, instance) {
+      super.prepare(context, instance);
+      context.push("diagram", instance.diagramState);
+   }
 
-    prepareCleanup(context, instance) {
-        context.pop("diagram");
-        super.prepareCleanup(context, instance);
-    }
+   prepareCleanup(context, instance) {
+      context.pop("diagram");
+      super.prepareCleanup(context, instance);
+   }
 
-    render(context, instance, key) {
-        let { data } = instance;
-        let state = instance.diagramState;
-        return (
-            <DiagramComponent key={key} zoom={state.zoom} offsetX={state.offsetX} offsetY={state.offsetY} data={data} instance={instance}>
-                {this.renderChildren(context, instance)}
-            </DiagramComponent>
-        );
-    }
+   render(context, instance, key) {
+      let { data } = instance;
+      return (
+         <DiagramComponent key={key} data={data} instance={instance}>
+            {this.renderChildren(context, instance)}
+         </DiagramComponent>
+      );
+   }
 }
 
 Diagram.prototype.offsetX = 0;
@@ -63,169 +59,199 @@ const minZoom = 0.25;
 const maxZoom = 4;
 
 class DiagramComponent extends VDOM.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            zoom: props.zoom,
-            offsetX: props.offsetX,
-            offsetY: props.offsetY
-        }
-        this.touchOperation = 0;
-    }
+   constructor(props) {
+      super(props);
+      this.state = {
+         zoom: props.data.zoom,
+         offsetX: props.data.offsetX,
+         offsetY: props.data.offsetY,
+      };
+      this.touchOperation = 0;
 
-    render() {
-        let { offsetX, offsetY, zoom } = this.state;
-        let { data, children } = this.props;
-        let { bounds } = data;
+      this.saveState = debounce(() => {
+         let { instance } = this.props;
+         let { zoom, offsetX, offsetY } = this.state;
+         instance.set("zoom", zoom);
+         instance.set("offsetX", offsetX);
+         instance.set("offsetY", offsetY);
+      }, 100);
+   }
 
-        var d = data.unitSize * zoom;
+   componentWillReceiveProps(props) {
+      this.setState({
+         zoom: props.data.zoom,
+         offsetX: props.data.offsetX,
+         offsetY: props.data.offsetY,
+      });
+   }
 
-        let cx = (bounds.r - bounds.l) / 2 + offsetX;
-        let cy = (bounds.b - bounds.t) / 2 + offsetY;
+   render() {
+      let { offsetX, offsetY, zoom } = this.state;
+      let { data, children } = this.props;
+      let { bounds } = data;
 
-        let path = '';
+      let d = data.unitSize * zoom;
 
-        let fromX = Math.ceil((bounds.l - cx) / d) * d;
-        let toX = Math.floor((bounds.r - cx) / d) * d;
+      let cx = (bounds.r - bounds.l) / 2 + offsetX;
+      let cy = (bounds.b - bounds.t) / 2 + offsetY;
 
-        for (let x = fromX; x <= toX; x += d)
-            path += `M ${cx + x} ${bounds.t} L ${cx + x} ${bounds.b}`;
+      let path = "";
 
-        let fromY = Math.ceil((bounds.t - cy) / d) * d;
-        let toY = Math.floor((bounds.b - cy) / d) * d;
+      let fromX = Math.ceil((bounds.l - cx) / d);
+      let toX = Math.floor((bounds.r - cx) / d);
 
-        for (let y = fromY; y <= toY; y += d)
-            path += `M ${bounds.l} ${cy + y} L ${bounds.r} ${cy + y}`;
+      for (let x = fromX; x <= toX; x++) path += `M ${cx + x * d} ${bounds.t} L ${cx + x * d} ${bounds.b}`;
 
-        return (
-            <g
-                className={data.classNames}
-                ref={el => { this.el = el }}
-                onMouseDown={ev => this.handleMouseDown(ev)}
-            >
-                <rect x={data.bounds.l} y={data.bounds.t} width={data.bounds.width()} height={data.bounds.height()} fill="transparent" stroke="transparent" />
-                <path style={data.style} d={path} stroke="lightgray" strokeWidth={0.5} />
-                <g transform={`translate(${cx}, ${cy}) scale(${zoom}, ${zoom})`}>
-                    {children}
-                </g>
-            </g>
-        );
-    }
+      let fromY = Math.ceil((bounds.t - cy) / d);
+      let toY = Math.floor((bounds.b - cy) / d);
 
-    componentDidMount() {
-        this.offWheel = addEventListenerWithOptions(this.el, 'wheel', e => this.handleWheel(e));
-    }
+      for (let y = fromY; y <= toY; y++) path += `M ${bounds.l} ${cy + y * d} L ${bounds.r} ${cy + y * d}`;
 
-    componentWillUnmount() {
-        this.offWheel();
-    }
+      return (
+         <g
+            className={data.classNames}
+            ref={(el) => {
+               this.el = el;
+            }}
+            onMouseDown={(ev) => this.handleMouseDown(ev)}
+         >
+            <rect
+               x={data.bounds.l}
+               y={data.bounds.t}
+               width={data.bounds.width()}
+               height={data.bounds.height()}
+               fill="transparent"
+               stroke="transparent"
+            />
+            <path style={data.style} d={path} stroke="lightgray" strokeWidth={0.5} />
+            <g transform={`translate(${cx}, ${cy}) scale(${zoom}, ${zoom})`}>{children}</g>
+         </g>
+      );
+   }
 
-    handleWheel(ev) {
-        if (ev.deltaY > 0) this.zoomOut(ev, false);
-        else this.zoomIn(ev, false);
+   componentDidMount() {
+      this.offWheel = addEventListenerWithOptions(this.el, "wheel", (e) => this.handleWheel(e));
+   }
 
-        ev.stopPropagation();
-        ev.preventDefault();
-    }
+   componentWillUnmount() {
+      this.offWheel();
+   }
 
-    zoom(e, factor, center = true, zoomStep = defaultZoomStep, pinchPoint) {
-        var nzoom = (1 + factor * zoomStep) * this.state.zoom;
-        this.zoomTo(e, nzoom, center, pinchPoint);
-    }
+   handleWheel(ev) {
+      if (ev.deltaY > 0) this.zoomOut(ev, false);
+      else this.zoomIn(ev, false);
 
-    zoomTo(e, zoom, center, pinchPoint) {
-        let mx, my;
+      ev.stopPropagation();
+      ev.preventDefault();
+   }
 
-        if (pinchPoint) {
-            var el = e.currentTarget;
-            var bounds = el.getBoundingClientRect();
-            mx = pinchPoint.x - bounds.left;
-            my = pinchPoint.y - bounds.top;
-        } else if (!center) {
-            var el = e.currentTarget;
-            var bounds = this.el.firstElementChild.getBoundingClientRect();
-            var cursor = getCursorPos(e);
-            mx = cursor.clientX - (bounds.left + bounds.right) / 2;
-            my = cursor.clientY - (bounds.top + bounds.bottom) / 2;
-        }
+   zoom(e, factor, center = true, zoomStep = defaultZoomStep, pinchPoint) {
+      let nzoom = (1 + factor * zoomStep) * this.state.zoom;
+      this.zoomTo(e, nzoom, center, pinchPoint);
+   }
 
-        zoom = Math.max(minZoom, Math.min(maxZoom, zoom));
+   zoomTo(e, zoom, center, pinchPoint) {
+      let mx, my;
 
-        this.setState({
+      if (pinchPoint) {
+         let el = e.currentTarget;
+         let bounds = el.getBoundingClientRect();
+         mx = pinchPoint.x - bounds.left;
+         my = pinchPoint.y - bounds.top;
+      } else if (!center) {
+         let el = e.currentTarget;
+         let bounds = this.el.firstElementChild.getBoundingClientRect();
+         let cursor = getCursorPos(e);
+         mx = cursor.clientX - (bounds.left + bounds.right) / 2;
+         my = cursor.clientY - (bounds.top + bounds.bottom) / 2;
+      }
+
+      zoom = Math.max(minZoom, Math.min(maxZoom, zoom));
+
+      let offsetX = mx - (zoom / this.state.zoom) * (mx - this.state.offsetX);
+      let offsetY = my - (zoom / this.state.zoom) * (my - this.state.offsetY);
+
+      this.setState(
+         {
             zoom,
-            offsetX: mx - (zoom / this.state.zoom) * (mx - this.state.offsetX),
-            offsetY: my - (zoom / this.state.zoom) * (my - this.state.offsetY)
-        })
-    }
+            offsetX,
+            offsetY,
+         },
+         this.saveState
+      );
+   }
 
-    zoomIn(e, center) {
-        this.zoom(e, 1, center);
-    }
+   zoomIn(e, center) {
+      this.zoom(e, 1, center);
+   }
 
-    zoomOut(e, center) {
-        this.zoom(e, -1, center);
-    }
+   zoomOut(e, center) {
+      this.zoom(e, -1, center);
+   }
 
-    handleMouseDown(e) {
-        var cursor = getCursorPos(e);
-        var mode = e.touches && e.touches.length >= 2 ? 'zoom' : 'pan';
-        var captureData = {
-            mode,
-            touchOperation: ++this.touchOperation,
-        };
+   handleMouseDown(e) {
+      let cursor = getCursorPos(e);
+      let mode = e.touches && e.touches.length >= 2 ? "zoom" : "pan";
+      let captureData = {
+         mode,
+         touchOperation: ++this.touchOperation,
+      };
 
-        if (mode == 'pan') {
-            captureData.dx = this.state.offsetX - cursor.clientX;
-            captureData.dy = this.state.offsetY - cursor.clientY;
-        } else {
-            captureData.cx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-            captureData.cy = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-            captureData.originalZoom = view.zoom;
-            captureData.pointsDistance = Math.sqrt(
-                Math.pow(e.touches[0].clientX - e.touches[1].clientX, 2) +
-                Math.pow(e.touches[0].clientY - e.touches[1].clientY, 2),
+      if (mode == "pan") {
+         captureData.dx = this.state.offsetX - cursor.clientX;
+         captureData.dy = this.state.offsetY - cursor.clientY;
+      } else {
+         captureData.cx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+         captureData.cy = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+         captureData.originalZoom = view.zoom;
+         captureData.pointsDistance = Math.sqrt(
+            Math.pow(e.touches[0].clientX - e.touches[1].clientX, 2) +
+               Math.pow(e.touches[0].clientY - e.touches[1].clientY, 2)
+         );
+      }
+
+      captureMouseOrTouch(
+         e,
+         (e, captureData) => {
+            this.handleMouseMove(e, captureData);
+         },
+         () => {},
+         captureData,
+         "grabbing"
+      );
+
+      e.stopPropagation();
+      e.preventDefault();
+      document.activeElement.blur(); //hide the context menu
+   }
+
+   handleMouseMove(e, captureData) {
+      if (captureData.touchOperation != this.touchOperation) return;
+
+      if (captureData.mode == "pan") {
+         let cursor = getCursorPos(e);
+         let offsetX = cursor.clientX + captureData.dx;
+         let offsetY = cursor.clientY + captureData.dy;
+         if (offsetX != NaN && offsetY != NaN) {
+            this.setState(
+               {
+                  offsetX: offsetX,
+                  offsetY: offsetY,
+               },
+               this.saveState
             );
-        }
-
-        captureMouseOrTouch(
-            e,
-            (e, captureData) => {
-                this.handleMouseMove(e, captureData);
-            },
-            () => { },
-            captureData,
-            'grabbing',
-        );
-
-        e.stopPropagation();
-        e.preventDefault();
-        document.activeElement.blur(); //hide the context menu
-    }
-
-    handleMouseMove(e, captureData) {
-        if (captureData.touchOperation != this.touchOperation) return;
-
-        if (captureData.mode == 'pan') {
-            var cursor = getCursorPos(e);
-            var x = cursor.clientX + captureData.dx;
-            var y = cursor.clientY + captureData.dy;
-            if (x != NaN && y != NaN) {
-                this.setState({
-                    offsetX: x,
-                    offsetY: y
-                });
-            }
-        } else {
-            var pointsDistance = Math.sqrt(
-                Math.pow(e.touches[0].clientX - e.touches[1].clientX, 2) +
-                Math.pow(e.touches[0].clientY - e.touches[1].clientY, 2),
-            );
-            //console.log(captureData, e.touches);
-            var newZoom = (pointsDistance / captureData.pointsDistance) * captureData.originalZoom;
-            this.zoomTo(e, newZoom, false, { x: captureData.cx, y: captureData.cy });
-            //console.log('ZOOM');
-            e.stopPropagation();
-            e.preventDefault();
-        }
-    }
+         }
+      } else {
+         let pointsDistance = Math.sqrt(
+            Math.pow(e.touches[0].clientX - e.touches[1].clientX, 2) +
+               Math.pow(e.touches[0].clientY - e.touches[1].clientY, 2)
+         );
+         //console.log(captureData, e.touches);
+         let newZoom = (pointsDistance / captureData.pointsDistance) * captureData.originalZoom;
+         this.zoomTo(e, newZoom, false, { x: captureData.cx, y: captureData.cy });
+         //console.log('ZOOM');
+         e.stopPropagation();
+         e.preventDefault();
+      }
+   }
 }

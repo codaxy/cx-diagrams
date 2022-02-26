@@ -23,14 +23,11 @@ export default (
             <Pad>
                {/* prettier-ignore */}
                <Md>
-                # Diagram 
+                    # Box 
 
-                <ImportPath path='import { Diagram } from "cx-diagrams"' />
-
-                The `Diagram` component is used to mark the area of the diagram and provide zooming and panning functions. It's required that all diagrams use
-                 this component as a top-level parent element.
-
-                
+                    <ImportPath path='import { Box } from "cx-diagrams"' />
+                    
+                    The `Box` component is used to mark the area on the diagram using its `width` and `height` properties.
                 </Md>
             </Pad>
 
