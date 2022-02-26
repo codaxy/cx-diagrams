@@ -1,3 +1,10 @@
 .cxb-diagram {
-  cursor: grab;
+   cursor: grab;
+   fill: none;
+   stroke: none;
+   stroke-width: 1;
+}
+
+.cxb-diagram:active {
+   cursor: grabbing;
 }

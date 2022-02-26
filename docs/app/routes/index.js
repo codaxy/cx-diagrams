@@ -7,7 +7,8 @@ import { SandboxedRoute } from '../components/SandboxedRoute';
 
 import { PageNotImplemented } from '../components/PageNotImplemented';
 import Diagram from './diagram';
-import Cell from './Cell';
+import Cell from './cell';
+import Shape from './shape';
 
 export default () => (
    <cx>
@@ -22,6 +23,10 @@ export default () => (
 
                <SandboxedRoute route="~/components/cell">
                   <Cell />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/components/shape">
+                  <Shape />
                </SandboxedRoute>
 
                <PageNotImplemented />

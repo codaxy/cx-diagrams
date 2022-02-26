@@ -1,4 +1,4 @@
-import hljs from 'highlight.js';
+import hljs from 'highlight.js/lib/core';
 import jsx from 'highlight.js/lib/languages/xml';
 import { removeCommonIndent } from '../components/removeCommonIndent';
 

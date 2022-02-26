@@ -1,11 +1,19 @@
-import { BoundedObjectProps } from 'cx/svg';
+import { ClassProp, Config, NumberProp, StringProp, Widget } from "cx/src/core";
+import { BoundedObjectProps } from "cx/src/svg/BoundedObject";
+import { Instance } from "cx/src/ui/Instance";
 
 interface DiagramBoxProps extends BoundedObjectProps {
-   text?: Cx.StringProp;
-   shape?: Cx.StringProp;
-   tooltip?: Cx.StringProp | Cx.Config;
-   onContextMenu?: (e: MouseEvent, instance: Cx.Instance) => void;
-   onClick?: (e: MouseEvent, instance: Cx.Instance) => void;
+   text?: StringProp;
+   shape?: "rect" | "circle";
+   tooltip?: StringProp | Config;
+   textClass?: ClassProp;
+   shapeClass?: ClassProp;
+   stroke?: StringProp;
+   strokeWidth?: NumberProp;
+   fill?: StringProp;
+
+   onContextMenu?: (e: MouseEvent, instance: Instance) => void;
+   onClick?: (e: MouseEvent, instance: Instance) => void;
 }
 
-export class DiagramBox extends Cx.Widget<DiagramBoxProps> {}
+export class DiagramBox extends Widget<DiagramBoxProps> {}

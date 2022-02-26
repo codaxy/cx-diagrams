@@ -1,4 +1,4 @@
-import { Line, Rectangle, Svg, Text } from 'cx/svg';
+import { Ellipse, Line, Rectangle, Svg, Text } from 'cx/svg';
 import { Diagram } from '../../../../packages/cx-diagrams/src/Diagram';
 import { Cell } from '../../../../packages/cx-diagrams/src/Cell';
 import { Flow } from '../../../../packages/cx-diagrams/src/Flow';
@@ -7,14 +7,14 @@ import { Shape } from '../../../../packages/cx-diagrams/src/Shape';
 import Controller from './Controller';
 
 import { StraightLine } from '../../../../packages/cx-diagrams/src/StraightLine';
-import { TwoSegmentLine } from '../../../../packages/cx-diagrams/src/TwoSegmentLine';
 import { Md } from '../../components/Md';
 import { Split } from '../../components/Split';
 import { Pad } from '../../components/Pad';
 import { ConfigTable } from '../../components/ConfigTable';
-import config from '../../config/Diagram';
+import config from '../../config/Shape';
 import { ImportPath } from '../../components/ImportPath';
 import { CodeSnippet } from '../../components/CodeSnippet';
+import { Link, Menu, openContextMenu } from 'cx/widgets';
 
 export default (
    <cx>
@@ -23,119 +23,244 @@ export default (
             <Pad>
                {/* prettier-ignore */}
                <Md>
-                # Diagram 
+                    # Shape 
 
-                <ImportPath path='import { Diagram } from "cx-diagrams"' />
-
-                The `Diagram` component is used to mark the area of the diagram and provide zooming and panning functions. It's required that all digrams use
-                 this component as a top-level parent element.
-
-                
+                    <ImportPath path='import { Shape } from "cx-diagrams"' />
+                    
+                    The `Shape` component is used to shapes appearing on the diagram. Shapes are usually `circles` or `rectangles` 
+                    and can represent various things such as network devices and interfaces, departments, roles, etc. 
+                    Shapes support the `text` property and can easily be interconnected using lines. Shapes are clickable and support context menus.
                 </Md>
             </Pad>
+         </Split>
+         <Split>
+            <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] lg:min-h-0" putInto="right">
+               <Diagram unitSize={24}>
+                  <Flow>
+                     <Flow direction="right" gap={1} mt={-4} ml={-10}>
+                        <Flow direction="down" gap={1}>
+                           <Cell width={4} height={2}>
+                              <Shape fill="lightgray" text="fill" />
+                           </Cell>
+                           <Cell width={4} height={2}>
+                              <Shape stroke="red" text="stroke" />
+                           </Cell>
+                           <Cell width={4} height={2}>
+                              <Shape fill="lightgray" text="Tooltip" tooltip="Shapes can have tooltips" id="tooltip" />
+                           </Cell>
+                        </Flow>
+
+                        <Flow direction="down" gap={1}>
+                           <Cell width={4} height={2}>
+                              <Shape fill="lightgray" text="Circle" shape="circle" />
+                           </Cell>
+                           <Cell width={4} height={2}>
+                              <Shape stroke="red" text="Connectors" fill="white">
+                                 <Shape
+                                    anchors="0 0.5 0 0.5"
+                                    margin={-3}
+                                    shape="circle"
+                                    stroke="black"
+                                    fill="white"
+                                    tooltip="North"
+                                 />
+                                 <Shape
+                                    anchors="1 0.5 1 0.5"
+                                    margin={-3}
+                                    shape="circle"
+                                    stroke="black"
+                                    fill="white"
+                                    tooltip="South"
+                                 />
+                                 <Shape
+                                    anchors="0.5 1 0.5 1"
+                                    margin={-3}
+                                    shape="circle"
+                                    stroke="black"
+                                    fill="white"
+                                    tooltip="East"
+                                 />
+                                 <Shape
+                                    anchors="0.5 0 0.5 0"
+                                    margin={-3}
+                                    shape="circle"
+                                    stroke="black"
+                                    fill="white"
+                                    tooltip="West"
+                                 />
+                              </Shape>
+                           </Cell>
+                           <Cell width={4} height={2}>
+                              <Shape
+                                 fill="lightgray"
+                                 text="Connected"
+                                 id="connected"
+                                 tooltip="Shapes can be connected with lines"
+                              />
+                              <StraightLine from="connected" to="tooltip" stroke="black" />
+                           </Cell>
+                        </Flow>
+
+                        <Flow direction="down" gap={1}>
+                           <Cell width={4} height={2}>
+                              <Shape
+                                 shapeClass="fill-red-300 stroke-red-800"
+                                 text="Tailwind CSS"
+                                 tooltip="Shapes can be styled using utility classes"
+                              />
+                           </Cell>
+                           <Cell width={4} height={2}>
+                              <Shape
+                                 shapeClass="fill-orange-300 stroke-orange-800"
+                                 text="Clickable"
+                                 onClick={() => {
+                                    alert('You clicked on a shape.');
+                                 }}
+                              />
+                           </Cell>
+                           <Cell width={4} height={2}>
+                              <Shape
+                                 shapeClass="fill-green-300 stroke-green-800"
+                                 id="green"
+                                 text="Context Menu"
+                                 onContextMenu={(e, instance) => {
+                                    e.preventDefault();
+                                    openContextMenu(
+                                       e,
+                                       <cx>
+                                          <Menu>
+                                             <Link href="~/components/diagram">Diagram</Link>
+                                             <Link href="~/components/cell">Cell</Link>
+                                             <Link href="~/components/shape">Shape</Link>
+                                             <Link href="~/components/flow">Flow</Link>
+                                          </Menu>
+                                       </cx>,
+                                       instance
+                                    );
+                                 }}
+                              />
+                              <StraightLine from="connected" to="green" stroke="black" />
+                           </Cell>
+                        </Flow>
+                     </Flow>
+                  </Flow>
+               </Diagram>
+            </Svg>
 
             {/* prettier-ignore */}
-            <CodeSnippet putInto="right">{`
-                <Svg class="w-auto h-[500px] border bg-white">
-                  <Diagram ticks={16}>
-                     <Rotate steps={0}>
-                        <Flow gap={0.5} direction="right" align="center">
-                           <Flow gap={0.5} direction="down">
-                              <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" margin={-10} />
-                              <Cell width={2} ml={1}>
-                                 <Shape
-                                    id="item1"
-                                    text="Item1"
-                                    fill="yellow"
-                                    shape="circle"
-                                    stroke="red"
-                                    margin={-10}
-                                 />
-                              </Cell>
-                           </Flow>
+            <CodeSnippet class="border-t border-b py-4 max-h-[500px] overflow-auto">{`
+            <Diagram unitSize={24}>                
+                <Flow direction="right" gap={1} mt={-4} ml={-10}>
+                    <Flow direction="down" gap={1}>
+                        <Cell width={4} height={2}>
+                            <Shape fill="lightgray" text="fill" />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                            <Shape stroke="red" text="stroke" />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                            <Shape fill="lightgray" text="Tooltip" tooltip="Shapes can have tooltips" id="tooltip" />
+                        </Cell>
+                    </Flow>
 
-                           <Flow gap={3} direction="down" padding={0.5} align="center">
-                              <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" />
-                              <Cell width={2}>
-                                 <Shape id="item2" text="Item2" fill="yellow" stroke="red" />
-                              </Cell>
-                              <Cell>
-                                 <Rectangle fill="red" />
-                              </Cell>
-                           </Flow>
+                    <Flow direction="down" gap={1}>
+                        <Cell width={4} height={2}>
+                            <Shape fill="lightgray" text="Circle" shape="circle" />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                            <Shape stroke="red" text="Connectors" fill="white">
+                            <Shape
+                                anchors="0 0.5 0 0.5"
+                                margin={-3}
+                                shape="circle"
+                                stroke="black"
+                                fill="white"
+                                tooltip="North"
+                            />
+                            <Shape
+                                anchors="1 0.5 1 0.5"
+                                margin={-3}
+                                shape="circle"
+                                stroke="black"
+                                fill="white"
+                                tooltip="South"
+                            />
+                            <Shape
+                                anchors="0.5 1 0.5 1"
+                                margin={-3}
+                                shape="circle"
+                                stroke="black"
+                                fill="white"
+                                tooltip="East"
+                            />
+                            <Shape
+                                anchors="0.5 0 0.5 0"
+                                margin={-3}
+                                shape="circle"
+                                stroke="black"
+                                fill="white"
+                                tooltip="West"
+                            />
+                            </Shape>
+                        </Cell>
+                        <Cell width={4} height={2}>
+                            <Shape
+                            fill="lightgray"
+                            text="Connected"
+                            id="connected"
+                            tooltip="Shapes can be connected with lines"
+                            />
+                            <StraightLine from="connected" to="tooltip" stroke="black" />
+                        </Cell>
+                    </Flow>
 
-                           <Flow gap={0.5} direction="down">
-                              <Cell width={2}>
-                                 <Shape id="item3" text="Item3" fill="yellow" stroke="red" />
-                              </Cell>
-                              <Cell width={2}>
-                                 <Shape id="item4" text="Item4" fill="yellow" stroke="red" />
-                              </Cell>
-                           </Flow>
-                        </Flow>
-
-                        <StraightLine from="item1" to="item2" stroke="red" />
-                        <TwoSegmentLine from="item2" to="item3" stroke="red">
-                           <Shape anchors="0 0 0 0" margin={-5} stroke="black" shape="circle" />
-                        </TwoSegmentLine>
-                     </Rotate>
-                  </Diagram>
-               </Svg>
+                    <Flow direction="down" gap={1}>
+                        <Cell width={4} height={2}>
+                            <Shape
+                            shapeClass="fill-red-300 stroke-red-800"
+                            text="Tailwind CSS"
+                            tooltip="Shapes can be styled using utility classes"
+                            />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                            <Shape
+                            shapeClass="fill-orange-300 stroke-orange-800"
+                            text="Clickable"
+                            onClick={() => {
+                                alert('You clicked on a shape.');
+                            }}
+                            />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                            <Shape
+                            shapeClass="fill-green-300 stroke-green-800"
+                            id="green"
+                            text="Context Menu"
+                            onContextMenu={(e, instance) => {
+                                e.preventDefault();
+                                openContextMenu(
+                                    e,
+                                    <cx>
+                                        <Menu>
+                                            <Link href="~/components/diagram">Diagram</Link>
+                                            <Link href="~/components/cell">Cell</Link>
+                                            <Link href="~/components/shape">Shape</Link>
+                                            <Link href="~/components/flow">Flow</Link>
+                                        </Menu>
+                                    </cx>,
+                                    instance
+                                );
+                            }}
+                            />
+                            <StraightLine from="connected" to="green" stroke="black" />
+                        </Cell>
+                    </Flow>
+                </Flow>
+            </Diagram>
             `}</CodeSnippet>
-
-            <Pad className="bg-gray-100">
-               <Svg class="w-auto h-[500px] border bg-white">
-                  <Diagram
-                     ticks={16}
-                     zoom-bind="$page.view.zoom"
-                     offsetX-bind="$page.view.offsetX"
-                     offsetY-bind="$page.view.offsetY"
-                  >
-                     <Rotate steps={0}>
-                        <Flow gap={0.5} direction="right" align="center">
-                           <Flow gap={0.5} direction="down">
-                              <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" margin={-10} />
-                              <Cell width={2} ml={1}>
-                                 <Shape
-                                    id="item1"
-                                    text="Item1"
-                                    fill="yellow"
-                                    shape="circle"
-                                    stroke="red"
-                                    margin={-10}
-                                 />
-                              </Cell>
-                           </Flow>
-
-                           <Flow gap={3} direction="down" padding={0.5} align="center">
-                              <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" />
-                              <Cell width={2}>
-                                 <Shape id="item2" text="Item2" fill="yellow" stroke="red" />
-                              </Cell>
-                              <Cell>
-                                 <Rectangle fill="red" />
-                              </Cell>
-                           </Flow>
-
-                           <Flow gap={0.5} direction="down">
-                              <Cell width={2}>
-                                 <Shape id="item3" text="Item3" fill="yellow" stroke="red" />
-                              </Cell>
-                              <Cell width={2}>
-                                 <Shape id="item4" text="Item4" fill="yellow" stroke="red" />
-                              </Cell>
-                           </Flow>
-                        </Flow>
-
-                        <StraightLine from="item1" to="item2" stroke="red" />
-                        <TwoSegmentLine from="item2" to="item3" stroke="red">
-                           <Shape anchors="0 0 0 0" margin={-5} stroke="black" shape="circle" />
-                        </TwoSegmentLine>
-                     </Rotate>
-                  </Diagram>
-               </Svg>
-            </Pad>
-            <Pad>
+         </Split>
+         <Split>
+            <Pad className="pb-0">
                <Md>## Configuration</Md>
             </Pad>
             <ConfigTable props={config} />

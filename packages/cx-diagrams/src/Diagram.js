@@ -75,6 +75,11 @@ class DiagramComponent extends VDOM.Component {
          instance.set("offsetX", offsetX);
          instance.set("offsetY", offsetY);
       }, 100);
+
+      this.handleInitialMouseMove = this.handleInitialMouseMove.bind(this);
+      this.elRef = (el) => {
+         this.el = el;
+      };
    }
 
    componentWillReceiveProps(props) {
@@ -108,13 +113,7 @@ class DiagramComponent extends VDOM.Component {
       for (let y = fromY; y <= toY; y++) path += `M ${bounds.l} ${cy + y * d} L ${bounds.r} ${cy + y * d}`;
 
       return (
-         <g
-            className={data.classNames}
-            ref={(el) => {
-               this.el = el;
-            }}
-            onMouseDown={(ev) => this.handleMouseDown(ev)}
-         >
+         <g className={data.classNames} ref={this.elRef} onMouseMove={this.handleInitialMouseMove}>
             <rect
                x={data.bounds.l}
                y={data.bounds.t}
@@ -189,7 +188,8 @@ class DiagramComponent extends VDOM.Component {
       this.zoom(e, -1, center);
    }
 
-   handleMouseDown(e) {
+   handleInitialMouseMove(e) {
+      if (e.buttons != 1) return;
       let cursor = getCursorPos(e);
       let mode = e.touches && e.touches.length >= 2 ? "zoom" : "pan";
       let captureData = {
@@ -221,7 +221,7 @@ class DiagramComponent extends VDOM.Component {
       );
 
       e.stopPropagation();
-      e.preventDefault();
+      //e.preventDefault(); //prevents clicks
       document.activeElement.blur(); //hide the context menu
    }
 

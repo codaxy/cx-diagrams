@@ -1,4 +1,5 @@
-import { VDOM } from 'cx/ui';
+import { VDOM } from "cx/ui";
+import { parseStyle } from "cx/util";
 
 import {
    tooltipMouseMove,
@@ -6,11 +7,17 @@ import {
    tooltipParentWillUnmount,
    tooltipParentWillReceiveProps,
    tooltipParentDidMount,
-} from 'cx/widgets';
+} from "cx/widgets";
 
-import { BoundedObject } from 'cx/svg';
+import { BoundedObject } from "cx/svg";
 
 export class Shape extends BoundedObject {
+   init() {
+      this.textStyle = parseStyle(this.textStyle);
+      this.shapeStyle = parseStyle(this.shapeStyle);
+      super.init();
+   }
+
    declareData() {
       super.declareData(...arguments, {
          id: undefined,
@@ -18,38 +25,42 @@ export class Shape extends BoundedObject {
          shape: undefined,
          fill: undefined,
          stroke: undefined,
-         strokeWidth: undefined
+         strokeWidth: undefined,
+         shapeClass: { structured: true },
+         shapeStyle: { structured: true },
+         textStyle: { structured: true },
+         textClass: { structured: true },
       });
    }
 
    render(context, instance, key) {
-      let { data, widget } = instance;
+      let { data } = instance;
       let { bounds, text, shape } = data;
 
       if (!bounds.valid()) return false;
 
       let shapeProps = {
-         className: this.CSS.element(this.baseClass, 'rect'),
-         style: data.style,
+         className: this.CSS.expand(this.CSS.element(this.baseClass, "shape"), data.shapeClass),
+         style: data.shapeStyle || data.style,
          fill: data.fill,
          stroke: data.stroke,
-         strokeWidth: data.strokeWidth
+         strokeWidth: data.strokeWidth,
       };
 
       let gProps = {
          onMouseMove: (e) => {
-            tooltipMouseMove(e, instance, widget.tooltip);
+            tooltipMouseMove(e, instance, this.tooltip);
          },
          onMouseLeave: (e) => {
-            tooltipMouseLeave(e, instance, widget.tooltip);
+            tooltipMouseLeave(e, instance, this.tooltip);
          },
       };
 
-      if (widget.onClick) gProps.onClick = (e) => instance.invoke('onClick', e, instance);
+      if (this.onClick) gProps.onClick = (e) => instance.invoke("onClick", e, instance);
 
-      if (widget.onContextMenu) gProps.onContextMenu = (e) => instance.invoke('onContextMenu', e, instance);
+      if (this.onContextMenu) gProps.onContextMenu = (e) => instance.invoke("onContextMenu", e, instance);
 
-      if (widget.tooltip) {
+      if (this.tooltip) {
          shapeProps.ref = (c) => {
             this.el = c;
          };
@@ -58,7 +69,7 @@ export class Shape extends BoundedObject {
       return (
          <g key={key} {...gProps} className={data.classNames} style={data.style}>
             {this.renderShape(shape, bounds, shapeProps)}
-            {this.renderText(shape, bounds, text)}
+            {this.renderText(shape, bounds, text, data)}
             {this.renderChildren(context, instance)}
          </g>
       );
@@ -77,15 +88,14 @@ export class Shape extends BoundedObject {
       super.prepare(context, instance);
       if (context.diagram) {
          let { id, bounds, shape } = instance.data;
-         if (id)
-            context.diagram.registerShapeBounds(id, shape, bounds);
+         if (id) context.diagram.registerShapeBounds(id, shape, bounds);
       }
    }
 
    renderShape(shape, bounds, shapeProps) {
       var R = Math.min(bounds.width(), bounds.height());
       switch (shape) {
-         case 'circle':
+         case "circle":
             return (
                <ellipse
                   {...shapeProps}
@@ -96,31 +106,36 @@ export class Shape extends BoundedObject {
                />
             );
 
-         case 'rectangle':
+         case "rectangle":
             return <rect {...shapeProps} x={bounds.l} y={bounds.t} width={bounds.width()} height={bounds.height()} />;
       }
    }
 
-   renderText(shape, bounds, text) {
+   renderText(shape, bounds, text, data) {
       let x;
       let y;
 
-      if (shape === 'circle') {
+      if (shape === "circle") {
          x = (bounds.l + bounds.r) / 2;
          y = (bounds.t + bounds.b) / 2;
-      } else if (shape === 'rectangle') {
+      } else if (shape === "rectangle") {
          x = bounds.l + bounds.width() / 2;
          y = bounds.t + bounds.height() / 2;
       }
 
       return (
-         <text x={x} y={y} dominantBaseline="middle" textAnchor="middle" className="text-xs font-bold">
+         <text
+            x={x}
+            y={y}
+            className={this.CSS.expand(this.CSS.element(this.baseClass, "text"), data.textClass)}
+            style={data.textStyle}
+         >
             {text}
          </text>
       );
    }
 }
 
-Shape.prototype.baseClass = 'shape';
-Shape.prototype.anchors = '0 1 1 0';
-Shape.prototype.shape = 'rectangle';
+Shape.prototype.baseClass = "shape";
+Shape.prototype.anchors = "0 1 1 0";
+Shape.prototype.shape = "rectangle";
