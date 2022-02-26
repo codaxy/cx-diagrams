@@ -1,6 +1,6 @@
 import { Line, Rectangle, Svg, Text } from 'cx/svg';
 import { Diagram } from '../../../../packages/cx-diagrams/src/Diagram';
-import { Box } from '../../../../packages/cx-diagrams/src/Box';
+import { Cell } from '../../../../packages/cx-diagrams/src/Cell';
 import { Flow } from '../../../../packages/cx-diagrams/src/Flow';
 import { Rotate } from '../../../../packages/cx-diagrams/src/Rotate';
 import { Shape } from '../../../../packages/cx-diagrams/src/Shape';
@@ -23,11 +23,14 @@ export default (
             <Pad>
                {/* prettier-ignore */}
                <Md>
-                    # Box 
+                # Diagram 
 
-                    <ImportPath path='import { Box } from "cx-diagrams"' />
-                    
-                    The `Box` component is used to mark the area on the diagram using its `width` and `height` properties.
+                <ImportPath path='import { Diagram } from "cx-diagrams"' />
+
+                The `Diagram` component is used to mark the area of the diagram and provide zooming and panning functions. It's required that all digrams use
+                 this component as a top-level parent element.
+
+                
                 </Md>
             </Pad>
 
@@ -39,7 +42,7 @@ export default (
                         <Flow gap={0.5} direction="right" align="center">
                            <Flow gap={0.5} direction="down">
                               <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" margin={-10} />
-                              <Box width={2} ml={1}>
+                              <Cell width={2} ml={1}>
                                  <Shape
                                     id="item1"
                                     text="Item1"
@@ -48,26 +51,26 @@ export default (
                                     stroke="red"
                                     margin={-10}
                                  />
-                              </Box>
+                              </Cell>
                            </Flow>
 
                            <Flow gap={3} direction="down" padding={0.5} align="center">
                               <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" />
-                              <Box width={2}>
+                              <Cell width={2}>
                                  <Shape id="item2" text="Item2" fill="yellow" stroke="red" />
-                              </Box>
-                              <Box>
+                              </Cell>
+                              <Cell>
                                  <Rectangle fill="red" />
-                              </Box>
+                              </Cell>
                            </Flow>
 
                            <Flow gap={0.5} direction="down">
-                              <Box width={2}>
+                              <Cell width={2}>
                                  <Shape id="item3" text="Item3" fill="yellow" stroke="red" />
-                              </Box>
-                              <Box width={2}>
+                              </Cell>
+                              <Cell width={2}>
                                  <Shape id="item4" text="Item4" fill="yellow" stroke="red" />
-                              </Box>
+                              </Cell>
                            </Flow>
                         </Flow>
 
@@ -92,7 +95,7 @@ export default (
                         <Flow gap={0.5} direction="right" align="center">
                            <Flow gap={0.5} direction="down">
                               <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" margin={-10} />
-                              <Box width={2} ml={1}>
+                              <Cell width={2} ml={1}>
                                  <Shape
                                     id="item1"
                                     text="Item1"
@@ -101,26 +104,26 @@ export default (
                                     stroke="red"
                                     margin={-10}
                                  />
-                              </Box>
+                              </Cell>
                            </Flow>
 
                            <Flow gap={3} direction="down" padding={0.5} align="center">
                               <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" />
-                              <Box width={2}>
+                              <Cell width={2}>
                                  <Shape id="item2" text="Item2" fill="yellow" stroke="red" />
-                              </Box>
-                              <Box>
+                              </Cell>
+                              <Cell>
                                  <Rectangle fill="red" />
-                              </Box>
+                              </Cell>
                            </Flow>
 
                            <Flow gap={0.5} direction="down">
-                              <Box width={2}>
+                              <Cell width={2}>
                                  <Shape id="item3" text="Item3" fill="yellow" stroke="red" />
-                              </Box>
-                              <Box width={2}>
+                              </Cell>
+                              <Cell width={2}>
                                  <Shape id="item4" text="Item4" fill="yellow" stroke="red" />
-                              </Box>
+                              </Cell>
                            </Flow>
                         </Flow>
 

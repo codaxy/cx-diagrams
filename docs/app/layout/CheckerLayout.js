@@ -191,8 +191,10 @@ export const CheckerLayout = ({ children, nav }) => (
          <div class="border-r pt-3">
             <div class="px-6 py-3 text-gray-400 text-sm">Components</div>
             <NavItem text="Diagram" icon="cog" href="~/components/diagram" />
+            <NavItem text="Cell" icon="cog" href="~/components/cell" />
+            <NavItem text="Shape" icon="cog" href="~/components/shape" />
             <NavItem text="Flow" icon="cog" href="~/components/flow" />
-            <NavItem text="Box" icon="cog" href="~/components/box" />
+
             <NavItem text="Rotate" icon="cog" href="~/components/rotate" />
             <NavItem text="Straight Line" icon="cog" href="~/components/straight-line" />
 

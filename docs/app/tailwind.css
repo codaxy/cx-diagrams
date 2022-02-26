@@ -75,6 +75,7 @@
 .prose h2 {
    font-size: 28px;
    font-weight: 600;
+   margin: 1rem 0;
 }
 
 .prose h2 a {

@@ -7,7 +7,7 @@ export const Logo2 = ({ className }) => (
          <div class="p-2 rounded-full bg-blue-500 text-white">
             <Icon name="chart-bar" class="w-6 h-6 block" />
          </div>
-         <div class="ml-3 text-lg font-bold text-blue-500">Demo App</div>
+         <div class="ml-3 text-lg font-bold text-blue-500">CxJS Diagrams</div>
       </Link>
    </cx>
 );
