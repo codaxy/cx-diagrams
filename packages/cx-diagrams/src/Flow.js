@@ -67,7 +67,6 @@ export class Flow extends Node {
             height = Math.max(height, box.row + box.height + box.mb + pb);
          }
          width += pl;
-         col = -width;
       } else if (direction == "down") {
          height += pt;
          for (let { box } of children) {
@@ -96,7 +95,6 @@ export class Flow extends Node {
             width = Math.max(width, box.col + box.width + box.mr + pr);
          }
          height += pt;
-         row -= height;
       }
 
       instance.box = {

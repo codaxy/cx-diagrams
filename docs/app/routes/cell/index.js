@@ -37,7 +37,7 @@ export default (
          </Split>
          <Split>
             <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] lg:min-h-0" putInto="right">
-               <Diagram>
+               <Diagram center>
                   <Flow direction="right">
                      <Cell width={2}>
                         <Rectangle fill="red" />
@@ -54,7 +54,7 @@ export default (
 
             {/* prettier-ignore */}
             <CodeSnippet class="border-t border-b py-4">{`
-                  <Diagram>
+                  <Diagram center>
                      <Flow direction="right">
                         <Cell width={2}>
                            <Rectangle fill="red" />

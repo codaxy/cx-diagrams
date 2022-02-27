@@ -5,6 +5,14 @@ import { addEventListenerWithOptions, debounce } from "cx/util";
 import { getCursorPos, captureMouseOrTouch } from "cx/widgets";
 
 export class Diagram extends BoundedObject {
+   init() {
+      if (this.center) {
+         this.centerX = true;
+         this.centerY = true;
+      }
+      super.init();
+   }
+
    declareData(...args) {
       super.declareData(...args, {
          offsetX: undefined,
@@ -27,6 +35,31 @@ export class Diagram extends BoundedObject {
    }
 
    prepare(context, instance) {
+      let r2 = 0;
+      let c2 = 0;
+      let r1 = 0;
+      let c1 = 0;
+
+      let { children } = instance;
+      if (this.centerX || this.centerY) {
+         for (let { box } of children) {
+            if (!box) continue;
+            if (box.row < r1) r1 = box.row;
+            if (box.row + box.height > r2) r2 = box.row + box.height;
+            if (box.col < c1) c1 = box.col;
+            if (box.col + box.width > c2) c2 = box.col + box.width;
+         }
+
+         let dc = (c1 - c2) / 2;
+         let dr = (r1 - r2) / 2;
+
+         for (let { box } of children) {
+            if (!box) continue;
+            box.row += dr;
+            box.col += dc;
+         }
+      }
+
       super.prepare(context, instance);
       context.push("diagram", instance.diagramState);
    }
@@ -53,6 +86,9 @@ Diagram.prototype.anchors = "0 1 1 0";
 Diagram.prototype.baseClass = "diagram";
 Diagram.prototype.styled = true;
 Diagram.prototype.unitSize = 32;
+Diagram.prototype.centerX = false;
+Diagram.prototype.centerY = false;
+Diagram.prototype.center = false;
 
 const defaultZoomStep = 0.05;
 const minZoom = 0.25;

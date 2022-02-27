@@ -13,6 +13,15 @@ export interface DiagramProps extends BoundedObjectProps {
 
    /** Unit size in pixels. */
    unitSize?: NumberProp;
+
+   /** Set to true to center the content both horizontally and vertically. */
+   center?: boolean;
+
+   /** Set to true to center the content horizontally. */
+   centerX?: boolean;
+
+   /** Set to true to center the content vertically. */
+   centerY?: boolean;
 }
 
 export class Diagram extends Widget<DiagramProps> {}

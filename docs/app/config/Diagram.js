@@ -31,4 +31,32 @@ export default {
          </cx>
       ),
    },
+
+   center: {
+      type: 'boolean',
+      key: true,
+      description: (
+         <cx>
+            <Md>Set to `true` to center the content both horizontally and vertically.</Md>
+         </cx>
+      ),
+   },
+
+   centerX: {
+      type: 'boolean',
+      description: (
+         <cx>
+            <Md>Set to `true` to center the content horizontally.</Md>
+         </cx>
+      ),
+   },
+
+   centerY: {
+      type: 'boolean',
+      description: (
+         <cx>
+            <Md>Set to `true` to center the content vertically.</Md>
+         </cx>
+      ),
+   },
 };
