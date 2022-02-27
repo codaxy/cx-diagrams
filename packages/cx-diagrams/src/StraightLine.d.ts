@@ -1,8 +1,6 @@
-import { Widget } from "cx/ui";
-import { Line, LineProps } from "cx/svg";
+import { Widget } from "cx/src/core";
+import { LineProps } from "cx/src/svg/Line";
 
-export interface StraightLineProps extends LineProps {
-   
-}
+export interface StraightLineProps extends LineProps {}
 
-export class StraightLine extends Cx.Widget<StraightLineProps> {}
+export class StraightLine extends Widget<StraightLineProps> {}

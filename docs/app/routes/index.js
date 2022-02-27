@@ -9,6 +9,7 @@ import { PageNotImplemented } from '../components/PageNotImplemented';
 import Diagram from './diagram';
 import Cell from './cell';
 import Shape from './shape';
+import Flow from './flow';
 
 export default () => (
    <cx>
@@ -27,6 +28,10 @@ export default () => (
 
                <SandboxedRoute route="~/components/shape">
                   <Shape />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/components/flow">
+                  <Flow />
                </SandboxedRoute>
 
                <PageNotImplemented />
