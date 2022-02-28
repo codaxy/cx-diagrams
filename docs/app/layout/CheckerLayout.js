@@ -35,7 +35,7 @@ export const CheckerLayout = ({ children, nav }) => (
          <div class="xl:border-r border-b py-2 pl-6 flex col-span-2 items-center">
             <Logo2 />
             <button
-               class="ml-auto mr-4 hidden xl:flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-blue-200 active:bg-blue-300 rounded-full"
+               class="ml-auto mr-4 flex xl:hidden items-center justify-center w-10 h-10 bg-gray-200 hover:bg-blue-200 active:bg-blue-300 rounded-full"
                onClick="onToggleNav"
             >
                <Icon name="menu" />
