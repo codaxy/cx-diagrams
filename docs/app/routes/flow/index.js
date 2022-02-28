@@ -29,13 +29,13 @@ export default (
                     Besides fixed margins (`mt`, `mr`, `mb` and `ml`), you can use start (`ms`) and end margins (`me`) to distance elements 
                     in the direction of the flow which will work nicely if you introduce rotation.
 
-                    > Please note the SVG elements such as `Rectangles` do not affect the flow. Only `Cell` elements affect the flow.
+                    > Please note the SVG elements such as `Rectangle` do not affect the flow. Only `Cell` elements affect the flow.
                     
                 </Md>
             </Pad>
          </Split>
          <Split>
-            <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] lg:min-h-0" putInto="right">
+            <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] xl:min-h-0" putInto="right">
                <Diagram center>
                   <Flow direction="right" gap={1} align="center">
                      <Flow gap={0.5} p={0.5}>

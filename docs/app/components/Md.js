@@ -71,6 +71,6 @@ export class Md extends HtmlElement {
    }
 }
 
-Md.prototype.className = 'prose lg:prose-xl';
+Md.prototype.className = 'prose xl:prose-xl';
 Md.prototype.preserveDocumentTitle = false;
 Md.prototype.plainText = true;

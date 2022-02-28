@@ -3,10 +3,10 @@ import { ContentPlaceholder, ContentPlaceholderScope } from 'cx/ui';
 export const Split = ({ children }) => (
    <cx>
       <ContentPlaceholderScope name="right">
-         <div class="lg:grid grid-cols-2" style="grid-template-columns: 760px 1fr">
+         <div class="xl:grid grid-cols-[640px_1fr] 2xl:grid-cols-[768px_1fr]">
             <div class="bg-white">{children}</div>
-            <div class="lg:border-l relative">
-               <div class="lg:absolute lg:top-0 lg:right-0 lg:bottom-0 lg:left-0 lg:overflow-auto">
+            <div class="xl:border-l relative">
+               <div class="xl:absolute xl:top-0 xl:right-0 xl:bottom-0 xl:left-0 xl:overflow-auto">
                   <ContentPlaceholder name="right" />
                </div>
             </div>

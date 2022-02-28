@@ -36,10 +36,13 @@ import CogIcon from '@heroicons/react/outline/CogIcon';
 import ChartBarIcon from '@heroicons/react/outline/ChartBarIcon';
 import SearchIcon from '@heroicons/react/outline/SearchIcon';
 import ChevronDownIcon from '@heroicons/react/outline/ChevronDownIcon';
+import MenuIcon from '@heroicons/react/outline/MenuIcon';
 
 //register all icons that are used within the application
 
 Icon.register('chart-bar', (props) => <ChartBarIcon {...props} />);
+
+Icon.register('menu', (props) => <MenuIcon {...props} />);
 
 // Icon.register('adjustments', (props) => <AdjustmentsIcon {...props} />);
 

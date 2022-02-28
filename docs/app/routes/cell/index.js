@@ -36,7 +36,7 @@ export default (
             </Pad>
          </Split>
          <Split>
-            <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] lg:min-h-0" putInto="right">
+            <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] xl:min-h-0" putInto="right">
                <Diagram center>
                   <Flow direction="right">
                      <Cell width={2}>

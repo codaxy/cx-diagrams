@@ -84,7 +84,7 @@ export default (
                </Svg>
             `}</CodeSnippet>
 
-            <Svg class="w-auto h-[500px] lg:h-full lg:border-t border-b bg-white" putInto="right">
+            <Svg class="w-auto h-[500px] xl:h-full xl:border-t border-b bg-white" putInto="right">
                <Diagram
                   ticks={16}
                   zoom-bind="$page.view.zoom"
