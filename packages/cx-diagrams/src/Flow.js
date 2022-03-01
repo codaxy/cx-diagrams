@@ -26,7 +26,7 @@ export class Flow extends Node {
    }
 
    exploreCleanup(context, instance) {
-      let { data, children } = instance;
+      let { data, nodes } = instance;
       let width = 0,
          height = 0,
          row = 0,
@@ -38,7 +38,7 @@ export class Flow extends Node {
       let { pl, pr, pt, pb, gap, ml, mr, mt, mb, ms, me } = data;
       if (direction == "right") {
          width += pl;
-         for (let { box } of children) {
+         for (let { box } of nodes) {
             if (!box) continue;
             if (width > pl) width += gap;
             width += box.ml;
@@ -54,7 +54,7 @@ export class Flow extends Node {
       }
       if (direction == "left") {
          width += pr;
-         for (let { box } of children) {
+         for (let { box } of nodes) {
             if (!box) continue;
             if (width > pr) width += gap;
             width += box.mr;
@@ -69,7 +69,7 @@ export class Flow extends Node {
          width += pl;
       } else if (direction == "down") {
          height += pt;
-         for (let { box } of children) {
+         for (let { box } of nodes) {
             if (!box) continue;
             if (height > pt) height += gap;
             height += box.mt;
@@ -82,7 +82,7 @@ export class Flow extends Node {
          height += pb;
       } else if (direction == "up") {
          height += pb;
-         for (let { box } of children) {
+         for (let { box } of nodes) {
             if (!box) continue;
             if (height > pb) height += gap;
             height += box.mb;
@@ -109,14 +109,16 @@ export class Flow extends Node {
          ms,
          me,
       };
+
+      super.exploreCleanup(context, instance);
    }
 
    prepare(context, instance) {
-      let { box, children, data } = instance;
+      let { box, nodes, data } = instance;
       let innerWidth = box.width - data.pl - data.pr;
       let innerHeight = box.height - data.pt - data.pb;
 
-      for (let child of children) {
+      for (let child of nodes) {
          if (!child.box) continue;
 
          switch (instance.direction) {

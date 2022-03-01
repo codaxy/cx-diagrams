@@ -39,7 +39,7 @@ export default (
             <CodeSnippet class="border-b border-t h-[400px] overflow-auto" >{`
                 <Svg class="w-auto h-[400px] border bg-white">
                   <Diagram ticks={16}>
-                     <Rotate steps={0}>
+                     <Rotate turns={0}>
                         <Flow gap={0.5} direction="right" align="center">
                            <Flow gap={0.5} direction="down">
                               <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" margin={-10} />
@@ -91,7 +91,7 @@ export default (
                   offsetX-bind="$page.view.offsetX"
                   offsetY-bind="$page.view.offsetY"
                >
-                  <Rotate steps={0}>
+                  <Rotate turns={0}>
                      <Flow gap={0.5} direction="right" align="center">
                         <Flow gap={0.5} direction="down">
                            <Rectangle fill="rgba(255, 255, 255, 0.5)" stroke="gray" margin={-10} />

@@ -3,17 +3,17 @@ import { Node } from "./Node";
 export class Rotate extends Node {
    declareData(...args) {
       super.declareData(...args, {
-         steps: undefined,
+         turns: undefined,
       });
    }
 
    explore(context, instance) {
-      let steps = (context.rotationSteps || 0) + instance.data.steps;
-      context.push("rotationSteps", this.steps);
+      let turns = (context.rotationSteps || 0) + instance.data.turns;
+      context.push("rotationSteps", turns);
       context.push("rotateDirection", (dir) => {
          let directions = ["right", "down", "left", "up"];
          let index = directions.indexOf(dir);
-         let direction = (instance.direction = directions[(index + steps) % 4]);
+         let direction = (instance.direction = directions[(index + turns) % 4]);
          return direction;
       });
       super.explore(context, instance);
@@ -22,7 +22,9 @@ export class Rotate extends Node {
    exploreCleanup(context, instance) {
       context.pop("rotateDirection");
       context.pop("rotationSteps");
+      if (instance.nodes.length > 0) instance.box = instance.nodes[0].box;
+      super.exploreCleanup(context, instance);
    }
 }
 
-Rotate.prototype.steps = 0;
+Rotate.prototype.turns = 0;

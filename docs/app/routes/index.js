@@ -10,6 +10,7 @@ import Diagram from './diagram';
 import Cell from './cell';
 import Shape from './shape';
 import Flow from './flow';
+import Rotate from './rotate';
 
 export default () => (
    <cx>
@@ -32,6 +33,10 @@ export default () => (
 
                <SandboxedRoute route="~/components/flow">
                   <Flow />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/components/rotate">
+                  <Rotate />
                </SandboxedRoute>
 
                <PageNotImplemented />

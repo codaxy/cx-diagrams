@@ -1,18 +1,8 @@
 import { Md } from '../components/Md';
 
 export default {
-   height: {
-      type: 'number',
-      key: true,
-      description: (
-         <cx>
-            <Md>Height of the cell. Default value is 1.</Md>
-         </cx>
-      ),
-   },
    ms: {
       type: 'number',
-      key: true,
       description: (
          <cx>
             <Md>Start margin in the direction of the flow.</Md>
@@ -21,7 +11,6 @@ export default {
    },
    me: {
       type: 'number',
-      key: true,
       description: (
          <cx>
             <Md>End margin in the direction of the flow.</Md>
