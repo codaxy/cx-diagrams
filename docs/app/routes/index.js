@@ -11,6 +11,7 @@ import Cell from './components/cell';
 import Shape from './components/shape';
 import Flow from './components/flow';
 import Rotate from './components/rotate';
+import FourSides from './components/four-sides';
 import StraightLine from './components/straight-line';
 import TwoSegmentLine from './components/two-segment-line';
 import ThreeSegmentLine from './components/three-segment-line';
@@ -40,6 +41,10 @@ export default () => (
 
                <SandboxedRoute route="~/components/rotate">
                   <Rotate />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/components/four-sides">
+                  <FourSides />
                </SandboxedRoute>
 
                <SandboxedRoute route="~/components/straight-line">
