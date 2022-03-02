@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://diagrams.cxjs.io">
-    <svg height="142" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="142" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#a)">
                <path d="M25 7a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" fill="#3B82F6" />
                <g filter="url(#b)">
@@ -79,22 +79,8 @@ import { Diagram, Flow, Cell, Shape } from "cx-diagrams";
 </Svg>;
 ```
 
-## Links
-
-- [Documentation](https://diagrams.cxjs.io)
-- [NPM](https://www.npmjs.com/package/cx-diagrams)
-
-## Repository
-
-This is a mono repo containing the source code for the package and the documentation. Please use the `yarn` package manager as this repo uses its workspace features.
-
-To start the documentation locally.
-
-```
-cd docs
-yarn start
-```
+Please refer to [the documentation](https://diagrams.cxjs.io) and [GitHub repository](https://github.com/codaxy/cx-diagrams) for more information and usage examples.
 
 ## License
 
-This project is available under the terms of [the MIT license](LICENSE.md).
+This package is available under [the MIT license](./LICENSE.md).

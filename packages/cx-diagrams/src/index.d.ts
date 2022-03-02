@@ -1,4 +1,5 @@
 export * from "./Diagram";
+export * from "./DiagramState";
 export * from "./Cell";
 export * from "./Node";
 export * from "./Flow";
