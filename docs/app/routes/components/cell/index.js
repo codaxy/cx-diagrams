@@ -1,20 +1,20 @@
 import { Ellipse, Line, Rectangle, Svg, Text } from 'cx/svg';
-import { Diagram } from '../../../../packages/cx-diagrams/src/Diagram';
-import { Cell } from '../../../../packages/cx-diagrams/src/Cell';
-import { Flow } from '../../../../packages/cx-diagrams/src/Flow';
-import { Rotate } from '../../../../packages/cx-diagrams/src/Rotate';
-import { Shape } from '../../../../packages/cx-diagrams/src/Shape';
+import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
+import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
+import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
+import { Rotate } from '../../../../../packages/cx-diagrams/src/Rotate';
+import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
 import Controller from './Controller';
 
-import { StraightLine } from '../../../../packages/cx-diagrams/src/StraightLine';
-import { TwoSegmentLine } from '../../../../packages/cx-diagrams/src/TwoSegmentLine';
-import { Md } from '../../components/Md';
-import { Split } from '../../components/Split';
-import { Pad } from '../../components/Pad';
-import { ConfigTable } from '../../components/ConfigTable';
-import config from '../../config/Cell';
-import { ImportPath } from '../../components/ImportPath';
-import { CodeSnippet } from '../../components/CodeSnippet';
+import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
+import { TwoSegmentLine } from '../../../../../packages/cx-diagrams/src/TwoSegmentLine';
+import { Md } from '../../../components/Md';
+import { Split } from '../../../components/Split';
+import { Pad } from '../../../components/Pad';
+import { ConfigTable } from '../../../components/ConfigTable';
+import config from '../../../config/Cell';
+import { ImportPath } from '../../../components/ImportPath';
+import { CodeSnippet } from '../../../components/CodeSnippet';
 
 export default (
    <cx>
@@ -37,7 +37,7 @@ export default (
          </Split>
          <Split>
             <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] xl:min-h-0" putInto="right">
-               <Diagram center>
+               <Diagram center showGrid>
                   <Flow direction="right">
                      <Cell width={2}>
                         <Rectangle fill="red" />
@@ -54,7 +54,7 @@ export default (
 
             {/* prettier-ignore */}
             <CodeSnippet class="border-t border-b py-4">{`
-                  <Diagram center>
+                  <Diagram center showGrid>
                      <Flow direction="right">
                         <Cell width={2}>
                            <Rectangle fill="red" />

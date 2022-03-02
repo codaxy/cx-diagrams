@@ -19,6 +19,7 @@ export class Diagram extends BoundedObject {
          offsetY: undefined,
          zoom: undefined,
          unitSize: undefined,
+         showGrid: undefined,
       });
    }
 
@@ -89,6 +90,7 @@ Diagram.prototype.unitSize = 32;
 Diagram.prototype.centerX = false;
 Diagram.prototype.centerY = false;
 Diagram.prototype.center = false;
+Diagram.prototype.showGrid = false;
 
 const defaultZoomStep = 0.05;
 const minZoom = 0.25;
@@ -131,22 +133,26 @@ class DiagramComponent extends VDOM.Component {
       let { data, children } = this.props;
       let { bounds } = data;
 
-      let d = data.unitSize * zoom;
-
       let cx = (bounds.r - bounds.l) / 2 + offsetX;
       let cy = (bounds.b - bounds.t) / 2 + offsetY;
 
-      let path = "";
+      let path = null;
+      if (data.showGrid) {
+         let p = "";
+         let d = data.unitSize * zoom;
 
-      let fromX = Math.ceil((bounds.l - cx) / d);
-      let toX = Math.floor((bounds.r - cx) / d);
+         let fromX = Math.ceil((bounds.l - cx) / d);
+         let toX = Math.floor((bounds.r - cx) / d);
 
-      for (let x = fromX; x <= toX; x++) path += `M ${cx + x * d} ${bounds.t} L ${cx + x * d} ${bounds.b}`;
+         for (let x = fromX; x <= toX; x++) p += `M ${cx + x * d} ${bounds.t} L ${cx + x * d} ${bounds.b}`;
 
-      let fromY = Math.ceil((bounds.t - cy) / d);
-      let toY = Math.floor((bounds.b - cy) / d);
+         let fromY = Math.ceil((bounds.t - cy) / d);
+         let toY = Math.floor((bounds.b - cy) / d);
 
-      for (let y = fromY; y <= toY; y++) path += `M ${bounds.l} ${cy + y * d} L ${bounds.r} ${cy + y * d}`;
+         for (let y = fromY; y <= toY; y++) p += `M ${bounds.l} ${cy + y * d} L ${bounds.r} ${cy + y * d}`;
+
+         path = <path style={data.style} d={p} stroke="lightgray" strokeWidth={0.5} />;
+      }
 
       return (
          <g className={data.classNames} ref={this.elRef} onMouseMove={this.handleInitialMouseMove}>
@@ -158,7 +164,7 @@ class DiagramComponent extends VDOM.Component {
                fill="transparent"
                stroke="transparent"
             />
-            <path style={data.style} d={path} stroke="lightgray" strokeWidth={0.5} />
+            {path}
             <g transform={`translate(${cx}, ${cy}) scale(${zoom}, ${zoom})`}>{children}</g>
          </g>
       );

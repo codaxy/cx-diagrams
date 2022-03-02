@@ -10,12 +10,6 @@ export class StraightLine extends Container {
       });
    }
 
-   explore(context, instance) {
-      let rotationSteps = context.rotationSteps || 0;
-      if (instance.cache("rotationSteps", rotationSteps)) instance.markShouldUpdate(context);
-      super.explore(context, instance);
-   }
-
    calculateBounds(context, instance) {
       let { data } = instance;
 
@@ -54,6 +48,7 @@ export class StraightLine extends Container {
 
    prepare(context, instance) {
       instance.bounds = this.calculateBounds(context, instance);
+      if (!instance.bounds.isEqual(instance.cached.bounds)) instance.markShouldUpdate(context);
       context.push("parentRect", instance.bounds);
    }
 

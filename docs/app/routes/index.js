@@ -6,11 +6,14 @@ import { CheckerLayout } from '../layout/CheckerLayout';
 import { SandboxedRoute } from '../components/SandboxedRoute';
 
 import { PageNotImplemented } from '../components/PageNotImplemented';
-import Diagram from './diagram';
-import Cell from './cell';
-import Shape from './shape';
-import Flow from './flow';
-import Rotate from './rotate';
+import Diagram from './components/diagram';
+import Cell from './components/cell';
+import Shape from './components/shape';
+import Flow from './components/flow';
+import Rotate from './components/rotate';
+import StraightLine from './components/straight-line';
+import TwoSegmentLine from './components/two-segment-line';
+import ThreeSegmentLine from './components/three-segment-line';
 
 export default () => (
    <cx>
@@ -37,6 +40,18 @@ export default () => (
 
                <SandboxedRoute route="~/components/rotate">
                   <Rotate />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/components/straight-line">
+                  <StraightLine />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/components/two-segment-line">
+                  <TwoSegmentLine />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/components/three-segment-line">
+                  <ThreeSegmentLine />
                </SandboxedRoute>
 
                <PageNotImplemented />

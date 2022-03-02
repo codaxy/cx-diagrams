@@ -1,18 +1,18 @@
 import { Rectangle, Svg, Text } from 'cx/svg';
 import { Slider } from 'cx/widgets';
-import { Cell } from '../../../../packages/cx-diagrams/src/Cell';
-import { Diagram } from '../../../../packages/cx-diagrams/src/Diagram';
-import { Flow } from '../../../../packages/cx-diagrams/src/Flow';
-import { Rotate } from '../../../../packages/cx-diagrams/src/Rotate';
-import { Shape } from '../../../../packages/cx-diagrams/src/Shape';
-import { StraightLine } from '../../../../packages/cx-diagrams/src/StraightLine';
-import { CodeSnippet } from '../../components/CodeSnippet';
-import { ConfigTable } from '../../components/ConfigTable';
-import { ImportPath } from '../../components/ImportPath';
-import { Md } from '../../components/Md';
-import { Pad } from '../../components/Pad';
-import { Split } from '../../components/Split';
-import config from '../../config/Rotate';
+import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
+import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
+import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
+import { Rotate } from '../../../../../packages/cx-diagrams/src/Rotate';
+import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
+import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
+import { CodeSnippet } from '../../../components/CodeSnippet';
+import { ConfigTable } from '../../../components/ConfigTable';
+import { ImportPath } from '../../../components/ImportPath';
+import { Md } from '../../../components/Md';
+import { Pad } from '../../../components/Pad';
+import { Split } from '../../../components/Split';
+import config from '../../../config/Rotate';
 import Controller from './Controller';
 
 export default (
@@ -34,7 +34,7 @@ export default (
          <Split>
             <div class="flex flex-col h-full min-h-[300px] xl:min-h-0" putInto="right">
                <Svg class="w-auto h-auto flex-grow border-t border-b bg-white  ">
-                  <Diagram center>
+                  <Diagram center showGrid>
                      <Rotate turns-bind="$page.rotate">
                         <Flow gap={1} p={1} align="center">
                            <Rectangle stroke="red" />
@@ -82,7 +82,7 @@ export default (
 
             {/* prettier-ignore */}
             <CodeSnippet class="border-t border-b py-4 max-h-[500px] overflow-auto">{`
-                <Diagram center>
+                <Diagram center showGrid>
                     <Rotate turns-bind="$page.rotate">
                         <Flow gap={1} p={0.5} align="center">
                             <Rectangle stroke="red" />

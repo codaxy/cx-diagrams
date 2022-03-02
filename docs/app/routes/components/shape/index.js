@@ -1,19 +1,19 @@
 import { Ellipse, Line, Rectangle, Svg, Text } from 'cx/svg';
-import { Diagram } from '../../../../packages/cx-diagrams/src/Diagram';
-import { Cell } from '../../../../packages/cx-diagrams/src/Cell';
-import { Flow } from '../../../../packages/cx-diagrams/src/Flow';
-import { Rotate } from '../../../../packages/cx-diagrams/src/Rotate';
-import { Shape } from '../../../../packages/cx-diagrams/src/Shape';
+import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
+import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
+import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
+import { Rotate } from '../../../../../packages/cx-diagrams/src/Rotate';
+import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
 import Controller from './Controller';
 
-import { StraightLine } from '../../../../packages/cx-diagrams/src/StraightLine';
-import { Md } from '../../components/Md';
-import { Split } from '../../components/Split';
-import { Pad } from '../../components/Pad';
-import { ConfigTable } from '../../components/ConfigTable';
-import config from '../../config/Shape';
-import { ImportPath } from '../../components/ImportPath';
-import { CodeSnippet } from '../../components/CodeSnippet';
+import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
+import { Md } from '../../../components/Md';
+import { Split } from '../../../components/Split';
+import { Pad } from '../../../components/Pad';
+import { ConfigTable } from '../../../components/ConfigTable';
+import config from '../../../config/Shape';
+import { ImportPath } from '../../../components/ImportPath';
+import { CodeSnippet } from '../../../components/CodeSnippet';
 import { Link, Menu, openContextMenu } from 'cx/widgets';
 
 export default (
@@ -35,7 +35,7 @@ export default (
          </Split>
          <Split>
             <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] xl:min-h-0" putInto="right">
-               <Diagram unitSize={24} center>
+               <Diagram unitSize={24} center showGrid>
                   <Flow direction="right" gap={2}>
                      <Flow direction="down" gap={1}>
                         <Cell width={4} height={2}>
@@ -147,7 +147,7 @@ export default (
 
             {/* prettier-ignore */}
             <CodeSnippet class="border-t border-b py-4 max-h-[500px] overflow-auto">{`
-            <Diagram unitSize={24} center>                
+            <Diagram unitSize={24} center showGrid>                
                 <Flow direction="right" gap={2}>
                     <Flow direction="down" gap={1}>
                         <Cell width={4} height={2}>

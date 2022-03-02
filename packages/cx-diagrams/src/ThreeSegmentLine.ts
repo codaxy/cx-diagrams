@@ -1,9 +1,9 @@
 import { NumberProp, StringProp, Widget } from 'cx/src/core';
 import { Line, LineProps } from 'cx/svg';
 
-interface TwoSegmentLineProps extends LineProps {
+interface ThreeSegmentLineProps extends LineProps {
    startOffset?: NumberProp;
    direction?: StringProp;;
 }
 
-export class TwoSegmentLine extends Widget<TwoSegmentLineProps> {}
+export class ThreeSegmentLine extends Widget<ThreeSegmentLineProps> {}

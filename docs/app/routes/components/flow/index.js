@@ -1,15 +1,15 @@
 import { Rectangle, Svg, Text } from 'cx/svg';
-import { Cell } from '../../../../packages/cx-diagrams/src/Cell';
-import { Diagram } from '../../../../packages/cx-diagrams/src/Diagram';
-import { Flow } from '../../../../packages/cx-diagrams/src/Flow';
-import { Shape } from '../../../../packages/cx-diagrams/src/Shape';
-import { CodeSnippet } from '../../components/CodeSnippet';
-import { ConfigTable } from '../../components/ConfigTable';
-import { ImportPath } from '../../components/ImportPath';
-import { Md } from '../../components/Md';
-import { Pad } from '../../components/Pad';
-import { Split } from '../../components/Split';
-import config from '../../config/Flow';
+import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
+import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
+import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
+import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
+import { CodeSnippet } from '../../../components/CodeSnippet';
+import { ConfigTable } from '../../../components/ConfigTable';
+import { ImportPath } from '../../../components/ImportPath';
+import { Md } from '../../../components/Md';
+import { Pad } from '../../../components/Pad';
+import { Split } from '../../../components/Split';
+import config from '../../../config/Flow';
 import Controller from './Controller';
 
 export default (
@@ -36,7 +36,7 @@ export default (
          </Split>
          <Split>
             <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] xl:min-h-0" putInto="right">
-               <Diagram center>
+               <Diagram center showGrid>
                   <Flow direction="right" gap={1} align="center">
                      <Flow gap={0.5} p={0.5}>
                         <Rectangle stroke="red">
@@ -102,7 +102,7 @@ export default (
 
             {/* prettier-ignore */}
             <CodeSnippet class="border-t border-b py-4 max-h-[500px] overflow-auto">{`
-            <Diagram center>
+            <Diagram center showGrid>
                 <Flow direction="right" gap={1} align="center">
                     <Flow gap={0.5} p={0.5}>
                         <Rectangle stroke="red">

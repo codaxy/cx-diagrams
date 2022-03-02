@@ -1,4 +1,4 @@
-import { NumberProp, Widget } from "cx/src/core";
+import { BooleanProp, NumberProp, Widget } from "cx/src/core";
 import { BoundedObjectProps } from "cx/src/svg/BoundedObject";
 
 export interface DiagramProps extends BoundedObjectProps {
@@ -22,6 +22,8 @@ export interface DiagramProps extends BoundedObjectProps {
 
    /** Set to true to center the content vertically. */
    centerY?: boolean;
+
+   showGrid?: BooleanProp;
 }
 
 export class Diagram extends Widget<DiagramProps> {}

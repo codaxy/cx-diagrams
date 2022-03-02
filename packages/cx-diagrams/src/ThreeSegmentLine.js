@@ -1,7 +1,7 @@
 import { Rect } from "cx/svg";
 import { Container, VDOM } from "cx/ui";
 
-export class TwoSegmentLine extends Container {
+export class ThreeSegmentLine extends Container {
    declareData(...args) {
       super.declareData(...args, {
          startOffset: undefined,
@@ -37,29 +37,19 @@ export class TwoSegmentLine extends Container {
       if (direction == "right" || direction == "left") {
          if (t < b) t -= startOffset;
          else t += startOffset;
-         data.y = t;
-         data.x = r;
-         l += ((l < r ? 1 : -1) * sb.width()) / 2;
-         b += ((t < b ? -1 : 1) * eb.height()) / 2;
-
-         if (eb.l <= data.x && data.x <= eb.r && eb.t <= data.y && data.y <= eb.b) {
-            data.x = l < eb.l ? eb.l : eb.r;
-            r = data.x;
-            b = data.y;
-         }
+         l = l < r ? sb.r : sb.l;
+         r = l < r ? eb.l : eb.r;
+         data.x1 = data.x2 = (l + r) / 2;
+         data.y1 = t;
+         data.y2 = b;
       } else {
          if (l < r) l -= startOffset;
          else l += startOffset;
-         data.y = b;
-         data.x = l;
-         t += ((t < b ? 1 : -1) * sb.height()) / 2;
-         r += ((l < r ? -1 : 1) * eb.width()) / 2;
-
-         if (eb.l <= data.x && data.x <= eb.r && eb.t <= data.y && data.y <= eb.b) {
-            data.y = t < eb.t ? eb.t : eb.b;
-            r = data.x;
-            b = data.y;
-         }
+         t = t < b ? sb.b : sb.t;
+         b = t < b ? eb.t : eb.b;
+         data.y1 = data.y2 = (t + b) / 2;
+         data.x1 = l;
+         data.x2 = r;
       }
       return new Rect({ t, r, b, l });
    }
@@ -76,7 +66,7 @@ export class TwoSegmentLine extends Container {
 
    render(context, instance, key) {
       let { data, colorIndex, bounds } = instance;
-      let { x, y } = data;
+      let { x1, y1, x2, y2 } = data;
       let { t, l, b, r } = bounds;
 
       return (
@@ -84,17 +74,26 @@ export class TwoSegmentLine extends Container {
             <line
                className={this.CSS.element(this.baseClass, "line", colorIndex != null && "color-" + colorIndex)}
                x1={l}
-               y1={y}
-               x2={r}
-               y2={y}
+               y1={t}
+               x2={x1}
+               y2={y1}
                style={data.style}
                stroke={data.stroke}
             />
             <line
                className={this.CSS.element(this.baseClass, "line", colorIndex != null && "color-" + colorIndex)}
-               x1={x}
-               y1={t}
-               x2={x}
+               x1={x1}
+               y1={y1}
+               x2={x2}
+               y2={y2}
+               style={data.style}
+               stroke={data.stroke}
+            />
+            <line
+               className={this.CSS.element(this.baseClass, "line", colorIndex != null && "color-" + colorIndex)}
+               x1={x2}
+               y1={y2}
+               x2={r}
                y2={b}
                style={data.style}
                stroke={data.stroke}
@@ -105,5 +104,5 @@ export class TwoSegmentLine extends Container {
    }
 }
 
-TwoSegmentLine.prototype.startOffset = 0;
-TwoSegmentLine.prototype.direction = "right";
+ThreeSegmentLine.prototype.startOffset = 0;
+ThreeSegmentLine.prototype.direction = "right";
