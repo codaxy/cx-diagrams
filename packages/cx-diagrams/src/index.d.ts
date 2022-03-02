@@ -8,3 +8,4 @@ export * from "./Rotate";
 export * from "./TwoSegmentLine";
 export * from "./ThreeSegmentLine";
 export * from "./StraightLine";
+export * from "./FourSides";

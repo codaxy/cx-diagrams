@@ -1,5 +1,7 @@
 import { Rectangle, Svg, Text } from 'cx/svg';
-import { FourSides } from '../../../../../packages/cx-diagrams/src';
+import { computable } from 'cx/ui';
+import { Label, Radio } from 'cx/widgets';
+import { FourSides } from '../../../../../packages/cx-diagrams/src/FourSides';
 import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
 import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
 import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
@@ -10,7 +12,7 @@ import { ImportPath } from '../../../components/ImportPath';
 import { Md } from '../../../components/Md';
 import { Pad } from '../../../components/Pad';
 import { Split } from '../../../components/Split';
-import config from '../../../config/Flow';
+import config from '../../../config/FourSides';
 import Controller from './Controller';
 
 export default (
@@ -22,91 +24,194 @@ export default (
                <Md>
                     # FourSides 
 
-                    <ImportPath path='import { Flow } from "cx-diagrams"' />
+                    <ImportPath path='import { FourSides } from "cx-diagrams"' />
                     
-                    The `FourSides` component is used to arrange cells into directional layouts 
-                    called flow. The direction of the flow is controlled by the `direction` property. 
-                    Distance between elements is controlled by the assigned `gap`, or by individual margins set on the cell components.
-                    Besides fixed margins (`mt`, `mr`, `mb` and `ml`), you can use start (`ms`) and end margins (`me`) to distance elements 
-                    in the direction of the flow which will work nicely if you introduce rotation.
-
-                    > Please note the SVG elements such as `Rectangle` do not affect the flow. Only `Cell` elements affect the flow.
+                    The `FourSides` component is used to lay out diagram components into four directions. This is commonly used in combination with [`Rotate`](~/components/rotate) 
+                    to assemble the parts into a single structure.
                     
                 </Md>
             </Pad>
          </Split>
          <Split>
-            <Svg class="w-auto h-full border-t border-b bg-white min-h-[300px] xl:min-h-0" putInto="right">
-               <Diagram center showGrid>
-                  <FourSides>
-                     <Cell width={2} height={2}>
-                        <Shape text="center" stroke="red" />
-                     </Cell>
-                     <Flow gap={0.5} p={0.5}>
-                        <Rectangle stroke="red">
-                           <Text anchors={0} dy="-5px" value="right" fill="currentColor" style="font-size: 12px" />
-                        </Rectangle>
-                        <Cell>
-                           <Shape fill="lightgray" text="1" />
+            <div class="border-t border-b h-full bg-white min-h-[300px] xl:min-h-0 relative" putInto="right">
+               <Svg class="w-auto h-full">
+                  <Diagram center showGrid>
+                     <FourSides
+                        slots={computable('$page.order', (order) => {
+                           switch (order) {
+                              case 0:
+                                 return ['center', 'right', 'down', 'left', 'up'];
+                              case 1:
+                                 return ['center', 'down', 'left', 'up', 'right'];
+                              case 2:
+                                 return ['center', 'left', 'up', 'right', 'down'];
+                              case 3:
+                                 return ['center', 'up', 'right', 'down', 'left'];
+                           }
+                        })}
+                     >
+                        <Cell width={2} height={2}>
+                           <Shape text="center" fill="lightgreen" />
                         </Cell>
-                        <Cell>
-                           <Shape fill="lightgray" text="2" />
-                        </Cell>
-                        <Cell>
-                           <Shape fill="lightgray" text="3" />
-                        </Cell>
-                     </Flow>
-                     <Flow direction="down" gap={0.5} p={0.5}>
-                        <Rectangle stroke="red">
-                           <Text anchors={0} dy="-5px" value="down" fill="currentColor" style="font-size: 12px" />
-                        </Rectangle>
-                        <Cell>
-                           <Shape fill="lightgray" text="1" />
-                        </Cell>
-                        <Cell>
-                           <Shape fill="lightgray" text="2" />
-                        </Cell>
-                        <Cell>
-                           <Shape fill="lightgray" text="3" />
-                        </Cell>
-                     </Flow>
+                        <Flow gap={0.5} p={0.5} align="center">
+                           <Rectangle stroke="red" />
+                           <Cell>
+                              <Shape fill="lightgray" text="1" />
+                           </Cell>
+                           <Cell>
+                              <Shape fill="lightgray" text="2" />
+                           </Cell>
+                           <Cell w={2} h={2}>
+                              <Shape fill="lightgray" text="3" />
+                           </Cell>
+                        </Flow>
+                        <Flow direction="down" gap={0.5} p={0.5} align="center">
+                           <Rectangle stroke="red" />
+                           <Cell>
+                              <Shape fill="lightgray" text="1" />
+                           </Cell>
+                           <Cell>
+                              <Shape fill="lightgray" text="2" />
+                           </Cell>
+                           <Cell w={2} h={2}>
+                              <Shape fill="lightgray" text="3" />
+                           </Cell>
+                        </Flow>
 
-                     <Flow direction="left" gap={0.5} p={0.5}>
-                        <Rectangle stroke="red">
-                           <Text anchors={0} dy="-5px" value="left" fill="currentColor" style="font-size: 12px" />
-                        </Rectangle>
-                        <Cell>
-                           <Shape fill="lightgray" text="1" />
-                        </Cell>
-                        <Cell>
-                           <Shape fill="lightgray" text="2" />
-                        </Cell>
-                        <Cell>
-                           <Shape fill="lightgray" text="3" />
-                        </Cell>
-                     </Flow>
+                        <Flow direction="left" gap={0.5} p={0.5} align="center">
+                           <Rectangle stroke="red" />
+                           <Cell>
+                              <Shape fill="lightgray" text="1" />
+                           </Cell>
+                           <Cell>
+                              <Shape fill="lightgray" text="2" />
+                           </Cell>
+                           <Cell w={2} h={2}>
+                              <Shape fill="lightgray" text="3" />
+                           </Cell>
+                        </Flow>
 
-                     <Flow direction="up" gap={0.5} p={0.5}>
-                        <Rectangle stroke="red">
-                           <Text anchors={0} dy="-5px" value="up" fill="currentColor" style="font-size: 12px" />
-                        </Rectangle>
-                        <Cell>
-                           <Shape fill="lightgray" text="1" />
-                        </Cell>
-                        <Cell>
-                           <Shape fill="lightgray" text="2" />
-                        </Cell>
-                        <Cell>
-                           <Shape fill="lightgray" text="3" />
-                        </Cell>
-                     </Flow>
-                  </FourSides>
-               </Diagram>
-            </Svg>
+                        <Flow direction="up" gap={0.5} p={0.5} align="center">
+                           <Rectangle stroke="red" />
+                           <Cell>
+                              <Shape fill="lightgray" text="1" />
+                           </Cell>
+                           <Cell>
+                              <Shape fill="lightgray" text="2" />
+                           </Cell>
+                           <Cell w={2} h={2}>
+                              <Shape fill="lightgray" text="3" />
+                           </Cell>
+                        </Flow>
+                     </FourSides>
+                  </Diagram>
+               </Svg>
+               <div class="absolute bottom-2 left-2 border px-2 bg-white shadow-sm space-x-2">
+                  <Label>Setup: </Label>
+                  <Radio value-bind="$page.order" option={0}>
+                     1
+                  </Radio>
+                  <Radio value-bind="$page.order" option={1}>
+                     2
+                  </Radio>
+                  <Radio value-bind="$page.order" option={2}>
+                     3
+                  </Radio>
+                  <Radio value-bind="$page.order" option={3}>
+                     4
+                  </Radio>
+               </div>
+            </div>
 
             {/* prettier-ignore */}
             <CodeSnippet class="border-t border-b py-4 h-[500px] overflow-auto">{`
-            
+               <Svg class="w-auto h-full">
+                  <Diagram center showGrid>
+                     <FourSides
+                        slots={computable('$page.order', (order) => {
+                           switch (order) {
+                              case 0:
+                                 return ['center', 'right', 'down', 'left', 'up'];
+                              case 1:
+                                 return ['center', 'down', 'left', 'up', 'right'];
+                              case 2:
+                                 return ['center', 'left', 'up', 'right', 'down'];
+                              case 3:
+                                 return ['center', 'up', 'right', 'down', 'left'];
+                           }
+                        })}
+                     >
+                        <Cell width={2} height={2}>
+                           <Shape text="center" fill="lightgreen" />
+                        </Cell>
+                        <Flow gap={0.5} p={0.5} align="center">
+                           <Rectangle stroke="red" />
+                           <Cell>
+                              <Shape fill="lightgray" text="1" />
+                           </Cell>
+                           <Cell>
+                              <Shape fill="lightgray" text="2" />
+                           </Cell>
+                           <Cell w={2} h={2}>
+                              <Shape fill="lightgray" text="3" />
+                           </Cell>
+                        </Flow>
+                        <Flow direction="down" gap={0.5} p={0.5} align="center">
+                           <Rectangle stroke="red" />
+                           <Cell>
+                              <Shape fill="lightgray" text="1" />
+                           </Cell>
+                           <Cell>
+                              <Shape fill="lightgray" text="2" />
+                           </Cell>
+                           <Cell w={2} h={2}>
+                              <Shape fill="lightgray" text="3" />
+                           </Cell>
+                        </Flow>
+
+                        <Flow direction="left" gap={0.5} p={0.5} align="center">
+                           <Rectangle stroke="red" />
+                           <Cell>
+                              <Shape fill="lightgray" text="1" />
+                           </Cell>
+                           <Cell>
+                              <Shape fill="lightgray" text="2" />
+                           </Cell>
+                           <Cell w={2} h={2}>
+                              <Shape fill="lightgray" text="3" />
+                           </Cell>
+                        </Flow>
+
+                        <Flow direction="up" gap={0.5} p={0.5} align="center">
+                           <Rectangle stroke="red" />
+                           <Cell>
+                              <Shape fill="lightgray" text="1" />
+                           </Cell>
+                           <Cell>
+                              <Shape fill="lightgray" text="2" />
+                           </Cell>
+                           <Cell w={2} h={2}>
+                              <Shape fill="lightgray" text="3" />
+                           </Cell>
+                        </Flow>
+                     </FourSides>
+                  </Diagram>
+               </Svg>
+               <div class="absolute bottom-2 left-2 border px-2 bg-white shadow-sm space-x-2">
+                  <Label>Setup: </Label>
+                  <Radio value-bind="$page.order" option={0}>
+                     1
+                  </Radio>
+                  <Radio value-bind="$page.order" option={1}>
+                     2
+                  </Radio>
+                  <Radio value-bind="$page.order" option={2}>
+                     3
+                  </Radio>
+                  <Radio value-bind="$page.order" option={3}>
+                     4
+                  </Radio>
+               </div>
             `}</CodeSnippet>
          </Split>
          <Split>

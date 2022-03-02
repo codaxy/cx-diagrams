@@ -4,6 +4,7 @@ export class FourSides extends Node {
    declareData(...args) {
       super.declareData(...args, {
          gap: undefined,
+         slots: undefined,
       });
    }
 
@@ -12,11 +13,11 @@ export class FourSides extends Node {
       let innerWidth = 0;
       let innerHeight = 0;
 
-      for (let i = 0; i < this.slots.length; i++) {
+      for (let i = 0; i < data.slots.length; i++) {
          let child = nodes[i];
-         let slot = this.slots[i];
+         let slot = data.slots[i];
 
-         if (!child || !child.box) continue;
+         if (!slot || !child || !child.box) continue;
 
          switch (slot) {
             case "down":
@@ -35,52 +36,50 @@ export class FourSides extends Node {
          }
       }
 
+      let { ml, mr, mt, mb, ms, me, gap } = data;
+
       let col = -innerWidth / 2,
          row = -innerHeight / 2,
          width = innerWidth,
          height = innerHeight;
 
-      for (let i = 0; i < this.slots.length; i++) {
+      for (let i = 0; i < data.slots.length; i++) {
          let child = nodes[i];
-         let slot = this.slots[i];
-         if (!child || !child.box) continue;
+         let slot = data.slots[i];
+         if (!slot || !child || !child.box) continue;
 
          switch (slot) {
             case "center":
-               child.box.col = (-innerWidth + child.box.width) / 2;
-               child.box.row = (-innerHeight + child.box.height) / 2;
-               width += innerWidth;
-               height += innerHeight;
+               child.box.col = -child.box.width / 2;
+               child.box.row = -child.box.height / 2;
                break;
 
             case "right":
-               child.box.col = innerWidth / 2;
-               child.box.row = (innerHeight - child.box.height) / 2;
-               width += child.box.width;
+               child.box.col = innerWidth / 2 + gap;
+               child.box.row = -child.box.height / 2;
+               width += child.box.width + gap;
                break;
             case "left":
-               child.box.col = -innerWidth / 2 - child.box.width;
-               child.box.row = (innerHeight - child.box.height) / 2;
+               child.box.col = -innerWidth / 2 - child.box.width - gap;
+               child.box.row = -child.box.height / 2;
                width += child.box.width;
-               col -= child.box.width;
+               col -= child.box.width + gap;
                break;
 
             case "down":
-               child.box.col = (innerWidth - child.box.width) / 2;
-               child.box.row = innerHeight / 2;
-               height += child.box.height;
+               child.box.col = -child.box.width / 2;
+               child.box.row = innerHeight / 2 + gap;
+               height += child.box.height + gap;
                break;
 
             case "up":
-               child.box.col = (innerWidth - child.box.width) / 2;
-               child.box.row = -innerHeight / 2 - child.box.height;
-               height += child.box.height;
-               row -= child.box.height;
+               child.box.col = -child.box.width / 2;
+               child.box.row = -innerHeight / 2 - child.box.height - gap;
+               height += child.box.height + gap;
+               row -= child.box.height + gap;
                break;
          }
       }
-
-      let { ml, mr, mt, mb, ms, me } = data;
 
       instance.box = {
          row,

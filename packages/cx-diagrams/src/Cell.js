@@ -1,6 +1,12 @@
+import { isDefined } from "cx/util";
 import { Node } from "./Node";
 
 export class Cell extends Node {
+   init() {
+      if (isDefined(this.w)) this.width = this.w;
+      if (isDefined(this.h)) this.height = this.h;
+      super.init();
+   }
    declareData(...args) {
       super.declareData(...args, {
          width: undefined,
