@@ -1,20 +1,4 @@
-<br />
-
-<p align="center">
-  <a href="https://diagrams.cxjs.io">
-    <img src="../../docs/assets/img/logo.svg" height="142" alt="logo">
-  </a>
-</p>
-
-<p align="center" style="font-weight: bold; font-size: 24px">
-CxJS Diagrams
-</p>
-
-<p align="center">
-    <img src="https://img.shields.io/npm/v/cx-diagrams" alt="version" /> 
-</p>
-
-<br />
+# CxJS Diagrams
 
 This is a simple library that allows you to create diagrams within CxJS applications.
 

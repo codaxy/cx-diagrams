@@ -18,7 +18,7 @@ export default {
       key: true,
       description: (
          <cx>
-            <Md>Order of slots. Default is ['center', 'right', 'down', 'left', 'up'].</Md>
+            <Md>Order of slots. Default is `['center', 'right', 'down', 'left', 'up']`.</Md>
          </cx>
       ),
    },

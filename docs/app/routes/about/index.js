@@ -29,8 +29,8 @@ export default (
 
          <Split>
             <div class="overflow-x-auto">
-               <Svg class="h-[420px] min-w-[700px]">
-                  <Diagram center unitSize={32} fixed>
+               <Svg class="h-[440px] min-w-[700px] border-t border-b">
+                  <Diagram center unitSize={32} fixed showGrid>
                      <Flow direction="right" gap={1}>
                         <Flow direction="down" gap={0.5} p={1}>
                            <Rectangle class="stroke-gray-400 fill-white" />
@@ -94,7 +94,7 @@ export default (
 
                ## License
 
-               This project is licensed under the [MIT license](https://github.com/codaxy/cx-diagrams/blob/master/LICENSE.md.
+               This project is licensed under the [MIT license](https://github.com/codaxy/cx-diagrams/blob/master/LICENSE.md).
                </Md>
             </Pad>
          </Split>

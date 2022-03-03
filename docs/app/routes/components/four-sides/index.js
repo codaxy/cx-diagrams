@@ -33,7 +33,7 @@ export default (
             </Pad>
          </Split>
          <Split>
-            <div class="border-t border-b h-full bg-white min-h-[300px] xl:min-h-0 relative" putInto="right">
+            <div class="border-t border-b h-[400px] bg-white xl:h-full relative" putInto="right">
                <Svg class="w-auto h-full">
                   <Diagram center showGrid>
                      <FourSides
