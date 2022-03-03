@@ -31,6 +31,9 @@ export interface FlowProps extends NodeProps {
 
    /** Set to true to disable rotation. */
    fixed?: boolean;
+
+   /** Direction of the flow. Default value is `right`. */
+   direction?: "right" | "left" | "up" | "down";
 }
 
 export class Flow extends Widget<FlowProps> {}

@@ -20,7 +20,17 @@ export class Diagram extends BoundedObject {
          zoom: undefined,
          unitSize: undefined,
          showGrid: undefined,
+         fixed: undefined,
       });
+   }
+
+   prepareData(context, instance) {
+      let { data } = instance;
+      data.stateMods = {
+         ...data.stateMods,
+         pannable: !data.fixed,
+      };
+      super.prepareData(context, instance);
    }
 
    explore(context, instance) {
@@ -91,6 +101,7 @@ Diagram.prototype.centerX = false;
 Diagram.prototype.centerY = false;
 Diagram.prototype.center = false;
 Diagram.prototype.showGrid = false;
+Diagram.prototype.fixed = false;
 
 const defaultZoomStep = 0.05;
 const minZoom = 0.25;
@@ -179,6 +190,7 @@ class DiagramComponent extends VDOM.Component {
    }
 
    handleWheel(ev) {
+      if (this.props.data.fixed) return;
       if (ev.deltaY > 0) this.zoomOut(ev, false);
       else this.zoomIn(ev, false);
 
@@ -232,6 +244,7 @@ class DiagramComponent extends VDOM.Component {
 
    handleInitialMouseMove(e) {
       if (e.buttons != 1) return;
+      if (this.props.data.fixed) return;
       let cursor = getCursorPos(e);
       let mode = e.touches && e.touches.length >= 2 ? "zoom" : "pan";
       let captureData = {

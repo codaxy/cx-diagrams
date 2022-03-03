@@ -24,6 +24,9 @@ export interface DiagramProps extends BoundedObjectProps {
    centerY?: boolean;
 
    showGrid?: BooleanProp;
+
+   /** Set to true to disable zooming and panning. */
+   fixed?: BooleanProp;
 }
 
 export class Diagram extends Widget<DiagramProps> {}

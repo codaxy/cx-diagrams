@@ -37,6 +37,8 @@ import ChartBarIcon from '@heroicons/react/outline/ChartBarIcon';
 import SearchIcon from '@heroicons/react/outline/SearchIcon';
 import ChevronDownIcon from '@heroicons/react/outline/ChevronDownIcon';
 import MenuIcon from '@heroicons/react/outline/MenuIcon';
+import InformationCircleIcon from '@heroicons/react/outline/InformationCircleIcon';
+import PuzzleIcon from '@heroicons/react/outline/PuzzleIcon';
 
 //register all icons that are used within the application
 
@@ -60,7 +62,7 @@ Icon.register('search', (props) => <SearchIcon {...props} />);
 
 // Icon.register('template', (props) => <TemplateIcon {...props} />);
 
-// Icon.register('puzzle', (props) => <PuzzleIcon {...props} />);
+Icon.register('puzzle', (props) => <PuzzleIcon {...props} />);
 
 // Icon.register('cash', (props) => <CashIcon {...props} />);
 
@@ -90,7 +92,7 @@ Icon.register('cog', (props) => <CogIcon {...props} />);
 Icon.register('chevron-down', (props) => <ChevronDownIcon {...props} />);
 Icon.register('drop-down', (props) => <ChevronDownIcon {...props} />);
 
-// Icon.register('information-circle', (props) => <InformationCircleIcon {...props} />);
+Icon.register('information-circle', (props) => <InformationCircleIcon {...props} />);
 
 // Icon.register('refresh', (props) => <RefreshIcon {...props} />);
 

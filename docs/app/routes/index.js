@@ -6,6 +6,7 @@ import { CheckerLayout } from '../layout/CheckerLayout';
 import { SandboxedRoute } from '../components/SandboxedRoute';
 
 import { PageNotImplemented } from '../components/PageNotImplemented';
+import About from './about';
 import Diagram from './components/diagram';
 import Cell from './components/cell';
 import Shape from './components/shape';
@@ -19,10 +20,12 @@ import ThreeSegmentLine from './components/three-segment-line';
 export default () => (
    <cx>
       <FirstVisibleChildLayout>
-         <RedirectRoute route="~/" redirect="~/components/diagram" url-bind="url" />
-
          <CheckerLayout>
             <FirstVisibleChildLayout>
+               <SandboxedRoute route="~/">
+                  <About />
+               </SandboxedRoute>
+
                <SandboxedRoute route="~/components/diagram">
                   <Diagram />
                </SandboxedRoute>

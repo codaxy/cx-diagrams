@@ -28,7 +28,7 @@ export default (
                     <ImportPath path='import { Cell } from "cx-diagrams"' />
                     
                     The `Cell` component is used to mark a rectangular area on the diagram using its `width` and `height` properties to 
-                    provide boundaries to [`Shapes`](~/components/shape) and other SVG elements . 
+                    provide boundaries to [`Shapes`](~/components/shape) and other [CxJS SVG components](https://docs.cxjs.io/svg/svgs) . 
                     `Cells` participate in layout [`Flows`](~/components/flow).
                     Margin properties such as `ms` and `me` are used to add distance between cells.
                     

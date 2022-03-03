@@ -1,4 +1,5 @@
 import { Icon, Link } from 'cx/widgets';
+import { GitHubStarCount } from '../components/GitHubStarCount';
 import { Logo2 } from '../components/Logo2';
 import Controller from './Controller';
 
@@ -34,12 +35,24 @@ export const CheckerLayout = ({ children, nav }) => (
       <div class="h-full grid grid-cols-1 xl:grid-cols-[250px_1fr] xl:grid-rows-[auto_1fr]" controller={Controller}>
          <div class="xl:border-r border-b py-2 pl-6 flex col-span-2 items-center">
             <Logo2 />
+
+            <a
+               target="_blank"
+               rel="noopener noreferrer"
+               href="https://www.npmjs.com/package/cx-diagrams"
+               class="ml-auto hidden xl:block"
+            >
+               <img src="https://img.shields.io/npm/v/cx-diagrams" alt="version" />
+            </a>
+
             <button
                class="ml-auto mr-4 flex xl:hidden items-center justify-center w-10 h-10 bg-gray-200 hover:bg-blue-200 active:bg-blue-300 rounded-full"
                onClick="onToggleNav"
             >
                <Icon name="menu" />
             </button>
+
+            <GitHubStarCount className="hidden ml-4 mr-4 xl:block" />
          </div>
          <div
             class="bg-white xl:border-r pt-3 hidden xl:block overflow-auto"
@@ -47,6 +60,8 @@ export const CheckerLayout = ({ children, nav }) => (
                'fixed top-14 left-0 right-0 bottom-0 !block z-[1000] border-t': { expr: '!!{showNav}' },
             }}
          >
+            <NavItem text="About" icon="information-circle" href="~/" />
+
             <div class="px-6 py-3 text-gray-400 text-sm">Components</div>
             <NavItem text="Diagram" icon="cog" href="~/components/diagram" />
             <NavItem text="Cell" icon="cog" href="~/components/cell" />

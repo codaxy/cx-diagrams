@@ -5,17 +5,7 @@ import { Timing, Debug } from 'cx/util';
 enableCultureSensitiveFormatting();
 
 //store
-const store = new Store({
-   data: {
-      user: {
-         firstName: 'Test',
-         lastName: 'User',
-         initials: 'TU',
-         pictureUrl: 'https://source.unsplash.com/d-MfHM-jHwc/100x100/?face',
-         email: 'test@example.com',
-      },
-   },
-});
+const store = new Store();
 
 //Remove in the latter stage of the project
 window.store = store;

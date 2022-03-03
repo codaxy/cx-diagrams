@@ -59,4 +59,13 @@ export default {
          </cx>
       ),
    },
+
+   fixed: {
+      type: 'boolean',
+      description: (
+         <cx>
+            <Md>Set to `true` to disable zooming and panning.</Md>
+         </cx>
+      ),
+   },
 };

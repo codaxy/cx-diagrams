@@ -7,6 +7,7 @@ export default {
    width: {
       type: 'number',
       key: true,
+      alias: 'w',
       description: (
          <cx>
             <Md>Width of the cell. Default value is 1.</Md>
@@ -16,6 +17,7 @@ export default {
    height: {
       type: 'number',
       key: true,
+      alias: 'h',
       description: (
          <cx>
             <Md>Height of the cell. Default value is 1.</Md>
