@@ -101,16 +101,16 @@ export default (
                         <Flow direction="down" gap={0.5}>
                             <Repeater records-bind="$layer.nodes">
                                 <Cell>
-                                <Shape
-                                    text-bind="$record.name"
-                                    id-bind="$record.id"
-                                    shape="circle"
-                                    class={{
-                                        'fill-blue-200 stroke-blue-600': expr('{$layer.type} == "input"'),
-                                        'fill-orange-200 stroke-orange-600': expr('{$layer.type} == "hidden"'),
-                                        'fill-green-200 stroke-green-600': expr('{$layer.type} == "output"'),
-                                    }}
-                                />
+                                    <Shape
+                                        text-bind="$record.name"
+                                        id-bind="$record.id"
+                                        shape="circle"
+                                        class={{
+                                            'fill-blue-200 stroke-blue-600': expr('{$layer.type} == "input"'),
+                                            'fill-orange-200 stroke-orange-600': expr('{$layer.type} == "hidden"'),
+                                            'fill-green-200 stroke-green-600': expr('{$layer.type} == "output"'),
+                                        }}
+                                    />
                                 </Cell>
                             </Repeater>
                         </Flow>
