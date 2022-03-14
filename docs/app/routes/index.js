@@ -17,6 +17,8 @@ import StraightLine from './components/straight-line';
 import TwoSegmentLine from './components/two-segment-line';
 import ThreeSegmentLine from './components/three-segment-line';
 
+import NetworkDiagram from './examples/network-diagram';
+
 export default () => (
    <cx>
       <FirstVisibleChildLayout>
@@ -60,6 +62,10 @@ export default () => (
 
                <SandboxedRoute route="~/components/three-segment-line">
                   <ThreeSegmentLine />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/examples/network-diagram">
+                  <NetworkDiagram />
                </SandboxedRoute>
 
                <PageNotImplemented />

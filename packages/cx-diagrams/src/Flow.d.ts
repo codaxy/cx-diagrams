@@ -34,6 +34,9 @@ export interface FlowProps extends NodeProps {
 
    /** Direction of the flow. Default value is `right`. */
    direction?: "right" | "left" | "up" | "down";
+
+   /** Alignment of items. */
+   align?: "start" | "center";
 }
 
 export class Flow extends Widget<FlowProps> {}

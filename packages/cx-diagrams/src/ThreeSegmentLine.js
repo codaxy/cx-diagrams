@@ -37,16 +37,26 @@ export class ThreeSegmentLine extends Container {
       if (direction == "right" || direction == "left") {
          if (t < b) t -= startOffset;
          else t += startOffset;
-         l = l < r ? sb.r : sb.l;
-         r = l < r ? eb.l : eb.r;
+         if (l != r) {
+            l = l < r ? sb.r : sb.l;
+            r = l < r ? eb.l : eb.r;
+         } else {
+            t = t < b ? sb.b : sb.t;
+            b = t < b ? eb.t : eb.b;
+         }
          data.x1 = data.x2 = (l + r) / 2;
          data.y1 = t;
          data.y2 = b;
       } else {
          if (l < r) l -= startOffset;
          else l += startOffset;
-         t = t < b ? sb.b : sb.t;
-         b = t < b ? eb.t : eb.b;
+         if (t != b) {
+            t = t < b ? sb.b : sb.t;
+            b = t < b ? eb.t : eb.b;
+         } else {
+            l = l < r ? sb.r : sb.l;
+            r = l < r ? eb.l : eb.r;
+         }
          data.y1 = data.y2 = (t + b) / 2;
          data.x1 = l;
          data.x2 = r;
