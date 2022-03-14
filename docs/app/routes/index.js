@@ -18,6 +18,7 @@ import TwoSegmentLine from './components/two-segment-line';
 import ThreeSegmentLine from './components/three-segment-line';
 
 import NetworkDiagram from './examples/network-diagram';
+import NeuralNetwork from './examples/neural-network';
 
 export default () => (
    <cx>
@@ -66,6 +67,10 @@ export default () => (
 
                <SandboxedRoute route="~/examples/network-diagram">
                   <NetworkDiagram />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/examples/neural-network">
+                  <NeuralNetwork />
                </SandboxedRoute>
 
                <PageNotImplemented />

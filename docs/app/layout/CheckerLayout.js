@@ -77,6 +77,7 @@ export const CheckerLayout = ({ children, nav }) => (
 
             <div class="mt-4 px-6 py-3 text-gray-400 text-sm">Examples</div>
             <NavItem text="Network Diagram" icon="cog" href="~/examples/network-diagram" />
+            <NavItem text="Neural Network" icon="cog" href="~/examples/neural-network" />
          </div>
          {children}
       </div>
