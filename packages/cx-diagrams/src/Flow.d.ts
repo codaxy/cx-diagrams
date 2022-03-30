@@ -37,6 +37,12 @@ export interface FlowProps extends NodeProps {
 
    /** Alignment of items. */
    align?: "start" | "center";
+
+   /** Distribute items */
+   justify?: null | "stretch";
+
+   /** Change alignment of this particular item */
+   selfAlign?: null | "stretch";
 }
 
 export class Flow extends Widget<FlowProps> {}

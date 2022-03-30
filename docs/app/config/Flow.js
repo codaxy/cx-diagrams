@@ -79,4 +79,29 @@ export default {
          </cx>
       ),
    },
+   align: {
+      key: true,
+      type: 'string',
+      description: (
+         <cx>
+            <Md>Item alignment. Supported values are `start`` and `center`.</Md>
+         </cx>
+      ),
+   },
+   justify: {
+      type: 'string',
+      description: (
+         <cx>
+            <Md>Item justification. The only supported value right now is `space-between`.</Md>
+         </cx>
+      ),
+   },
+   selfAlign: {
+      type: 'string',
+      description: (
+         <cx>
+            <Md>Self alignment. The only supported value right now is `stretch`.</Md>
+         </cx>
+      ),
+   },
 };

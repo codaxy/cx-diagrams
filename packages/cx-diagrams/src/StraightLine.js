@@ -15,6 +15,8 @@ export class StraightLine extends Container {
 
       if (!data.from || !data.to || !context.diagram) return new Rect();
 
+      if (!context.diagram.hasShape(data.from) || !context.diagram.hasShape(data.to)) return new Rect();
+
       let { bounds: sb, shape: startShape } = context.diagram.getShape(data.from);
       let { bounds: eb, shape: endShape } = context.diagram.getShape(data.to);
 

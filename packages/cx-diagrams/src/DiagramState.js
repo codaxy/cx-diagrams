@@ -21,4 +21,8 @@ export class DiagramState {
          );
       return data;
    }
+
+   hasShape(id) {
+      return !!this.shapes[id];
+   }
 }
