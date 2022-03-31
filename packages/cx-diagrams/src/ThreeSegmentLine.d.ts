@@ -1,7 +1,7 @@
 import { NumberProp, StringProp, Widget } from "cx/src/core";
-import { Line, LineProps } from "cx/svg";
+import { StraightLineProps } from "./StraightLine";
 
-interface ThreeSegmentLineProps extends LineProps {
+interface ThreeSegmentLineProps extends StraightLineProps {
    startOffset?: NumberProp;
    direction?: StringProp;
 }

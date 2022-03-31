@@ -180,7 +180,7 @@ export class Flow extends Node {
 
             case "left":
                child.box.col += box.col + box.width;
-               child.box.col += index * spacing;
+               child.box.col -= index * spacing;
                child.box.row += box.row;
 
                if (this.align == "center") child.box.row += (innerHeight - child.box.height) / 2;
@@ -189,7 +189,7 @@ export class Flow extends Node {
             case "up":
                child.box.col += box.col;
                child.box.row += box.row + box.height;
-               child.box.row += index * spacing;
+               child.box.row -= index * spacing;
 
                if (this.align == "center") child.box.col += (innerWidth - child.box.width) / 2;
                break;
