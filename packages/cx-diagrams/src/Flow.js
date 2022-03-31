@@ -77,6 +77,7 @@ export class Flow extends Node {
             if (!box) continue;
             if (height > pt) height += gap;
             height += box.mt;
+            height += box.ms;
             box.col += pl + box.ml;
             box.row += height;
             height += box.height;
