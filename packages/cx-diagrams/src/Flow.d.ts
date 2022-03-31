@@ -39,7 +39,7 @@ export interface FlowProps extends NodeProps {
    align?: "start" | "center";
 
    /** Distribute items */
-   justify?: null | "stretch";
+   justify?: null | "space-between";
 
    /** Change alignment of this particular item */
    selfAlign?: null | "stretch";
