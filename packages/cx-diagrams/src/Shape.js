@@ -67,7 +67,7 @@ export class Shape extends BoundedObject {
       }
 
       return (
-         <g key={key} {...gProps} className={data.classNames} style={data.style}>
+         <g key={key} id={data.id} {...gProps} className={data.classNames} style={data.style}>
             {this.renderShape(shape, bounds, shapeProps)}
             {this.renderText(shape, bounds, text, data)}
             {this.renderChildren(context, instance)}
