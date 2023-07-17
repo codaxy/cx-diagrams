@@ -108,6 +108,18 @@ export class Shape extends BoundedObject {
 
          case "rectangle":
             return <rect {...shapeProps} x={bounds.l} y={bounds.t} width={bounds.width()} height={bounds.height()} />;
+
+         case "rhombus":
+            const centerX = bounds.l + bounds.width() / 2;
+            const centerY = bounds.t + bounds.height() / 2;
+
+            return (
+               <polygon
+                  {...shapeProps}
+                  points={`${centerX},${bounds.t} ${bounds.r},${centerY}
+                           ${centerX},${bounds.b} ${bounds.l},${centerY}`}
+               />
+            );
       }
    }
 
@@ -118,7 +130,7 @@ export class Shape extends BoundedObject {
       if (shape === "circle") {
          x = (bounds.l + bounds.r) / 2;
          y = (bounds.t + bounds.b) / 2;
-      } else if (shape === "rectangle") {
+      } else if (shape === "rectangle" || shape === "rhombus") {
          x = bounds.l + bounds.width() / 2;
          y = bounds.t + bounds.height() / 2;
       }

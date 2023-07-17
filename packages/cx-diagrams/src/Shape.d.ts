@@ -5,7 +5,7 @@ import { Instance } from "cx/src/ui/Instance";
 export interface ShapeProps extends BoundedObjectProps {
    id?: StringProp;
    text?: StringProp;
-   shape?: "rect" | "circle";
+   shape?: "rect" | "circle" | "rhombus";
    tooltip?: StringProp | Config;
    textClass?: ClassProp;
    shapeClass?: ClassProp;

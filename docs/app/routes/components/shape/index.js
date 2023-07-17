@@ -27,7 +27,7 @@ export default (
 
                     <ImportPath path='import { Shape } from "cx-diagrams"' />
                     
-                    The `Shape` component is used to shapes appearing on the diagram. Shapes are usually `circles` or `rectangles` 
+                    The `Shape` component is used to shapes appearing on the diagram. Shapes are usually `circles`, `rectangles` and `rhombuses` 
                     and can represent various things such as network devices and interfaces, departments, roles, etc. 
                     Shapes support the `text` property and can easily be interconnected using lines. Shapes are clickable and support context menus.
                 </Md>
@@ -53,6 +53,7 @@ export default (
                         <Cell width={4} height={2}>
                            <Shape fill="lightgray" text="Circle" shape="circle" />
                         </Cell>
+
                         <Cell width={4} height={2}>
                            <Shape stroke="red" text="Connectors" fill="white">
                               <Shape
@@ -97,6 +98,9 @@ export default (
                               tooltip="Shapes can be connected with lines"
                            />
                            <StraightLine from="connected" to="tooltip" stroke="black" />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                           <Shape shapeClass="fill-blue-300 stroke-blue-800" shape="rhombus" text="Rhombus" />
                         </Cell>
                      </Flow>
 
@@ -209,6 +213,9 @@ export default (
                                 tooltip="Shapes can be connected with lines"
                             />
                             <StraightLine from="connected" to="tooltip" stroke="black" />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                           <Shape shapeClass="fill-blue-300 stroke-blue-800" shape="rhombus" text="Rhombus" />
                         </Cell>
                     </Flow>
 
