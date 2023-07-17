@@ -53,7 +53,6 @@ export default (
                         <Cell width={4} height={2}>
                            <Shape fill="lightgray" text="Circle" shape="circle" />
                         </Cell>
-
                         <Cell width={4} height={2}>
                            <Shape stroke="red" text="Connectors" fill="white">
                               <Shape
