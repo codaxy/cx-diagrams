@@ -41,7 +41,7 @@ export default (
                            <Shape fill="lightgray" text="2" id="2" />
                         </Cell>
                         <Cell>
-                           <Shape fill="lightgray" text="3" id="3" />
+                           <Shape fill="lightgray" text="3" id="3" shape="rhombus" />
                         </Cell>
                         <Cell>
                            <Shape fill="lightgray" text="4" id="4" />
@@ -59,7 +59,7 @@ export default (
                         </Cell>
                      </Flow>
                      <Cell>
-                        <Shape fill="lightgray" text="8" id="8" shape="circle" />
+                        <Shape fill="lightgray" text="8" id="8" />
                      </Cell>
                      <StraightLine from="1" to="2" stroke="black">
                         <Shape anchors="0 0 0 0" margin={-3} shape="circle" fill="white" stroke="blue" />
