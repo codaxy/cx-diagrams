@@ -1,20 +1,19 @@
-import { Ellipse, Line, Rectangle, Svg, Text } from 'cx/svg';
-import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
+import { Svg } from 'cx/svg';
 import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
+import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
 import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
-import { Rotate } from '../../../../../packages/cx-diagrams/src/Rotate';
 import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
 import Controller from './Controller';
 
-import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
-import { Md } from '../../../components/Md';
-import { Split } from '../../../components/Split';
-import { Pad } from '../../../components/Pad';
-import { ConfigTable } from '../../../components/ConfigTable';
-import config from '../../../config/Shape';
-import { ImportPath } from '../../../components/ImportPath';
-import { CodeSnippet } from '../../../components/CodeSnippet';
 import { Link, Menu, openContextMenu } from 'cx/widgets';
+import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
+import { CodeSnippet } from '../../../components/CodeSnippet';
+import { ConfigTable } from '../../../components/ConfigTable';
+import { ImportPath } from '../../../components/ImportPath';
+import { Md } from '../../../components/Md';
+import { Pad } from '../../../components/Pad';
+import { Split } from '../../../components/Split';
+import config from '../../../config/Shape';
 
 export default (
    <cx>
