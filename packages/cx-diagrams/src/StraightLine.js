@@ -120,7 +120,10 @@ function rhombusIntersection(x1, y1, x2, y2, halfw, halfh) {
    const { x, y } = getLinesIntersectionPoint(v1x, v1y, v2x, v2y, x1, y1, x2, y2);
 
    if (x === undefined || y === undefined) {
-      throw new Error("Could not find intersection point.");
+      return {
+         x: x1,
+         y: y1,
+      };
    }
 
    return { x, y };
