@@ -22,7 +22,7 @@ export default {
       key: true,
       description: (
          <cx>
-            <Md>Either `rect` or `circle`.</Md>
+            <Md>Shape kind. Available shapes are `rectangle`, `circle` and `rhombus`.</Md>
          </cx>
       ),
    },

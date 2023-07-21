@@ -1,20 +1,19 @@
-import { Ellipse, Line, Rectangle, Svg, Text } from 'cx/svg';
-import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
+import { Svg } from 'cx/svg';
 import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
+import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
 import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
-import { Rotate } from '../../../../../packages/cx-diagrams/src/Rotate';
 import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
 import Controller from './Controller';
 
-import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
-import { Md } from '../../../components/Md';
-import { Split } from '../../../components/Split';
-import { Pad } from '../../../components/Pad';
-import { ConfigTable } from '../../../components/ConfigTable';
-import config from '../../../config/Shape';
-import { ImportPath } from '../../../components/ImportPath';
-import { CodeSnippet } from '../../../components/CodeSnippet';
 import { Link, Menu, openContextMenu } from 'cx/widgets';
+import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
+import { CodeSnippet } from '../../../components/CodeSnippet';
+import { ConfigTable } from '../../../components/ConfigTable';
+import { ImportPath } from '../../../components/ImportPath';
+import { Md } from '../../../components/Md';
+import { Pad } from '../../../components/Pad';
+import { Split } from '../../../components/Split';
+import config from '../../../config/Shape';
 
 export default (
    <cx>
@@ -27,7 +26,7 @@ export default (
 
                     <ImportPath path='import { Shape } from "cx-diagrams"' />
                     
-                    The `Shape` component is used to shapes appearing on the diagram. Shapes are usually `circles` or `rectangles` 
+                    The `Shape` component is used to shapes appearing on the diagram. Shapes are usually `circles`, `rectangles` and `rhombuses` 
                     and can represent various things such as network devices and interfaces, departments, roles, etc. 
                     Shapes support the `text` property and can easily be interconnected using lines. Shapes are clickable and support context menus.
                 </Md>
@@ -97,6 +96,9 @@ export default (
                               tooltip="Shapes can be connected with lines"
                            />
                            <StraightLine from="connected" to="tooltip" stroke="black" />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                           <Shape shapeClass="fill-blue-300 stroke-blue-800" shape="rhombus" text="Rhombus" />
                         </Cell>
                      </Flow>
 
@@ -209,6 +211,9 @@ export default (
                                 tooltip="Shapes can be connected with lines"
                             />
                             <StraightLine from="connected" to="tooltip" stroke="black" />
+                        </Cell>
+                        <Cell width={4} height={2}>
+                           <Shape shapeClass="fill-blue-300 stroke-blue-800" shape="rhombus" text="Rhombus" />
                         </Cell>
                     </Flow>
 

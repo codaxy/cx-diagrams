@@ -1,5 +1,6 @@
 import { Rect } from "cx/svg";
 import { Container, VDOM } from "cx/ui";
+import { getLinesIntersectionPoint } from "./util/getLinesIntersectionPoint";
 
 export class StraightLine extends Container {
    declareData(...args) {
@@ -16,7 +17,6 @@ export class StraightLine extends Container {
       if (!data.from || !data.to || !context.diagram) return new Rect();
 
       if (!context.diagram.hasShape(data.from) || !context.diagram.hasShape(data.to)) return new Rect();
-
       let { bounds: sb, shape: startShape } = context.diagram.getShape(data.from);
       let { bounds: eb, shape: endShape } = context.diagram.getShape(data.to);
 
@@ -30,8 +30,12 @@ export class StraightLine extends Container {
          let { x, y } = circleIntersection(t, l, b, r, radius);
          l = x;
          t = y;
-      } else {
+      } else if (startShape == "rectangle") {
          let { x, y } = rectIntersection(t, l, b, r, sb.width() / 2, sb.height() / 2);
+         l = x;
+         t = y;
+      } else if (startShape == "rhombus") {
+         let { x, y } = rhombusIntersection(l, t, r, b, sb.width() / 2, sb.height() / 2);
          l = x;
          t = y;
       }
@@ -40,8 +44,12 @@ export class StraightLine extends Container {
          let { x, y } = circleIntersection(b, r, t, l, radius);
          b = y;
          r = x;
-      } else {
+      } else if (endShape == "rectangle") {
          let { x, y } = rectIntersection(b, r, t, l, eb.width() / 2, eb.height() / 2);
+         b = y;
+         r = x;
+      } else if (endShape == "rhombus") {
+         let { x, y } = rhombusIntersection(r, b, l, t, eb.width() / 2, eb.height() / 2);
          b = y;
          r = x;
       }
@@ -86,6 +94,39 @@ function circleIntersection(t, l, b, r, radius) {
       x: l + (radius / d) * (r - l),
       y: t + (radius / d) * (b - t),
    };
+}
+
+function rhombusIntersection(x1, y1, x2, y2, halfw, halfh) {
+   if (x1 == x2) {
+      return {
+         x: x1,
+         y: y2 > y1 ? y1 + halfh : y1 - halfh,
+      };
+   }
+
+   if (y1 == y2) {
+      return {
+         y: y1,
+         x: x2 > x1 ? x1 + halfw : x1 - halfw,
+      };
+   }
+
+   const v1y = y1 > y2 ? y1 - halfh : y1 + halfh;
+   const v1x = x1;
+
+   const v2y = y1;
+   const v2x = x1 > x2 ? x1 - halfw : x1 + halfw;
+
+   const { x, y } = getLinesIntersectionPoint(v1x, v1y, v2x, v2y, x1, y1, x2, y2);
+
+   if (x === undefined || y === undefined) {
+      return {
+         x: x1,
+         y: y1,
+      };
+   }
+
+   return { x, y };
 }
 
 function rectIntersection(t, l, b, r, halfw, halfh) {
