@@ -69,6 +69,7 @@ export const CheckerLayout = ({ children, nav }) => (
             <NavItem text="Flow" icon="cog" href="~/components/flow" />
             <NavItem text="Rotate" icon="cog" href="~/components/rotate" />
             <NavItem text="FourSides" icon="cog" href="~/components/four-sides" />
+            <NavItem text="ArrowHead" icon="cog" href="~/components/arrow-head" />
 
             <div class="mt-4 px-6 py-3 text-gray-400 text-sm">Lines</div>
             <NavItem text="StraightLine" icon="cog" href="~/components/straight-line" />

@@ -63,6 +63,28 @@ export class ThreeSegmentLine extends Container {
          data.x1 = l;
          data.x2 = r;
       }
+
+      instance.lines = [
+         {
+            x1: l,
+            y1: t,
+            x2: data.x1,
+            y2: data.y1,
+         },
+         {
+            x1: data.x1,
+            y1: data.y1,
+            x2: data.x2,
+            y2: data.y2,
+         },
+         {
+            x1: data.x2,
+            y1: data.y2,
+            x2: r,
+            y2: b,
+         },
+      ];
+
       return new Rect({ t, r, b, l });
    }
 
@@ -70,10 +92,12 @@ export class ThreeSegmentLine extends Container {
       instance.bounds = this.calculateBounds(context, instance);
       if (!instance.bounds.isEqual(instance.cached.bounds)) instance.markShouldUpdate(context);
       context.push("parentRect", instance.bounds);
+      context.push("getLinesSegment", () => instance.lines);
    }
 
    prepareCleanup(context, instance) {
       context.pop("parentRect");
+      context.pop("getLinesSegment");
    }
 
    render(context, instance, key) {

@@ -63,6 +63,10 @@ export class TwoSegmentLine extends Container {
             b = data.y;
          }
       }
+      instance.lines = [
+         { x1: l, y1: data.y, x2: r, y2: data.y },
+         { x1: data.x, y1: t, x2: data.x, y2: b },
+      ];
       return new Rect({ t, r, b, l });
    }
 
@@ -70,10 +74,12 @@ export class TwoSegmentLine extends Container {
       instance.bounds = this.calculateBounds(context, instance);
       if (!instance.bounds.isEqual(instance.cached.bounds)) instance.markShouldUpdate(context);
       context.push("parentRect", instance.bounds);
+      context.push("getLinesSegment", () => instance.lines);
    }
 
    prepareCleanup(context, instance) {
       context.pop("parentRect");
+      context.pop("getLinesSegment");
    }
 
    render(context, instance, key) {

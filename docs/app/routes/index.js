@@ -19,6 +19,7 @@ import ThreeSegmentLine from './components/three-segment-line';
 
 import NetworkDiagram from './examples/network-diagram';
 import NeuralNetwork from './examples/neural-network';
+import ArrowHead from './components/arrow-head';
 
 export default () => (
    <cx>
@@ -28,7 +29,6 @@ export default () => (
                <SandboxedRoute route="~/">
                   <About />
                </SandboxedRoute>
-
                <SandboxedRoute route="~/components/diagram">
                   <Diagram />
                </SandboxedRoute>
@@ -71,6 +71,10 @@ export default () => (
 
                <SandboxedRoute route="~/examples/neural-network">
                   <NeuralNetwork />
+               </SandboxedRoute>
+
+               <SandboxedRoute route="~/components/arrow-head">
+                  <ArrowHead />
                </SandboxedRoute>
 
                <PageNotImplemented />

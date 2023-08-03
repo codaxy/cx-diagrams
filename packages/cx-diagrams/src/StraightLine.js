@@ -53,6 +53,7 @@ export class StraightLine extends Container {
          b = y;
          r = x;
       }
+      instance.lines = [{ y1: t, x1: l, y2: b, x2: r }];
       return new Rect({ t, r, b, l });
    }
 
@@ -60,10 +61,12 @@ export class StraightLine extends Container {
       instance.bounds = this.calculateBounds(context, instance);
       if (!instance.bounds.isEqual(instance.cached.bounds)) instance.markShouldUpdate(context);
       context.push("parentRect", instance.bounds);
+      context.push("getLinesSegment", () => instance.lines);
    }
 
    prepareCleanup(context, instance) {
       context.pop("parentRect");
+      context.pop("getLinesSegment");
    }
 
    render(context, instance, key) {
