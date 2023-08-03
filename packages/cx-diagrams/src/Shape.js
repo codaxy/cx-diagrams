@@ -58,6 +58,8 @@ export class Shape extends BoundedObject {
 
       if (this.onClick) gProps.onClick = (e) => instance.invoke("onClick", e, instance);
 
+      if (this.onDoubleClick) gProps.onDoubleClick = (e) => instance.invoke("onDoubleClick", e, instance);
+
       if (this.onContextMenu) gProps.onContextMenu = (e) => instance.invoke("onContextMenu", e, instance);
 
       if (this.tooltip) {

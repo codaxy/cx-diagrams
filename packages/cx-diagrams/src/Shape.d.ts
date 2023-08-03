@@ -13,8 +13,9 @@ export interface ShapeProps extends BoundedObjectProps {
    strokeWidth?: NumberProp;
    fill?: StringProp;
 
-   onContextMenu?: (e: MouseEvent, instance: Instance) => void;
-   onClick?: (e: MouseEvent, instance: Instance) => void;
+   onContextMenu?: string | ((e: MouseEvent, instance: Instance) => void);
+   onClick?: string | ((e: MouseEvent, instance: Instance) => void);
+   onDoubleClick?: string | ((e: MouseEvent, instance: Instance) => void);
 }
 
 export class Shape extends Widget<ShapeProps> {}
