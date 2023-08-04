@@ -62,12 +62,9 @@ export class ArrowHead extends BoundedObject {
             const angleRadians = Math.atan2(line.x2 - line.x1, line.y2 - line.y1);
             const angleDegrees = -angleRadians * (180 / Math.PI);
 
-            arrowX = midX + offsetX;
-            arrowY = midY - offsetY;
-
             arrowPositions.push({
-               x: arrowX,
-               y: arrowY,
+               x: midX + offsetX,
+               y: midY - offsetY,
                angle: angleDegrees,
             });
          }
