@@ -54,8 +54,14 @@ export default (
                            </Cell>
                         </Flow>
                      </Flow>
-                     <StraightLine from="2" to="3" stroke="black">
-                        <ArrowHead position="middle" fill="currentColor" style="font-size: 15px" size={10} />
+                     <StraightLine from="1" to="3" stroke="black">
+                        <ArrowHead
+                           shapeType="triangle"
+                           position="middle"
+                           stroke="red"
+                           style="font-size: 15px"
+                           size={15}
+                        />
                      </StraightLine>
                   </Diagram>
                </Svg>

@@ -5,6 +5,7 @@ export class ArrowHead extends BoundedObject {
    declareData() {
       return super.declareData(...arguments, {
          position: undefined,
+         shapeType: undefined,
          fill: undefined,
          size: undefined,
          width: undefined,
@@ -38,10 +39,20 @@ export class ArrowHead extends BoundedObject {
          const angleRadians = Math.atan2(line.x2 - line.x1, line.y2 - line.y1);
          const angleDegrees = -angleRadians * (180 / Math.PI);
 
+         let x;
+         let y;
+         if (position === "start") {
+            x = line.x1 + (size / length) * dx;
+            y = line.y1 + (size / length) * dy;
+         } else {
+            x = line.x2;
+            y = line.y2;
+         }
+
          return [
             {
-               x: line.x1 + (size / length) * dx,
-               y: line.y1 + (size / length) * dy,
+               x,
+               y,
                angle: angleDegrees,
             },
          ];
@@ -75,23 +86,25 @@ export class ArrowHead extends BoundedObject {
       return [];
    }
 
+   getPathDefinition(shapeType, x, y, size, halfWidth) {
+      switch (shapeType) {
+         case "triangle":
+            return `M${x},${y} L${x - 0.5 * size},${y - 0.5 * size} L${x},${y - 0.4 * size} L${x + 0.5 * size},${
+               y - 0.5 * size
+            } L${x},${y}`;
+
+         default:
+            return `M${x},${y} L${x - size + halfWidth},${y - size} L${x + size - halfWidth},${y - size} Z`;
+      }
+   }
+
    render(context, instance, key) {
       const { data } = instance;
-
       const positions = this.calculatePositions(context, instance);
-      const halfWidth = data.width / 2;
 
       const lines = positions.map((p, index) => {
-         return (
-            <path
-               key={index}
-               d={`M${p.x},${p.y} L${p.x - data.size + halfWidth},${p.y - data.size} L${p.x + data.size - halfWidth},${
-                  p.y - data.size
-               } Z`}
-               fill="currentColor"
-               transform={`rotate(${p.angle} ${p.x} ${p.y})`}
-            />
-         );
+         const path = this.getPathDefinition(data.shapeType, p.x, p.y, data.size, data.width / 2);
+         return <path key={index} d={path} fill="currentColor" transform={`rotate(${p.angle} ${p.x} ${p.y})`} />;
       });
 
       return lines;

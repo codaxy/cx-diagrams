@@ -12,6 +12,7 @@ import { Pad } from '../../../components/Pad';
 import { Split } from '../../../components/Split';
 import config from '../../../config/ThreeSegmentLine';
 import Controller from './Controller';
+import { ArrowHead } from '../../../../../packages/cx-diagrams/src/ArrowHead';
 
 export default (
    <cx>
