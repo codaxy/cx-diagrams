@@ -3,10 +3,10 @@ import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
 import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
 import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
 import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
-import Controller from './Controller';
 
 import { ArrowHead } from '../../../../../packages/cx-diagrams/src/ArrowHead';
 import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
+import { ThreeSegmentLine } from '../../../../../packages/cx-diagrams/src/ThreeSegmentLine';
 import { CodeSnippet } from '../../../components/CodeSnippet';
 import { ConfigTable } from '../../../components/ConfigTable';
 import { ImportPath } from '../../../components/ImportPath';
@@ -14,11 +14,10 @@ import { Md } from '../../../components/Md';
 import { Pad } from '../../../components/Pad';
 import { Split } from '../../../components/Split';
 import config from '../../../config/ArrowHead';
-import { ThreeSegmentLine } from '../../../../../packages/cx-diagrams/src/ThreeSegmentLine';
 
 export default (
    <cx>
-      <div class="bg-gray-50 overflow-auto" controller={Controller}>
+      <div class="bg-gray-50 overflow-auto">
          <Split>
             <Pad>
                {/* prettier-ignore */}
