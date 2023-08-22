@@ -13,7 +13,8 @@ import { ImportPath } from '../../../components/ImportPath';
 import { Md } from '../../../components/Md';
 import { Pad } from '../../../components/Pad';
 import { Split } from '../../../components/Split';
-import config from '../../../config/Diagram';
+import config from '../../../config/ArrowHead';
+import { ThreeSegmentLine } from '../../../../../packages/cx-diagrams/src/ThreeSegmentLine';
 
 export default (
    <cx>
@@ -25,44 +26,90 @@ export default (
                 # ArrowHead 
 
                 <ImportPath path='import { ArrowHead } from "cx-diagrams"' />
-
-                Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...
-                 Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...Text...
-                
+               The Arrow Head component is a child element for StraightLine, TwoSegmentLine, and ThreeSegmentLine components, adding arrow heads to line ends for visual directionality cues.
                 </Md>
             </Pad>
          </Split>
          <Split>
             {/* prettier-ignore */}
             <CodeSnippet class="border-b border-t h-[400px] overflow-auto" >{`
-           Code here
+               <Svg class="w-auto h-full bg-white">
+                  <Diagram unitSize={32} showGrid center>
+                     <Flow direction="down">
+                        <Flow direction="down" gap={4}>
+                           <Flow gap={5}>
+                              <Cell width={3}>
+                                 <Shape id="scm" text="SCM" shapeClass="fill-green-300 stroke-green-800" />
+                              </Cell>
+                              <Cell width={3}>
+                                 <Shape id="ghw" shapeClass="fill-green-300 stroke-green-800" text="GIT Webhook" />
+                              </Cell>
+                           </Flow>
+                           <Flow gap={2}>
+                              <Cell width={3}>
+                                 <Shape id="docker" text="Docker Build" shapeClass="fill-green-300 stroke-green-800" />
+                              </Cell>
+                              <Cell width={3}>
+                                 <Shape id="publish" text="Publish Image" shapeClass="fill-red-300 stroke-red-800" />
+                              </Cell>
+                              <Cell width={3}>
+                                 <Shape id="run" text="Run app" shapeClass="stroke-red-800" />
+                              </Cell>
+                           </Flow>
+                        </Flow>
+                     </Flow>
+
+                     <StraightLine from="scm" to="ghw" stroke="black">
+                        <ArrowHead position="end" fill="black" size={8} />
+                     </StraightLine>
+                     <ThreeSegmentLine direction="down" from="ghw" to="docker" stroke="black">
+                        <ArrowHead position="end" fill="black" size={8} />
+                     </ThreeSegmentLine>
+                     <StraightLine from="docker" to="publish" stroke="black">
+                        <ArrowHead type="opened" position="end" stroke="black" size={10} />
+                     </StraightLine>
+                     <StraightLine from="publish" to="run" stroke="black" />
+                  </Diagram>
+               </Svg>
             `}</CodeSnippet>
 
             <div class="h-[500px] xl:h-full xl:border-t border-b relative" putInto="right">
                <Svg class="w-auto h-full bg-white">
                   <Diagram unitSize={32} showGrid center>
-                     <Flow gap={5}>
-                        <Cell width={2}>
-                           <Shape id="1" stroke="red" fill="white" text="Red" />
-                        </Cell>
-                        <Flow direction="down" gap={2}>
-                           <Cell width={2}>
-                              <Shape id="2" stroke="blue" fill="white" text="Blue" />
-                           </Cell>
-                           <Cell width={2}>
-                              <Shape id="3" stroke="green" fill="white" text="Green" />
-                           </Cell>
+                     <Flow direction="down">
+                        <Flow direction="down" gap={4}>
+                           <Flow gap={5}>
+                              <Cell width={3}>
+                                 <Shape id="scm" text="SCM" shapeClass="fill-green-300 stroke-green-800" />
+                              </Cell>
+                              <Cell width={3}>
+                                 <Shape id="ghw" shapeClass="fill-green-300 stroke-green-800" text="GIT Webhook" />
+                              </Cell>
+                           </Flow>
+                           <Flow gap={2}>
+                              <Cell width={3}>
+                                 <Shape id="docker" text="Docker Build" shapeClass="fill-green-300 stroke-green-800" />
+                              </Cell>
+                              <Cell width={3}>
+                                 <Shape id="publish" text="Publish Image" shapeClass="fill-red-300 stroke-red-800" />
+                              </Cell>
+                              <Cell width={3}>
+                                 <Shape id="run" text="Run app" shapeClass="stroke-red-800" />
+                              </Cell>
+                           </Flow>
                         </Flow>
                      </Flow>
-                     <StraightLine from="1" to="3" stroke="black">
-                        <ArrowHead
-                           shapeType="triangle"
-                           position="middle"
-                           stroke="red"
-                           style="font-size: 15px"
-                           size={15}
-                        />
+
+                     <StraightLine from="scm" to="ghw" stroke="black">
+                        <ArrowHead position="end" fill="black" size={7} />
                      </StraightLine>
+                     <ThreeSegmentLine direction="down" from="ghw" to="docker" stroke="black">
+                        <ArrowHead position="end" fill="black" size={7} />
+                     </ThreeSegmentLine>
+                     <StraightLine from="docker" to="publish" stroke="black">
+                        <ArrowHead type="opened" position="end" stroke="black" size={7} />
+                     </StraightLine>
+                     <StraightLine from="publish" to="run" stroke="black" />
                   </Diagram>
                </Svg>
             </div>
