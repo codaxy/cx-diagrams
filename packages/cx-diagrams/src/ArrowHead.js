@@ -27,8 +27,8 @@ export class ArrowHead extends BoundedObject {
       const { data } = instance;
       const { position, size } = data;
 
-      if (data.lines.length === 0) {
-         throw new Error("Arrow Head must have at least one parent line");
+      if (!data.lines || data.lines.length === 0) {
+         throw new Error("Arrow Head must have parent line");
       }
 
       if (position === "start" || position === "end") {
