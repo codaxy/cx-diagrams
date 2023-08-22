@@ -5,9 +5,10 @@ export class ArrowHead extends BoundedObject {
    declareData() {
       return super.declareData(...arguments, {
          position: undefined,
-         shapeType: undefined,
+         type: undefined,
          fill: undefined,
          size: undefined,
+         stroke: undefined,
          width: undefined,
       });
    }
@@ -86,15 +87,16 @@ export class ArrowHead extends BoundedObject {
       return [];
    }
 
-   getPathDefinition(shapeType, x, y, size, halfWidth) {
-      switch (shapeType) {
+   getPathDefinition(type, x, y, size) {
+      switch (type) {
          case "triangle":
-            return `M${x},${y} L${x - 0.5 * size},${y - 0.5 * size} L${x},${y - 0.4 * size} L${x + 0.5 * size},${
-               y - 0.5 * size
-            } L${x},${y}`;
+            return `M${x},${y} L${x - size},${y - size} L${x},${y - 0.5 * size} L${x + size},${y - size} L${x},${y} Z`;
+
+         case "opened":
+            return `M${x},${y} L${x - size},${y - size} L${x},${y} L${x + size},${y - size} L${x},${y} Z`;
 
          default:
-            return `M${x},${y} L${x - size + halfWidth},${y - size} L${x + size - halfWidth},${y - size} Z`;
+            return `M${x},${y} L${x - size},${y - size} L${x + size},${y - size} Z`;
       }
    }
 
@@ -102,9 +104,26 @@ export class ArrowHead extends BoundedObject {
       const { data } = instance;
       const positions = this.calculatePositions(context, instance);
 
+      const arrowHeadProps = {
+         className: this.CSS.expand(this.CSS.element(this.baseClass, "arrow-head"), data.class),
+         style: data.style,
+         fill: data.fill,
+         stroke: data.stroke,
+         strokeWidth: data.strokeWidth,
+      };
+
       const lines = positions.map((p, index) => {
-         const path = this.getPathDefinition(data.shapeType, p.x, p.y, data.size, data.width / 2);
-         return <path key={index} d={path} fill="currentColor" transform={`rotate(${p.angle} ${p.x} ${p.y})`} />;
+         const path = this.getPathDefinition(data.type, p.x, p.y, data.size);
+         return (
+            <path
+               key={index}
+               d={path}
+               fill="currentColor"
+               stroke="currentColor"
+               {...arrowHeadProps}
+               transform={`rotate(${p.angle} ${p.x} ${p.y})`}
+            />
+         );
       });
 
       return lines;
@@ -113,4 +132,3 @@ export class ArrowHead extends BoundedObject {
 
 ArrowHead.prototype.baseClass = "arrow-head";
 ArrowHead.prototype.size = 12;
-ArrowHead.prototype.width = 10;
