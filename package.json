@@ -1,5 +1,5 @@
 {
-  "name": "cx-diagrams",
+  "name": "cx-diagrams-ws",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -13,5 +13,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "workspaces": ["docs", "packages/cx-diagrams"]
+  "workspaces": [
+    "docs",
+    "packages/cx-diagrams"
+  ]
 }

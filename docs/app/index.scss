@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $cx-include-global-rules: false;
 $cx-default-icon-size: 16px;
 
@@ -63,6 +65,10 @@ body {
 }
 
 @import '~cx/src/variables';
+
+@function cx-divide($a, $b) {
+   @return math.div($a, $b);
+}
 
 @import './manifest.scss';
 
@@ -259,7 +265,7 @@ $cx-dropdown-styles: cx-deep-map-merge(
 
 .cxe-window-shadow {
    animation: shadow-fade-in 1s linear forwards;
-   background: rgba(0, 0, 0, 0.35s);
+   background: rgba(0, 0, 0, 0.35);
 }
 
 @keyframes shadow-fade-in {

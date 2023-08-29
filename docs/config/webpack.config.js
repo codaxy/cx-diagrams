@@ -67,10 +67,7 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
             },
             {
                test: /\.(png|jpg|svg)$/,
-               loader: 'file-loader',
-               options: {
-                  name: '[name].ltc.[hash].[ext]',
-               },
+               type: 'asset',
             },
          ],
       },
