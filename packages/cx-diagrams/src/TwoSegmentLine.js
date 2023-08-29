@@ -74,12 +74,12 @@ export class TwoSegmentLine extends Container {
       instance.bounds = this.calculateBounds(context, instance);
       if (!instance.bounds.isEqual(instance.cached.bounds)) instance.markShouldUpdate(context);
       context.push("parentRect", instance.bounds);
-      context.push("getLinesSegment", () => instance.lines);
+      context.push("getLineSegments", () => instance.lines);
    }
 
    prepareCleanup(context, instance) {
       context.pop("parentRect");
-      context.pop("getLinesSegment");
+      context.pop("getLineSegments");
    }
 
    render(context, instance, key) {

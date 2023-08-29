@@ -2,14 +2,16 @@ import { BoundedObject } from "cx/svg";
 import { VDOM } from "cx/ui";
 
 export class ArrowHead extends BoundedObject {
-   declareData() {
-      return super.declareData(...arguments, {
+   declareData(...args) {
+      return super.declareData(...args, {
          position: undefined,
-         type: undefined,
+         shape: undefined,
          fill: undefined,
          size: undefined,
          stroke: undefined,
          width: undefined,
+         aspectRatio: undefined,
+         reverse: undefined,
       });
    }
 
@@ -19,8 +21,7 @@ export class ArrowHead extends BoundedObject {
 
    prepare(context, instance) {
       let { data } = instance;
-
-      data.lines = context.getLinesSegment();
+      data.lines = context.getLineSegments();
    }
 
    calculatePositions(context, instance) {
@@ -28,12 +29,24 @@ export class ArrowHead extends BoundedObject {
       const { position, size } = data;
 
       if (!data.lines || data.lines.length === 0) {
-         throw new Error("Arrow Head must have parent line");
+         throw new Error("ArrowHead must be placed inside a Line component.");
+      }
+
+      let lines = data.lines;
+      if (data.reverse) {
+         lines = data.lines
+            .map((l) => ({
+               x1: l.x2,
+               x2: l.x1,
+               y2: l.y1,
+               y1: l.y2,
+            }))
+            .reverse();
       }
 
       if (position === "start" || position === "end") {
-         const lineIndex = position === "start" ? 0 : data.lines.length - 1;
-         const line = data.lines[lineIndex];
+         const lineIndex = position === "start" ? 0 : lines.length - 1;
+         const line = lines[lineIndex];
          const dx = line.x2 - line.x1;
          const dy = line.y2 - line.y1;
          const length = Math.sqrt(dx * dx + dy * dy);
@@ -60,7 +73,7 @@ export class ArrowHead extends BoundedObject {
       } else if (position === "middle") {
          const arrowPositions = [];
 
-         for (const line of data.lines) {
+         for (const line of lines) {
             const midX = (line.x1 + line.x2) / 2;
             const midY = (line.y1 + line.y2) / 2;
 
@@ -87,16 +100,21 @@ export class ArrowHead extends BoundedObject {
       return [];
    }
 
-   getPathDefinition(type, x, y, size) {
-      switch (type) {
-         case "triangle":
-            return `M${x},${y} L${x - size},${y - size} L${x},${y - 0.5 * size} L${x + size},${y - size} L${x},${y} Z`;
+   getPathDefinition(shape, x, y, size, aspectRatio) {
+      switch (shape) {
+         case "vback":
+            return `M${x},${y} L${x - size / aspectRatio / 2},${y - size} L${x},${y - 0.5 * size} L${
+               x + size / aspectRatio / 2
+            },${y - size} L${x},${y} Z`;
 
-         case "opened":
-            return `M${x},${y} L${x - size},${y - size} L${x},${y} L${x + size},${y - size} L${x},${y} Z`;
+         case "line":
+            return `M${x},${y} L${x - size / aspectRatio / 2},${y - size} L${x},${y} L${x + size / aspectRatio / 2},${
+               y - size
+            } L${x},${y} Z`;
 
          default:
-            return `M${x},${y} L${x - size},${y - size} L${x + size},${y - size} Z`;
+         case "triangle":
+            return `M${x},${y} L${x - size / aspectRatio / 2},${y - size} L${x + size / aspectRatio / 2},${y - size} Z`;
       }
    }
 
@@ -113,17 +131,8 @@ export class ArrowHead extends BoundedObject {
       };
 
       const lines = positions.map((p, index) => {
-         const path = this.getPathDefinition(data.type, p.x, p.y, data.size);
-         return (
-            <path
-               key={index}
-               d={path}
-               fill="currentColor"
-               stroke="currentColor"
-               {...arrowHeadProps}
-               transform={`rotate(${p.angle} ${p.x} ${p.y})`}
-            />
-         );
+         const path = this.getPathDefinition(data.shape, p.x, p.y, data.size, data.aspectRatio);
+         return <path key={index} d={path} {...arrowHeadProps} transform={`rotate(${p.angle} ${p.x} ${p.y})`} />;
       });
 
       return lines;
@@ -132,3 +141,7 @@ export class ArrowHead extends BoundedObject {
 
 ArrowHead.prototype.baseClass = "arrow-head";
 ArrowHead.prototype.size = 12;
+ArrowHead.prototype.styled = true;
+ArrowHead.prototype.aspectRatio = 1;
+ArrowHead.prototype.reverse = false;
+ArrowHead.prototype.shape = "triangle";
