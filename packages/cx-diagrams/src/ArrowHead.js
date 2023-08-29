@@ -145,3 +145,4 @@ ArrowHead.prototype.styled = true;
 ArrowHead.prototype.aspectRatio = 1;
 ArrowHead.prototype.reverse = false;
 ArrowHead.prototype.shape = "triangle";
+ArrowHead.prototype.position = "end";

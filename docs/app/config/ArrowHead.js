@@ -17,7 +17,7 @@ export default {
       key: true,
       description: (
          <cx>
-            <Md>Available positions are `start`, `middle` and `end`.</Md>
+            <Md>Available positions are `start`, `middle` and `end`. Default is `end`.</Md>
          </cx>
       ),
    },

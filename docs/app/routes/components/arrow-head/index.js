@@ -58,17 +58,17 @@ export default (
                     </Flow>
                 </Flow>
                 <StraightLine from="scm" to="ghw" stroke="black">
-                    <ArrowHead position="end" size={7} class="fill-red-600 stroke-black" />
+                    <ArrowHead size={7} class="fill-red-600 stroke-black" />
                 </StraightLine>
                 <ThreeSegmentLine direction="down" from="ghw" to="docker" stroke="black">
                     <ArrowHead position="middle" stroke="black" fill="white" size={7} />
                 </ThreeSegmentLine>
                 <StraightLine from="docker" to="publish" stroke="black">
-                    <ArrowHead shape="line" position="end" stroke="black" size={7} />
+                    <ArrowHead shape="line" stroke="black" size={7} />
                 </StraightLine>
                 <StraightLine from="publish" to="run" stroke="black">
-                    <ArrowHead position="end" fill="black" size={10} shape="vback" />
-                    <ArrowHead position="end" fill="black" size={10} reverse shape="vback" />
+                    <ArrowHead fill="black" size={10} shape="vback" />
+                    <ArrowHead fill="black" size={10} reverse shape="vback" />
                 </StraightLine>
               </Diagram>
             </Svg>
@@ -101,17 +101,17 @@ export default (
                         </Flow>
                      </Flow>
                      <StraightLine from="scm" to="ghw" stroke="black">
-                        <ArrowHead position="end" size={7} class="fill-red-600 stroke-black" />
+                        <ArrowHead size={7} class="fill-red-600 stroke-black" />
                      </StraightLine>
                      <ThreeSegmentLine direction="down" from="ghw" to="docker" stroke="black">
                         <ArrowHead position="middle" stroke="black" fill="white" size={7} />
                      </ThreeSegmentLine>
                      <StraightLine from="docker" to="publish" stroke="black">
-                        <ArrowHead shape="line" position="end" stroke="black" size={7} />
+                        <ArrowHead shape="line" stroke="black" size={7} />
                      </StraightLine>
                      <StraightLine from="publish" to="run" stroke="black">
-                        <ArrowHead position="end" fill="black" size={10} shape="vback" />
-                        <ArrowHead position="end" fill="black" size={10} reverse shape="vback" />
+                        <ArrowHead fill="black" size={10} shape="vback" />
+                        <ArrowHead fill="black" size={10} reverse shape="vback" />
                      </StraightLine>
                   </Diagram>
                </Svg>
