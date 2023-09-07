@@ -1,7 +1,6 @@
-import { BoundedObject } from "cx/svg";
-import { VDOM } from "cx/ui";
+import { Container, VDOM } from "cx/ui";
 
-export class ArrowHead extends BoundedObject {
+export class ArrowHead extends Container {
    declareData(...args) {
       return super.declareData(...args, {
          position: undefined,
@@ -13,10 +12,6 @@ export class ArrowHead extends BoundedObject {
          aspectRatio: undefined,
          reverse: undefined,
       });
-   }
-
-   explore(context, instance) {
-      super.explore(context, instance);
    }
 
    prepare(context, instance) {
