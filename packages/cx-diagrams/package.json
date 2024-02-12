@@ -1,6 +1,6 @@
 {
   "name": "cx-diagrams",
-  "version": "23.8.2",
+  "version": "24.2.0",
   "description": "A library for creating diagrams within CxJS applications",
   "main": "src/index.js",
   "scripts": {
