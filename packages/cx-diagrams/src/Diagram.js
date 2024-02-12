@@ -43,9 +43,7 @@ export class Diagram extends BoundedObject {
 
    exploreCleanup(context, instance) {
       context.pop("diagram");
-   }
 
-   prepare(context, instance) {
       let r2 = 0;
       let c2 = 0;
       let r1 = 0;
@@ -70,7 +68,9 @@ export class Diagram extends BoundedObject {
             box.col += dc;
          }
       }
+   }
 
+   prepare(context, instance) {
       super.prepare(context, instance);
       context.push("diagram", instance.diagramState);
    }

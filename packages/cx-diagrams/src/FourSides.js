@@ -59,10 +59,11 @@ export class FourSides extends Node {
                child.box.row = -child.box.height / 2;
                width += child.box.width + gap;
                break;
+
             case "left":
                child.box.col = -innerWidth / 2 - child.box.width - gap;
                child.box.row = -child.box.height / 2;
-               width += child.box.width;
+               width += child.box.width + gap;
                col -= child.box.width + gap;
                break;
 
@@ -82,8 +83,8 @@ export class FourSides extends Node {
       }
 
       instance.box = {
-         row,
-         col,
+         row: 0,
+         col: 0,
          width,
          height,
          ml,
@@ -94,7 +95,31 @@ export class FourSides extends Node {
          me,
       };
 
+      // Position everything at point (0, 0)
+      for (let i = 0; i < nodes.length; i++) {
+         let child = nodes[i];
+         if (!child.box) continue;
+         child.box.col -= col;
+         child.box.row -= row;
+      }
+
       super.exploreCleanup(context, instance);
+   }
+
+   prepare(context, instance) {
+      let { box, nodes } = instance;
+
+      // Reposition child components if the component has been repositioned from the outside
+      if (box.col != 0 || box.row != 0) {
+         for (let i = 0; i < nodes.length; i++) {
+            let child = nodes[i];
+            if (!child.box) continue;
+            child.box.col += box.col;
+            child.box.row += box.row;
+         }
+      }
+
+      super.prepare(context, instance);
    }
 }
 
