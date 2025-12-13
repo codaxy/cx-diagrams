@@ -1,0 +1,71 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: TwoSegmentLine
+---
+
+import Split from "../../components/Split.astro";
+import Pad from "../../components/Pad.astro";
+import ImportPath from "../../components/ImportPathWrapper.tsx";
+import ConfigTable from "../../components/ConfigTable.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import TwoSegmentLineExample from "../../diagrams/TwoSegmentLineExample.tsx";
+import config from "../../config/TwoSegmentLine";
+
+export const code = `<Diagram unitSize={64} center showGrid>
+    <Flow gap={1} align="center">
+        <Cell>
+            <Shape fill="lightgray" text="1" id="1" />
+        </Cell>
+        <Flow direction="down" gap={1}>
+            <Cell>
+                <Shape fill="lightgray" text="2" id="2" />
+            </Cell>
+            <Cell>
+                <Shape fill="lightgray" text="3" id="3" />
+            </Cell>
+            <Cell>
+                <Shape fill="lightgray" text="4" id="4" />
+            </Cell>
+        </Flow>
+        <Cell>
+            <Shape fill="lightgray" text="5" id="5" />
+        </Cell>
+        <TwoSegmentLine from="1" to="2" stroke="black" direction="up">
+            <Shape anchors="0 0 0 0" margin={-3} shape="circle" fill="white" stroke="blue" />
+            <Shape anchors="1 1 1 1" margin={-3} shape="circle" fill="white" stroke="blue" />
+        </TwoSegmentLine>
+        <TwoSegmentLine from="1" to="3" stroke="black">
+            <Shape anchors="0 0 0 0" margin={-3} shape="circle" fill="white" stroke="blue" />
+            <Shape anchors="1 1 1 1" margin={-3} shape="circle" fill="white" stroke="blue" />
+        </TwoSegmentLine>
+        ...
+    </Flow>
+</Diagram>`;
+
+<Split>
+  <Pad>
+    <article class="prose">
+      # TwoSegmentLine
+
+      <ImportPath path='import { TwoSegmentLine } from "cx-diagrams"' client:load />
+
+      The `TwoSegmentLine` component is used to connect shapes with horizontal and vertical line segments.
+    </article>
+  </Pad>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="border-b border-t py-4 max-h-[500px] overflow-auto" />
+  <div slot="right" class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative">
+    <TwoSegmentLineExample client:load />
+  </div>
+</Split>
+
+<Split>
+  <Pad class="pb-0">
+    <article class="prose">
+      ## Configuration
+    </article>
+  </Pad>
+  <ConfigTable config={config} />
+</Split>

@@ -1,0 +1,111 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: FourSides
+---
+
+import Split from "../../components/Split.astro";
+import Pad from "../../components/Pad.astro";
+import ImportPath from "../../components/ImportPathWrapper.tsx";
+import ConfigTable from "../../components/ConfigTable.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import FourSidesExample from "../../diagrams/FourSidesExample.tsx";
+import config from "../../config/FourSides";
+
+export const code = `<Diagram center showGrid>
+    <FourSides
+        slots={computable('$page.order', (order) => {
+            switch (order) {
+                case 0:
+                    return ['center', 'right', 'down', 'left', 'up'];
+                case 1:
+                    return ['center', 'down', 'left', 'up', 'right'];
+                case 2:
+                    return ['center', 'left', 'up', 'right', 'down'];
+                case 3:
+                    return ['center', 'up', 'right', 'down', 'left'];
+            }
+        })}
+    >
+        <Cell width={2} height={2}>
+            <Shape text="center" fill="lightgreen" />
+        </Cell>
+        <Flow gap={0.5} p={0.5} align="center">
+            <Rectangle stroke="red" />
+            <Cell>
+                <Shape fill="lightgray" text="1" />
+            </Cell>
+            <Cell>
+                <Shape fill="lightgray" text="2" />
+            </Cell>
+            <Cell w={2} h={2}>
+                <Shape fill="lightgray" text="3" />
+            </Cell>
+        </Flow>
+        <Flow direction="down" gap={0.5} p={0.5} align="center">
+            <Rectangle stroke="red" />
+            <Cell>
+                <Shape fill="lightgray" text="1" />
+            </Cell>
+            <Cell>
+                <Shape fill="lightgray" text="2" />
+            </Cell>
+            <Cell w={2} h={2}>
+                <Shape fill="lightgray" text="3" />
+            </Cell>
+        </Flow>
+
+        <Flow direction="left" gap={0.5} p={0.5} align="center">
+            <Rectangle stroke="red" />
+            <Cell>
+                <Shape fill="lightgray" text="1" />
+            </Cell>
+            <Cell>
+                <Shape fill="lightgray" text="2" />
+            </Cell>
+            <Cell w={2} h={2}>
+                <Shape fill="lightgray" text="3" />
+            </Cell>
+        </Flow>
+
+        <Flow direction="up" gap={0.5} p={0.5} align="center">
+            <Rectangle stroke="red" />
+            <Cell>
+                <Shape fill="lightgray" text="1" />
+            </Cell>
+            <Cell>
+                <Shape fill="lightgray" text="2" />
+            </Cell>
+            <Cell w={2} h={2}>
+                <Shape fill="lightgray" text="3" />
+            </Cell>
+        </Flow>
+    </FourSides>
+</Diagram>`;
+
+<Split>
+  <Pad>
+    <article class="prose">
+      # FourSides
+
+      <ImportPath path='import { FourSides } from "cx-diagrams"' client:load />
+
+      The `FourSides` component is used to lay out diagram components into four directions. This is commonly used in combination with [`Rotate`](/components/rotate) to assemble the parts into a single structure.
+    </article>
+  </Pad>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="border-b border-t py-4 h-[500px] overflow-auto" />
+  <div slot="right" class="h-[400px] xl:h-full border-t border-b relative">
+    <FourSidesExample client:load />
+  </div>
+</Split>
+
+<Split>
+  <Pad class="pb-0">
+    <article class="prose">
+      ## Configuration
+    </article>
+  </Pad>
+  <ConfigTable config={config} />
+</Split>

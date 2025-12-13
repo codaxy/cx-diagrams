@@ -1,11 +1,11 @@
 import { Rectangle, Svg, Text } from 'cx/svg';
 import { computable } from 'cx/ui';
 import { Label, Radio } from 'cx/widgets';
-import { FourSides } from '../../../../../packages/cx-diagrams/src/FourSides';
-import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
-import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
-import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
-import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
+import { FourSides } from 'cx-diagrams/FourSides';
+import { Cell } from 'cx-diagrams/Cell';
+import { Diagram } from 'cx-diagrams/Diagram';
+import { Flow } from 'cx-diagrams/Flow';
+import { Shape } from 'cx-diagrams/Shape';
 import { CodeSnippet } from '../../../components/CodeSnippet';
 import { ConfigTable } from '../../../components/ConfigTable';
 import { ImportPath } from '../../../components/ImportPath';

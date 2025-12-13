@@ -1,0 +1,483 @@
+@use "sass:math";
+
+// CxJS Variables
+$cx-include-global-rules: false;
+$cx-default-icon-size: 16px;
+
+$cx-default-slider-handle-size: 20px;
+$cx-default-progressbar-height: 10px;
+
+$cx-tooltip-background-color: #222;
+$cx-tooltip-color: white;
+$cx-tooltip-border-radius: 8px;
+$cx-tooltip-padding: 8px 16px;
+$cx-tooltip-background-color-error: #dc2626;
+
+$cx-default-label-font-weight: inherit;
+
+$cx-default-input-width: 210px;
+
+$cx-default-box-padding: 8px;
+$cx-default-box-font-size: 14px;
+$cx-default-box-line-height: 20px;
+$cx-default-font-size: 14px;
+$cx-default-border-color: rgb(209, 213, 219);
+$cx-default-border-radius: 3px;
+
+$cx-default-list-item-padding: 8px 12px;
+
+$cx-default-switch-range-background-color: #1f99f8;
+
+$cx-default-grid-data-padding: 8px 16px;
+$cx-default-grid-header-font-weight: 700;
+$cx-default-grid-header-font-size: 11px;
+$cx-default-grid-header-background-color: rgba(#eee, 0.25) !default;
+$cx-default-grid-header-color: rgba(black, 0.6);
+$cx-default-grid-border-color: rgb(237, 242, 247);
+$cx-default-grid-header-border-color: #ddd;
+
+$cx-default-window-footer-background-color: transparent;
+$cx-default-window-header-background-color: transparent;
+$cx-default-window-background-color: white;
+$cx-default-window-header-padding: 12px 12px 12px 24px;
+$cx-default-window-footer-padding: 16px 24px;
+
+$cx-default-checkbox-size: 16px;
+$cx-default-radio-size: 16px;
+
+$cx-default-palette-colors: #ef4444 #ea580c #f59e0b #65a30d #16a34a #14b8a6
+  #06b6d4 #0ea5e9 #2563eb #6366f1 #8b5cf6 #a855f7 #d946ef #ec4899 #f43f5e !default;
+
+$cx-default-palette-fill-whiten: 20%;
+$cx-default-palette-fill-blacken: 0%;
+$cx-default-palette-stroke-whiten: 0%;
+$cx-default-palette-stroke-blacken: 0%;
+
+$cx-grid-pagination-default-outer-border-radius: 6px;
+$cx-grid-pagination-default-border-radius: 6px;
+
+html {
+  font-weight: 500;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+@import "cx/src/variables";
+
+@function cx-divide($a, $b) {
+  @return math.div($a, $b);
+}
+
+// CxJS style customizations
+$cx-tab-state-style-map: cx-deep-map-merge(
+  $cx-tab-state-style-map,
+  (
+    default: (
+      font-weight: 600,
+    ),
+    selected: (
+      font-weight: null,
+    ),
+    cursor: (
+      font-weight: null,
+    ),
+    selected-cursor: (
+      font-weight: null,
+    ),
+  )
+);
+
+$cx-link-state-style-map: (
+  active: (
+    font-weight: null,
+  ),
+);
+
+$cx-std-field-state-style-map: cx-deep-map-merge(
+  $cx-std-field-state-style-map,
+  (
+    default: (
+      font-weight: inherit,
+      border-radius: 8px,
+      padding: 8px 10px,
+      color: inherit,
+    ),
+    focus: (
+      border-color: rgb(77, 144, 254),
+      box-shadow: 0 0 0 1px rgba(77, 144, 254, 0.8),
+    ),
+    error: (
+      border-color: #dc2626,
+      box-shadow: 0 0 0 1px rgba(#dc2626, 0.8),
+    ),
+    error-focus: (
+      border-color: #f59e0b,
+      box-shadow: 0 0 0 1px rgba(#f59e0b, 0.8),
+    ),
+  )
+);
+
+$cx-textarea-state-style-map: cx-deep-map-merge(
+  $cx-textarea-state-style-map,
+  (
+    default: (
+      font-weight: inherit,
+      border-radius: 8px,
+      padding: 8px 10px,
+      color: inherit,
+    ),
+    focus: (
+      border-color: rgb(77, 144, 254),
+      box-shadow: 0 0 0 1px rgba(77, 144, 254, 0.8),
+    ),
+    error: (
+      border-color: #dc2626,
+      box-shadow: 0 0 0 1px rgba(#dc2626, 0.8),
+    ),
+    error-focus: (
+      border-color: #f59e0b,
+      box-shadow: 0 0 0 1px rgba(#f59e0b, 0.8),
+    ),
+  )
+);
+
+$cx-button-state-style-map: cx-deep-map-merge(
+  $cx-button-state-style-map,
+  (
+    default: (
+      font-weight: inherit,
+      border-radius: 6px,
+      background-color: #f4f4f4,
+    ),
+  )
+);
+
+$cx-list-item: cx-deep-map-merge(
+  $cx-list-item,
+  (
+    hover: (
+      background-color: #f3f4f6,
+    ),
+    cursor: (
+      background-color: #f3f4f6,
+    ),
+    selected: (
+      background-color: rgb(219, 234, 254),
+      color: rgb(37, 99, 235),
+    ),
+    selected-hover: (
+      background-color: rgb(219, 234, 254),
+      color: rgb(37, 99, 235),
+    ),
+    selected-cursor: (
+      background-color: rgb(191, 219, 254),
+      color: rgb(37, 99, 235),
+    ),
+    disabled: (
+      opacity: 0.4,
+    ),
+  )
+);
+
+$cx-grid-pagination-state-style-map: $cx-list-item;
+
+$cx-dropdown-styles: cx-deep-map-merge(
+  $cx-dropdown-styles,
+  (
+    font-weight: 500,
+    color: #374151,
+  )
+);
+
+@import "cx/src/index";
+
+// CxJS overlay styles
+.cxe-overlay-shadow {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  animation: shadow-fade-in 0.2s forwards;
+}
+
+.cxe-dropdown-modal-backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  animation: shadow-fade-in 1s forwards;
+}
+
+.cxe-window-shadow {
+  animation: shadow-fade-in 1s linear forwards;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+@keyframes shadow-fade-in {
+  from {
+    background: rgba(128, 128, 128, 0);
+  }
+  to {
+  }
+}
+
+.cxb-progressbar {
+  &.cxm-error {
+    .cxe-progressbar-indicator {
+      background-color: #f65b5b;
+    }
+  }
+  &.cxm-warning {
+    .cxe-progressbar-indicator {
+      background-color: #ffcb6c;
+    }
+  }
+  &.cxm-success {
+    .cxe-progressbar-indicator {
+      background-color: #80ec80;
+    }
+  }
+}
+
+.cxb-tooltip {
+  font-weight: 500;
+}
+
+// cx-diagrams styles
+@import "cx-diagrams/src/index.scss";
+
+// Tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Custom prose styles
+.prose {
+  font-weight: normal;
+  @apply text-gray-600;
+}
+
+.prose p,
+.prose ul {
+  margin-bottom: 8px;
+}
+
+.prose ul > li {
+  list-style: disc;
+  margin-left: 32px;
+  padding-left: 4px;
+  margin-bottom: 4px;
+}
+
+.prose ol > li {
+  list-style: decimal;
+  margin-left: 32px;
+  padding-left: 4px;
+  margin-bottom: 4px;
+}
+
+.prose a {
+  @apply text-red-600;
+}
+
+.prose blockquote {
+  @apply pl-4 italic text-gray-600 border-l-2 border-gray-300;
+}
+
+.prose b,
+.prose strong {
+  @apply font-bold;
+}
+
+.prose h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  @apply text-gray-900;
+}
+
+.prose h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 1rem 0;
+  @apply text-gray-900;
+}
+
+.prose h2 a {
+  color: inherit;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+// ConfigTable styles
+.configtable {
+  margin-top: 16px;
+  position: relative;
+  overflow-x: auto;
+  font-size: 14px;
+
+  table {
+    border-collapse: collapse;
+    min-width: 100%;
+    font-weight: 400;
+  }
+
+  p:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  th {
+    text-align: left;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: gray;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  td:first-child {
+    background: #fbfbfb;
+    padding-left: 24px;
+  }
+
+  th:first-child {
+    padding-left: 24px;
+  }
+
+  td:nth-child(2) {
+    min-width: 300px;
+  }
+
+  td:nth-child(3) {
+    font: 12px monospace;
+    padding-right: 20px;
+  }
+
+  td {
+    padding: 8px 12px;
+    border-top: 1px solid #ebebeb;
+  }
+
+  h5 {
+    font-family: monospace;
+    font-size: 13.5px;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  h5.important {
+    font-weight: bold;
+  }
+}
+
+// CodeSnippet/Code styles
+.codesnippet {
+  position: relative;
+  font-size: 13px;
+  padding: 16px 24px;
+  background: #24292e;
+
+  pre {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+
+    & > code {
+      background: transparent;
+      border-radius: 0;
+    }
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar {
+      height: 6px;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+    }
+  }
+}
+
+// ImportPath styles
+.cxb-importpath {
+  position: relative;
+  display: inline-block;
+  top: -1rem;
+  margin-bottom: 0.5rem;
+
+  & > code {
+    background: none;
+    color: #9f9f9f;
+    padding: 0;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      color: grey;
+    }
+
+    &:hover > .copy-icon {
+      visibility: visible;
+    }
+  }
+
+  .copy-icon {
+    float: right;
+    vertical-align: middle;
+    visibility: hidden;
+    margin-left: 6px;
+    font-style: normal;
+  }
+
+  // tooltip
+  span {
+    white-space: nowrap;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 2px 0.5em;
+    border-radius: 5px;
+    vertical-align: middle;
+    font-size: 0.9em;
+
+    position: absolute;
+    z-index: 1;
+    top: -2px;
+    left: 100%;
+    margin-left: 10px;
+
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent black transparent transparent;
+    }
+  }
+}

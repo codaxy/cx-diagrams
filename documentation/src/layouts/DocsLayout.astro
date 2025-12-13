@@ -1,0 +1,30 @@
+---
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import '../styles/global.scss';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - CxJS Diagrams</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div class="h-full grid grid-cols-1 xl:grid-cols-[250px_1fr] xl:grid-rows-[auto_1fr]">
+      <Header />
+      <Sidebar />
+      <main class="bg-gray-50 overflow-auto">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

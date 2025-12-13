@@ -1,10 +1,22 @@
 {
   "name": "cx-diagrams",
-  "version": "24.2.0",
+  "version": "26.0.1",
   "description": "A library for creating diagrams within CxJS applications",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "check-types": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js",
+    "./index.scss": "./src/index.scss",
+    "./src/": "./src/",
+    "./dist/": "./dist"
   },
   "keywords": [
     "diagrams",
@@ -17,6 +29,10 @@
     "url": "git@github.com:codaxy/cx-diagrams.git"
   },
   "peerDependencies": {
-    "cx": "^22.1.0"
+    "cx": "^26.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.27",
+    "typescript": "^5.0.0"
   }
 }

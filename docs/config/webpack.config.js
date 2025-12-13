@@ -4,7 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'),
    p = (p) => path.join(__dirname, '../', p || ''),
    CxScssManifestPlugin = require('./CxScssMainfestPlugin'),
    tailwindConfig = require('../tailwind.config'),
-   tailwindcss = require('tailwindcss');
+   tailwindcss = require('tailwindcss'),
+   manifest = require('cx/manifest');
 
 module.exports = ({ rootCssLoader, tailwindOptions }) => {
    return {
@@ -16,32 +17,57 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
          },
       },
 
-      externals: {
-         react: 'React',
-         'react-dom': 'ReactDOM',
-      },
+      //   externals: {
+      //      react: 'React',
+      //      'react-dom': 'ReactDOM',
+      //      'react-dom/client': 'ReactDOM',
+      //   },
 
       module: {
          rules: [
             {
-               test: /\.js$/,
+               test: /\.(js|ts|tsx)$/,
                //add here any ES6 based library
-               include: [
-                  p('common'),
-                  p('app'),
-                  /packages[\\\/]cx/,
-                  /node_modules[\\\/](cx|cx-react|cx-theme-\w*|cx-google-maps)[\\\/]/,
-               ],
+               //    include: [
+               //       p('common'),
+               //       p('app'),
+               //       //   /packages[\\\/]cx/,
+               //       //   /node_modules[\\\/](cx|cx-react|cx-theme-\w*|cx-google-maps)[\\\/]/,
+               //    ],
                use: [
                   {
-                     loader: 'esbuild-loader',
+                     loader: 'swc-loader',
                      options: {
-                        loader: 'jsx', // Remove this if you're not using JSX
-                        target: 'es2015', // Syntax to compile to (see options below for possible values)
-                        jsxFactory: 'VDOM.createElement',
+                        jsc: {
+                           loose: true,
+                           target: 'es2021',
+                           parser: {
+                              syntax: 'typescript',
+                              decorators: true,
+                              tsx: true,
+                           },
+                           experimental: {
+                              plugins: [
+                                 [
+                                    require.resolve('swc-plugin-transform-cx-jsx/swc_plugin_transform_cx_jsx_bg.wasm'),
+                                    { trimWhitespace: true, autoImportHtmlElement: true },
+                                 ],
+                                 [
+                                    require.resolve(
+                                       'swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm'
+                                    ),
+                                    { manifest, useSrc: true },
+                                 ],
+                              ],
+                           },
+                           transform: {
+                              react: {
+                                 pragma: 'VDOM.createElement',
+                              },
+                           },
+                        },
                      },
                   },
-                  { loader: 'babel-loader', options: babelCfg },
                ],
             },
             {

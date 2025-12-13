@@ -1,0 +1,48 @@
+---
+interface ConfigProp {
+  type: string;
+  key?: boolean;
+  description: string;
+}
+
+interface Props {
+  config: Record<string, ConfigProp>;
+  hideType?: boolean;
+}
+
+const { config, hideType = false } = Astro.props;
+
+// Sort keys: key=true first, then alphabetically
+const sortedKeys = Object.keys(config).sort((a, b) => {
+  if (config[a].key && !config[b].key) return -1;
+  if (!config[a].key && config[b].key) return 1;
+  return a.localeCompare(b);
+});
+---
+
+<div class="configtable">
+  <table>
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Description</th>
+        {!hideType && <th>Type</th>}
+      </tr>
+    </thead>
+    <tbody>
+      {sortedKeys.map((key) => (
+        <tr>
+          <td>
+            <h5 class:list={{ important: config[key].key }} id={key}>
+              <a href={`#${key}`}>{key}</a>
+            </h5>
+          </td>
+          <td>
+            <p set:html={config[key].description} />
+          </td>
+          {!hideType && <td>{config[key].type}</td>}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

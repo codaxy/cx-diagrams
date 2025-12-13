@@ -18,7 +18,7 @@ module.exports = {
                   trimWhitespace: false,
                },
                imports: {
-                  useSrc: true,
+                  //useSrc: true,
                },
             },
          },

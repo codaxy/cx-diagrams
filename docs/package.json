@@ -1,5 +1,5 @@
 {
-   "name": "cxjs-tailwind-template",
+   "name": "docs",
    "version": "1.0.0",
    "description": "A sample application demoing integration of CxJS and Tailwind CSS.",
    "main": "index.js",
@@ -15,14 +15,16 @@
    "license": "MIT",
    "dependencies": {
       "@heroicons/react": "^1.0.5",
+      "@types/react": "18",
       "core-js": "^3.20.3",
-      "cx": "^21.12.0",
-      "cx-react": "^17.10.0",
+      "cx": "^26.0.12",
+      "cx-diagrams": "workspace:*",
+      "cx-react": "^24.7.1",
       "heroicons": "^1.0.5",
       "highlight.js": "^11.4.0",
       "marked": "^4.0.12",
-      "react": "^17.0.2",
-      "react-dom": "^17.0.2",
+      "react": "^19.2.3",
+      "react-dom": "^19.2.3",
       "tailwindcss": "^3.0.16",
       "uid": "^2.0.0",
       "whatwg-fetch": "^3.6.2"
@@ -31,8 +33,9 @@
       "@babel/core": "^7.16.12",
       "@babel/plugin-transform-react-jsx": "^7.16.7",
       "@babel/preset-env": "^7.16.11",
+      "@swc/core": "^1.15.4",
       "@tailwindcss/typography": "^0.5.2",
-      "autoprefixer": "^10.4.2",
+      "autoprefixer": "^10.4.22",
       "babel-loader": "^8.2.3",
       "babel-preset-cx-env": "^21.3.0",
       "clean-webpack-plugin": "^4.0.0",
@@ -55,11 +58,14 @@
       "sass": "^1.66.1",
       "sass-loader": "^12.4.0",
       "style-loader": "^3.3.1",
-      "webpack": "^5.67.0",
-      "webpack-bundle-analyzer": "^4.5.0",
-      "webpack-cli": "^4.9.2",
-      "webpack-dev-server": "^4.7.3",
-      "webpack-merge": "^5.8.0"
+      "swc-loader": "^0.2.6",
+      "swc-plugin-transform-cx-imports": "^26.0.1",
+      "swc-plugin-transform-cx-jsx": "^26.0.5",
+      "webpack": "^5.103.0",
+      "webpack-bundle-analyzer": "^5.1.0",
+      "webpack-cli": "^6.0.1",
+      "webpack-dev-server": "^5.2.2",
+      "webpack-merge": "^6.0.1"
    },
    "msw": {
       "workerDirectory": "public"

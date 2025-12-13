@@ -1,0 +1,50 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Neural Network Example
+---
+
+import Split from "../../components/Split.astro";
+import Pad from "../../components/Pad.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import NeuralNetworkExample from "../../diagrams/NeuralNetworkExample.tsx";
+
+export const code = `<Diagram unitSize={48} showGrid center>
+    <Flow gap={2} align="center">
+        <Repeater records={bind("$page.network.layers")} recordAlias="$layer">
+            <Flow direction="down" gap={0.5}>
+                <Repeater records={bind("$layer.nodes")}>
+                    <Cell>
+                        <Shape
+                            text={bind("$record.name")}
+                            id={bind("$record.id")}
+                            shape="circle"
+                            class={{
+                                'fill-blue-200 stroke-blue-600': expr('{$layer.type} == "input"'),
+                                'fill-orange-200 stroke-orange-600': expr('{$layer.type} == "hidden"'),
+                                'fill-green-200 stroke-green-600': expr('{$layer.type} == "output"'),
+                            }}
+                        />
+                    </Cell>
+                </Repeater>
+            </Flow>
+        </Repeater>
+    </Flow>
+    <Repeater records={bind("$page.network.connections")} recordAlias="$conn">
+        <StraightLine from={bind("$conn.from")} to={bind("$conn.to")} stroke="black" />
+    </Repeater>
+</Diagram>`;
+
+<Split>
+  <Pad>
+    <article class="prose">
+      # Neural Network Example
+    </article>
+  </Pad>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="border-b border-t h-[700px] overflow-auto" />
+  <div slot="right" class="h-[700px] xl:h-full border-t border-b relative">
+    <NeuralNetworkExample client:load />
+  </div>
+</Split>

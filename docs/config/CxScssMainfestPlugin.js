@@ -21,7 +21,7 @@ function CxScssManifestPlugin(options) {
    }
 }
 
-let ns1 = /cx[\\\/]src[\\\/](\w*)[\\\/]/;
+let ns1 = /cx[\\\/]build[\\\/](\w*)[\\\/]/;
 let ns2 = /cx[\\\/](\w*)[\\\/]/;
 
 CxScssManifestPlugin.prototype.apply = function (compiler) {

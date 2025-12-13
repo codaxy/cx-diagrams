@@ -1,0 +1,77 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Network Diagram Example
+---
+
+import Split from "../../components/Split.astro";
+import Pad from "../../components/Pad.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import NetworkDiagramExample from "../../diagrams/NetworkDiagramExample.tsx";
+
+export const code = `<Diagram unitSize={32} showGrid center>
+    <FourSides gap={-3}>
+        <Cell width={7} height={6}>
+            <Shape id="root" margin={50} />
+            <PureContainer putInto="cloud">
+                <Rectangle anchors="0.35 0.35 0.65 0.65" class="fill-gray-200 stroke-gray-400" />
+                <Text value="Internet" class="fill-black" textAnchor="middle" dy="0.5em" />
+            </PureContainer>
+        </Cell>
+        <Repeater records={bind("$page.networks")} recordAlias="$network">
+            <Rotate turns={bind("$index")}>
+                <Flow gap={1} align="center">
+                    <Flow direction="down" gap={1} p={0.5}>
+                        <Rectangle class="fill-gray-100" />
+                        <Repeater records={bind("$network.firewalls")}>
+                            <Cell width={2}>
+                                <Shape text={bind("$record.name")} class="fill-blue-400" id={bind("$record.id")} />
+                            </Cell>
+                            <StraightLine from={bind("$record.id")} to="root" stroke="black" />
+                        </Repeater>
+                    </Flow>
+                    <Flow direction="down" gap={1} p={0.5}>
+                        <Rectangle class="fill-gray-100" />
+                        <Repeater records={bind("$network.switches")}>
+                            <Cell width={2}>
+                                <Shape text={bind("$record.name")} class="fill-green-400" id={bind("$record.id")} />
+                            </Cell>
+                        </Repeater>
+                    </Flow>
+                    <Flow direction="down" gap={1} p={0.5}>
+                        <Rectangle class="fill-gray-100" />
+                        <Repeater records={bind("$network.pcs")}>
+                            <Cell width={2}>
+                                <Shape text={bind("$record.name")} class="fill-orange-400" id={bind("$record.id")} />
+                            </Cell>
+                        </Repeater>
+                    </Flow>
+                </Flow>
+                <Repeater records={bind("$network.connections")} recordAlias="$conn">
+                    <ThreeSegmentLine
+                        from={bind("$conn.from")}
+                        to={bind("$conn.to")}
+                        direction="right"
+                        class="stroke-black"
+                        stroke="black"
+                    />
+                </Repeater>
+            </Rotate>
+        </Repeater>
+    </FourSides>
+    <ContentPlaceholder name="cloud" />
+</Diagram>`;
+
+<Split>
+  <Pad>
+    <article class="prose">
+      # Network Diagram Example
+    </article>
+  </Pad>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="border-b border-t h-[700px] overflow-auto" />
+  <div slot="right" class="h-[700px] xl:h-full border-t border-b relative">
+    <NetworkDiagramExample client:load />
+  </div>
+</Split>

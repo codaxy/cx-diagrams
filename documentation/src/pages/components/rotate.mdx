@@ -1,0 +1,73 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Rotate
+---
+
+import Split from "../../components/Split.astro";
+import Pad from "../../components/Pad.astro";
+import ImportPath from "../../components/ImportPathWrapper.tsx";
+import ConfigTable from "../../components/ConfigTable.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import RotateExample from "../../diagrams/RotateExample.tsx";
+import config from "../../config/Rotate";
+
+export const code = `<Diagram center showGrid>
+    <Rotate turns={bind("$page.rotate")}>
+        <Flow gap={1} p={0.5} align="center">
+            <Rectangle stroke="red" />
+            <Cell>
+                <Shape fill="lightgray" text="1" id="1" />
+            </Cell>
+            <Cell>
+                <Shape fill="lightgray" text="2" id="2" />
+            </Cell>
+            <Cell>
+                <Shape fill="lightgray" text="3" id="3" />
+            </Cell>
+            <Flow direction="down" gap={1}>
+                <Cell>
+                    <Shape fill="lightgray" text="4" id="4" />
+                </Cell>
+                <Cell>
+                    <Shape fill="lightgray" text="5" id="5" />
+                </Cell>
+                <Cell>
+                    <Shape fill="lightgray" text="6" id="6" />
+                </Cell>
+            </Flow>
+            <StraightLine from="1" to="2" stroke="black" />
+            <StraightLine from="2" to="3" stroke="black" />
+            <StraightLine from="3" to="4" stroke="black" />
+            <StraightLine from="3" to="5" stroke="black" />
+            <StraightLine from="3" to="6" stroke="black" />
+        </Flow>
+    </Rotate>
+</Diagram>`;
+
+<Split>
+  <Pad>
+    <article class="prose">
+      # Rotate
+
+      <ImportPath path='import { Rotate } from "cx-diagrams"' client:load />
+
+      The `Rotate` component is commonly used with network diagrams to lay out repetitive parts in different directions.
+    </article>
+  </Pad>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="border-b border-t py-4 max-h-[500px] overflow-auto" />
+  <div slot="right" class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative">
+    <RotateExample client:load />
+  </div>
+</Split>
+
+<Split>
+  <Pad class="pb-0">
+    <article class="prose">
+      ## Configuration
+    </article>
+  </Pad>
+  <ConfigTable config={config} />
+</Split>

@@ -1,0 +1,26 @@
+---
+import NavItem from './NavItem.astro';
+import AboutNavItem from './AboutNavItem.astro';
+---
+
+<nav id="sidebar" class="bg-white xl:border-r pt-3 hidden xl:block overflow-auto">
+  <AboutNavItem text="About" href="/" />
+
+  <div class="px-6 py-3 text-gray-400 text-sm">Components</div>
+  <NavItem text="Diagram" href="/components/diagram" />
+  <NavItem text="Cell" href="/components/cell" />
+  <NavItem text="Shape" href="/components/shape" />
+  <NavItem text="Flow" href="/components/flow" />
+  <NavItem text="Rotate" href="/components/rotate" />
+  <NavItem text="FourSides" href="/components/four-sides" />
+  <NavItem text="ArrowHead" href="/components/arrow-head" />
+
+  <div class="mt-4 px-6 py-3 text-gray-400 text-sm">Lines</div>
+  <NavItem text="StraightLine" href="/lines/straight-line" />
+  <NavItem text="TwoSegmentLine" href="/lines/two-segment-line" />
+  <NavItem text="ThreeSegmentLine" href="/lines/three-segment-line" />
+
+  <div class="mt-4 px-6 py-3 text-gray-400 text-sm">Examples</div>
+  <NavItem text="Network Diagram" href="/examples/network-diagram" />
+  <NavItem text="Neural Network" href="/examples/neural-network" />
+</nav>

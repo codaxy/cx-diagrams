@@ -1,0 +1,28 @@
+{
+  "name": "cx-diagrams-documentation",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/tailwind": "^6.0.2",
+    "@heroicons/react": "^2.2.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "astro": "^5.16.5",
+    "cx": "^26.0.12",
+    "cx-diagrams": "workspace:*",
+    "cx-react": "^24.7.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "sass": "^1.96.0",
+    "tailwindcss": "^3.4.0"
+  }
+}

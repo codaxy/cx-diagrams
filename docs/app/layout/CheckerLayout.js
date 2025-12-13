@@ -2,8 +2,9 @@ import { Icon, Link } from 'cx/widgets';
 import { GitHubStarCount } from '../components/GitHubStarCount';
 import { Logo2 } from '../components/Logo2';
 import Controller from './Controller';
+import { createFunctionalComponent } from 'cx/ui';
 
-const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expanded }) => (
+const NavItem = createFunctionalComponent(({ text, href, tooltip, onClick, className, icon, badge, expanded }) => (
    <cx>
       <Link
          href={href}
@@ -28,9 +29,9 @@ const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expande
          />
       </Link>
    </cx>
-);
+));
 
-export const CheckerLayout = ({ children, nav }) => (
+export const CheckerLayout = createFunctionalComponent(({ children, nav }) => (
    <cx>
       <div class="h-full grid grid-cols-1 xl:grid-cols-[250px_1fr] xl:grid-rows-[auto_1fr]" controller={Controller}>
          <div class="xl:border-r border-b py-2 pl-6 flex col-span-2 items-center">
@@ -83,4 +84,4 @@ export const CheckerLayout = ({ children, nav }) => (
          {children}
       </div>
    </cx>
-);
+));

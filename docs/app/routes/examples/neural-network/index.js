@@ -1,11 +1,11 @@
 import { Svg } from 'cx/svg';
 import { expr, LabelsTopLayout } from 'cx/ui';
 import { Repeater, Slider } from 'cx/widgets';
-import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
-import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
-import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
-import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
-import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
+import { Cell } from 'cx-diagrams/Cell';
+import { Diagram } from 'cx-diagrams/Diagram';
+import { Flow } from 'cx-diagrams/Flow';
+import { Shape } from 'cx-diagrams/Shape';
+import { StraightLine } from 'cx-diagrams/StraightLine';
 import { CodeSnippet } from '../../../components/CodeSnippet';
 import { Md } from '../../../components/Md';
 import { Pad } from '../../../components/Pad';

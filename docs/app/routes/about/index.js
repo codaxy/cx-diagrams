@@ -1,8 +1,8 @@
 import { Rectangle, Svg, Text } from 'cx/svg';
-import { Cell } from '../../../../packages/cx-diagrams/src/Cell';
-import { Diagram } from '../../../../packages/cx-diagrams/src/Diagram';
-import { Flow } from '../../../../packages/cx-diagrams/src/Flow';
-import { Shape } from '../../../../packages/cx-diagrams/src/Shape';
+import { Cell } from 'cx-diagrams/Cell';
+import { Diagram } from 'cx-diagrams/Diagram';
+import { Flow } from 'cx-diagrams/Flow';
+import { Shape } from 'cx-diagrams/Shape';
 import { Md } from '../../components/Md';
 import { Pad } from '../../components/Pad';
 import { Split } from '../../components/Split';
