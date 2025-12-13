@@ -4,7 +4,7 @@ title: FourSides
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import ImportPath from "../../components/ImportPathWrapper.tsx";
 import ConfigTable from "../../components/ConfigTable.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
@@ -83,15 +83,13 @@ export const code = `<Diagram center showGrid>
 </Diagram>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # FourSides
+  <Prose>
+    # FourSides
 
-      <ImportPath path='import { FourSides } from "cx-diagrams"' client:load />
+    <ImportPath path='import { FourSides } from "cx-diagrams"' client:load />
 
-      The `FourSides` component is used to lay out diagram components into four directions. This is commonly used in combination with [`Rotate`](/components/rotate) to assemble the parts into a single structure.
-    </article>
-  </Pad>
+    The `FourSides` component is used to lay out diagram components into four directions. This is commonly used in combination with [`Rotate`](/components/rotate) to assemble the parts into a single structure.
+  </Prose>
 </Split>
 
 <Split>
@@ -102,10 +100,8 @@ export const code = `<Diagram center showGrid>
 </Split>
 
 <Split>
-  <Pad class="pb-0">
-    <article class="prose">
-      ## Configuration
-    </article>
-  </Pad>
+  <Prose class="pb-0">
+    ## Configuration
+  </Prose>
   <ConfigTable config={config} />
 </Split>

@@ -12,5 +12,5 @@ const { code, lang = 'tsx', class: className } = Astro.props;
 ---
 
 <div class:list={["codesnippet", className]}>
-  <Code code={code.trim()} lang={lang} theme="github-dark" />
+  <Code code={code.trim()} lang={lang} theme="github-dark-dimmed" />
 </div>

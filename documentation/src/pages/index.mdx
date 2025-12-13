@@ -4,23 +4,20 @@ title: About
 ---
 
 import Split from "../components/Split.astro";
-import Pad from "../components/Pad.astro";
+import Prose from "../components/Prose.astro";
 import AboutDiagram from "../diagrams/AboutDiagram.tsx";
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # About CxJS Diagrams
+  <Prose>
+    # About CxJS Diagrams
 
-      This library allows you to create interactive diagrams in [CxJS](https://cxjs.io) applications.
-      The [Shape](/components/shape) component is used to represent visual elements such as circles and rectangles and allows
-      rich styling, click handlers, tooltips and context menus. Elements are easily connected with [Lines](/lines/straight-line) by simply specifying
-      identifiers of the beginning and the end shape.
-      Layout components, such as [Flow](/components/flow), make it easy to position elements on the diagram automatically, such as in the example below
-      which represents the tech stack of this documentation project.
-    </article>
-
-  </Pad>
+    This library allows you to create interactive diagrams in [CxJS](https://cxjs.io) applications.
+    The [Shape](/components/shape) component is used to represent visual elements such as circles and rectangles and allows
+    rich styling, click handlers, tooltips and context menus. Elements are easily connected with [Lines](/lines/straight-line) by simply specifying
+    identifiers of the beginning and the end shape.
+    Layout components, such as [Flow](/components/flow), make it easy to position elements on the diagram automatically, such as in the example below
+    which represents the tech stack of this documentation project.
+  </Prose>
 </Split>
 
 <Split>
@@ -30,18 +27,15 @@ import AboutDiagram from "../diagrams/AboutDiagram.tsx";
 </Split>
 
 <Split>
-  <Pad class="pt-0">
-    <article class="prose">
-      ## Links
+  <Prose>
+    ## Links
 
-      - [GitHub](https://github.com/codaxy/cx-diagrams)
-      - [npm package](https://www.npmjs.com/package/cx-diagrams)
-      - [CxJS](https://cxjs.io)
+    - [GitHub](https://github.com/codaxy/cx-diagrams)
+    - [npm package](https://www.npmjs.com/package/cx-diagrams)
+    - [CxJS](https://cxjs.io)
 
-      ## License
+    ## License
 
-      This project is licensed under the [MIT license](https://github.com/codaxy/cx-diagrams/blob/master/LICENSE.md).
-    </article>
-
-  </Pad>
+    This project is licensed under the [MIT license](https://github.com/codaxy/cx-diagrams/blob/master/LICENSE.md).
+  </Prose>
 </Split>

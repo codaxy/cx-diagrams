@@ -4,7 +4,7 @@ title: TwoSegmentLine
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import ImportPath from "../../components/ImportPathWrapper.tsx";
 import ConfigTable from "../../components/ConfigTable.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
@@ -43,15 +43,13 @@ export const code = `<Diagram unitSize={64} center showGrid>
 </Diagram>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # TwoSegmentLine
+  <Prose>
+    # TwoSegmentLine
 
-      <ImportPath path='import { TwoSegmentLine } from "cx-diagrams"' client:load />
+    <ImportPath path='import { TwoSegmentLine } from "cx-diagrams"' client:load />
 
-      The `TwoSegmentLine` component is used to connect shapes with horizontal and vertical line segments.
-    </article>
-  </Pad>
+    The `TwoSegmentLine` component is used to connect shapes with horizontal and vertical line segments.
+  </Prose>
 </Split>
 
 <Split>
@@ -62,10 +60,8 @@ export const code = `<Diagram unitSize={64} center showGrid>
 </Split>
 
 <Split>
-  <Pad class="pb-0">
-    <article class="prose">
-      ## Configuration
-    </article>
-  </Pad>
+  <Prose class="pb-0">
+    ## Configuration
+  </Prose>
   <ConfigTable config={config} />
 </Split>

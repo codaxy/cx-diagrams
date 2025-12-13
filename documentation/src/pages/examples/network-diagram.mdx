@@ -4,7 +4,7 @@ title: Network Diagram Example
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
 import NetworkDiagramExample from "../../diagrams/NetworkDiagramExample.tsx";
 
@@ -62,11 +62,9 @@ export const code = `<Diagram unitSize={32} showGrid center>
 </Diagram>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # Network Diagram Example
-    </article>
-  </Pad>
+  <Prose>
+    # Network Diagram Example
+  </Prose>
 </Split>
 
 <Split>

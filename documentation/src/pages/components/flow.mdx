@@ -4,7 +4,7 @@ title: Flow
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import ImportPath from "../../components/ImportPathWrapper.tsx";
 import ConfigTable from "../../components/ConfigTable.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
@@ -75,17 +75,15 @@ export const code = `<Diagram center showGrid>
 </Diagram>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # Flow
+  <Prose>
+    # Flow
 
-      <ImportPath path='import { Flow } from "cx-diagrams"' client:load />
+    <ImportPath path='import { Flow } from "cx-diagrams"' client:load />
 
-      The `Flow` component is used to arrange cells into directional layouts called flow. The direction of the flow is controlled by the `direction` property. Distance between elements is controlled by the assigned `gap`, or by individual margins set on the cell components. Besides fixed margins (`mt`, `mr`, `mb` and `ml`), you can use start (`ms`) and end margins (`me`) to distance elements in the direction of the flow which will work nicely if you introduce rotation.
+    The `Flow` component is used to arrange cells into directional layouts called flow. The direction of the flow is controlled by the `direction` property. Distance between elements is controlled by the assigned `gap`, or by individual margins set on the cell components. Besides fixed margins (`mt`, `mr`, `mb` and `ml`), you can use start (`ms`) and end margins (`me`) to distance elements in the direction of the flow which will work nicely if you introduce rotation.
 
-      > Please note the SVG elements such as `Rectangle` do not affect the flow. Only `Cell` elements affect the flow.
-    </article>
-  </Pad>
+    > Please note the SVG elements such as `Rectangle` do not affect the flow. Only `Cell` elements affect the flow.
+  </Prose>
 </Split>
 
 <Split>
@@ -96,10 +94,8 @@ export const code = `<Diagram center showGrid>
 </Split>
 
 <Split>
-  <Pad class="pb-0">
-    <article class="prose">
-      ## Configuration
-    </article>
-  </Pad>
+  <Prose class="pb-0">
+    ## Configuration
+  </Prose>
   <ConfigTable config={config} />
 </Split>

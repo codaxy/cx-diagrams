@@ -4,7 +4,7 @@ title: Shape
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import ImportPath from "../../components/ImportPathWrapper.tsx";
 import ConfigTable from "../../components/ConfigTable.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
@@ -121,32 +121,36 @@ export const code = `<Diagram unitSize={24} center showGrid>
             </Cell>
         </Flow>
     </Flow>
+
 </Diagram>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # Shape
+  <Prose>
+    # Shape
 
-      <ImportPath path='import { Shape } from "cx-diagrams"' client:load />
+    <ImportPath path='import { Shape } from "cx-diagrams"' client:load />
 
-      The `Shape` component is used to create shapes appearing on the diagram. Shapes are usually `circles`, `rectangles` and `rhombuses` and can represent various things such as network devices and interfaces, departments, roles, etc. Shapes support the `text` property and can easily be interconnected using lines. Shapes are clickable and support context menus.
-    </article>
-  </Pad>
+    The `Shape` component is used to create shapes appearing on the diagram. Shapes are usually `circles`, `rectangles` and `rhombuses`
+    and can represent various things such as network devices and interfaces, departments, roles, etc. Shapes support the `text` property
+    and can easily be interconnected using lines. Shapes are clickable and support context menus.
+
+  </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t py-4 max-h-[500px] overflow-auto" />
-  <div slot="right" class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative">
+  <CodeSnippet
+    code={code}
+    class="border-b border-t py-4 max-h-[500px] overflow-auto"
+  />
+  <div
+    slot="right"
+    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
+  >
     <ShapeExample client:load />
   </div>
 </Split>
 
 <Split>
-  <Pad class="pb-0">
-    <article class="prose">
-      ## Configuration
-    </article>
-  </Pad>
+  <Prose class="pb-0">## Configuration</Prose>
   <ConfigTable config={config} />
 </Split>

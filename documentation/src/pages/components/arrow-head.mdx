@@ -4,7 +4,7 @@ title: ArrowHead
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import ImportPath from "../../components/ImportPathWrapper.tsx";
 import ConfigTable from "../../components/ConfigTable.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
@@ -53,15 +53,13 @@ export const code = `<Svg class="w-auto h-full bg-white">
 </Svg>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # ArrowHead
+  <Prose>
+    # ArrowHead
 
-      <ImportPath path='import { ArrowHead } from "cx-diagrams"' client:load />
+    <ImportPath path='import { ArrowHead } from "cx-diagrams"' client:load />
 
-      The Arrow Head component is a child element for StraightLine, TwoSegmentLine, and ThreeSegmentLine components, adding arrow heads to line ends for visual directionality cues.
-    </article>
-  </Pad>
+    The Arrow Head component is a child element for StraightLine, TwoSegmentLine, and ThreeSegmentLine components, adding arrow heads to line ends for visual directionality cues.
+  </Prose>
 </Split>
 
 <Split>
@@ -72,10 +70,8 @@ export const code = `<Svg class="w-auto h-full bg-white">
 </Split>
 
 <Split>
-  <Pad class="pb-0">
-    <article class="prose">
-      ## Configuration
-    </article>
-  </Pad>
+  <Prose class="pb-0">
+    ## Configuration
+  </Prose>
   <ConfigTable config={config} />
 </Split>

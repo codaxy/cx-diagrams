@@ -4,7 +4,7 @@ title: Neural Network Example
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
 import NeuralNetworkExample from "../../diagrams/NeuralNetworkExample.tsx";
 
@@ -35,11 +35,9 @@ export const code = `<Diagram unitSize={48} showGrid center>
 </Diagram>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # Neural Network Example
-    </article>
-  </Pad>
+  <Prose>
+    # Neural Network Example
+  </Prose>
 </Split>
 
 <Split>

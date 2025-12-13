@@ -4,7 +4,7 @@ title: Cell
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import ImportPath from "../../components/ImportPathWrapper.tsx";
 import ConfigTable from "../../components/ConfigTable.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
@@ -26,29 +26,27 @@ export const code = `<Diagram center showGrid>
 </Diagram>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # Cell
+  <Prose>
+    # Cell
 
-      <ImportPath path='import { Cell } from "cx-diagrams"' client:load />
+    <ImportPath path='import { Cell } from "cx-diagrams"' client:load />
 
-      The `Cell` component is used to mark a rectangular area on the diagram using its `width` and `height` properties to provide boundaries to [`Shapes`](/components/shape) and other [CxJS SVG components](https://docs.cxjs.io/svg/svgs). `Cells` participate in layout [`Flows`](/components/flow). Margin properties such as `ms` and `me` are used to add distance between cells.
-    </article>
-  </Pad>
+    The `Cell` component is used to mark a rectangular area on the diagram using its `width` and `height` properties to provide boundaries to [`Shapes`](/components/shape) and other [CxJS SVG components](https://docs.cxjs.io/svg/svgs). `Cells` participate in layout [`Flows`](/components/flow). Margin properties such as `ms` and `me` are used to add distance between cells.
+
+  </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t py-4" />
-  <div slot="right" class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative">
+  <CodeSnippet code={code} class="py-4 border-t border-b" />
+  <div
+    slot="right"
+    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
+  >
     <CellExample client:load />
   </div>
 </Split>
 
 <Split>
-  <Pad class="pb-0">
-    <article class="prose">
-      ## Configuration
-    </article>
-  </Pad>
+  <Prose class="pb-0">## Configuration</Prose>
   <ConfigTable config={config} />
 </Split>

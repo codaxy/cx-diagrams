@@ -318,12 +318,24 @@ $cx-dropdown-styles: cx-deep-map-merge(
   content: none;
 }
 
+.prose code {
+  font-size: inherit;
+  font-weight: 600;
+  @apply text-blue-600 bg-gray-100 px-1 rounded;
+}
+
 // ConfigTable styles
 .configtable {
   margin-top: 16px;
   position: relative;
   overflow-x: auto;
   font-size: 14px;
+
+  code {
+    font-size: inherit;
+    font-weight: 600;
+    @apply text-blue-600 bg-gray-100 px-1 rounded;
+  }
 
   table {
     border-collapse: collapse;
@@ -421,12 +433,15 @@ $cx-dropdown-styles: cx-deep-map-merge(
   }
 }
 
+h1 astro-island:has(.cxb-importpath) {
+  margin-top: -1rem;
+}
+
 // ImportPath styles
 .cxb-importpath {
   position: relative;
   display: inline-block;
-  top: -1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 
   & > code {
     background: none;

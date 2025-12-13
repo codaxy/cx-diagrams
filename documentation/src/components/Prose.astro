@@ -1,0 +1,15 @@
+---
+import Pad from './Pad.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<Pad class={className}>
+  <article class="prose">
+    <slot />
+  </article>
+</Pad>

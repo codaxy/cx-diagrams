@@ -4,7 +4,7 @@ title: StraightLine
 ---
 
 import Split from "../../components/Split.astro";
-import Pad from "../../components/Pad.astro";
+import Prose from "../../components/Prose.astro";
 import ImportPath from "../../components/ImportPathWrapper.tsx";
 import ConfigTable from "../../components/ConfigTable.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
@@ -54,15 +54,13 @@ export const code = `<Diagram unitSize={64} center showGrid>
 </Diagram>`;
 
 <Split>
-  <Pad>
-    <article class="prose">
-      # StraightLine
+  <Prose>
+    # StraightLine
 
-      <ImportPath path='import { StraightLine } from "cx-diagrams"' client:load />
+    <ImportPath path='import { StraightLine } from "cx-diagrams"' client:load />
 
-      The `StraightLine` component is used to connect shapes with straight lines. Lines are drawn from shapes edges which allows simple placing of markers.
-    </article>
-  </Pad>
+    The `StraightLine` component is used to connect shapes with straight lines. Lines are drawn from shapes edges which allows simple placing of markers.
+  </Prose>
 </Split>
 
 <Split>
@@ -73,10 +71,8 @@ export const code = `<Diagram unitSize={64} center showGrid>
 </Split>
 
 <Split>
-  <Pad class="pb-0">
-    <article class="prose">
-      ## Configuration
-    </article>
-  </Pad>
+  <Prose class="pb-0">
+    ## Configuration
+  </Prose>
   <ConfigTable config={config} />
 </Split>
