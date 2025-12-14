@@ -1,5 +1,6 @@
 {
-  "name": "cx-diagrams-documentation",
+  "name": "documentation",
+  "private": true,
   "type": "module",
   "version": "1.0.0",
   "scripts": {

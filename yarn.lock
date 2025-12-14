@@ -5067,28 +5067,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cx-diagrams-documentation@workspace:documentation":
-  version: 0.0.0-use.local
-  resolution: "cx-diagrams-documentation@workspace:documentation"
-  dependencies:
-    "@astrojs/mdx": "npm:^4.3.13"
-    "@astrojs/react": "npm:^4.4.2"
-    "@astrojs/tailwind": "npm:^6.0.2"
-    "@heroicons/react": "npm:^2.2.0"
-    "@tailwindcss/typography": "npm:^0.5.16"
-    "@types/react": "npm:^19.2.0"
-    "@types/react-dom": "npm:^19.2.0"
-    astro: "npm:^5.16.5"
-    cx: "npm:^26.0.12"
-    cx-diagrams: "workspace:*"
-    cx-react: "npm:^24.7.1"
-    react: "npm:^19.2.3"
-    react-dom: "npm:^19.2.3"
-    sass: "npm:^1.96.0"
-    tailwindcss: "npm:^3.4.0"
-  languageName: unknown
-  linkType: soft
-
 "cx-diagrams-ws@workspace:.":
   version: 0.0.0-use.local
   resolution: "cx-diagrams-ws@workspace:."
@@ -5473,6 +5451,28 @@ __metadata:
     webpack-dev-server: "npm:^5.2.2"
     webpack-merge: "npm:^6.0.1"
     whatwg-fetch: "npm:^3.6.2"
+  languageName: unknown
+  linkType: soft
+
+"documentation@workspace:documentation":
+  version: 0.0.0-use.local
+  resolution: "documentation@workspace:documentation"
+  dependencies:
+    "@astrojs/mdx": "npm:^4.3.13"
+    "@astrojs/react": "npm:^4.4.2"
+    "@astrojs/tailwind": "npm:^6.0.2"
+    "@heroicons/react": "npm:^2.2.0"
+    "@tailwindcss/typography": "npm:^0.5.16"
+    "@types/react": "npm:^19.2.0"
+    "@types/react-dom": "npm:^19.2.0"
+    astro: "npm:^5.16.5"
+    cx: "npm:^26.0.12"
+    cx-diagrams: "workspace:*"
+    cx-react: "npm:^24.7.1"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    sass: "npm:^1.96.0"
+    tailwindcss: "npm:^3.4.0"
   languageName: unknown
   linkType: soft
 
