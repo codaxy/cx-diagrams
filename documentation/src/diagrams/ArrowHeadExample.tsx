@@ -12,7 +12,7 @@ import { Svg } from "cx/svg";
 
 export default () => (
   <cx>
-    <Svg class="w-full h-full bg-white">
+    <Svg class="w-full h-full min-h-[400px] min-w-[700px] bg-white  border-t border-b">
       <Diagram unitSize={48} showGrid center>
         <Flow direction="down">
           <Flow direction="down" gap={4}>

@@ -4,8 +4,8 @@ import { Ellipse, Rectangle, Svg } from "cx/svg";
 
 export default () => (
   <cx>
-    <Svg class="w-full h-full bg-white">
-      <Diagram center showGrid>
+    <Svg class="w-full min-h-[250px] h-full bg-white  border-t border-b">
+      <Diagram center showGrid unitSize={48}>
         <Flow direction="right">
           <Cell width={2}>
             <Rectangle fill="red" />

@@ -29,7 +29,7 @@ const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
 const nextPage = currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
 ---
 
-<nav class="flex items-center justify-between px-6 py-6 mt-8 border-t">
+<nav class="flex items-center justify-between px-6 py-6 border-t xl:mt-8">
   {prevPage ? (
     <a href={prevPage.href} class="flex items-center gap-2 text-gray-600 transition-colors hover:text-blue-600">
       <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">

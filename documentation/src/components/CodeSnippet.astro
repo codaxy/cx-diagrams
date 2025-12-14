@@ -11,6 +11,6 @@ interface Props {
 const { code, lang = 'tsx', class: className } = Astro.props;
 ---
 
-<div class:list={["codesnippet", className]}>
+<div class:list={["codesnippet", "overflow-auto", className]}>
   <Code code={code.trim()} lang={lang} theme="github-dark-dimmed" />
 </div>

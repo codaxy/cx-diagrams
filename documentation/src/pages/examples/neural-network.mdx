@@ -49,8 +49,7 @@ export const code = `<Diagram unitSize={48} showGrid center>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t h-[550px] overflow-auto" />
-  <div slot="right" class="h-[700px] xl:h-full border-t border-b relative">
-    <NeuralNetworkExample client:load />
-  </div>
+  <CodeSnippet code={code} class="max-h-[550px]" />
+
+  <NeuralNetworkExample client:load slot="right" />
 </Split>

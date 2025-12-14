@@ -71,12 +71,11 @@ export const code = `<Diagram unitSize={32} showGrid center>
     - **[Repeater](https://docs.cxjs.io/concepts/repeater)** for dynamically generating shapes from data
     - **[ThreeSegmentLine](/lines/three-segment-line)** for connecting devices with Z-shaped paths
     - Grouping related devices with background rectangles
+
   </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t h-[700px] overflow-auto" />
-  <div slot="right" class="h-[700px] xl:h-full border-t border-b relative">
-    <NetworkDiagramExample client:load />
-  </div>
+  <CodeSnippet code={code} class="max-h-[700px]" />
+  <NetworkDiagramExample client:load slot="right" />
 </Split>

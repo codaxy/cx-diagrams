@@ -91,8 +91,8 @@ class PageController extends Controller {
 
 export default () => (
   <cx>
-    <div class="w-full h-full" controller={PageController}>
-      <Svg class="w-full h-full bg-white">
+    <div class="w-full h-full min-w-[800px]" controller={PageController}>
+      <Svg class="w-full h-full min-h-[600px] bg-white border-t border-b">
         <Diagram unitSize={32} showGrid center>
           <FourSides gap={-3}>
             <Cell width={7} height={6}>

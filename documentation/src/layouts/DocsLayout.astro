@@ -31,7 +31,7 @@ const title = frontmatter?.title || directTitle || '';
     <div class="h-full grid grid-cols-1 xl:grid-cols-[250px_1fr] xl:grid-rows-[auto_1fr]">
       <Header />
       <Sidebar />
-      <main class="overflow-auto ">
+      <main class="overflow-x-hidden overflow-y-auto">
         <div class="bg-dot-pattern">
         <slot />
         <Split>

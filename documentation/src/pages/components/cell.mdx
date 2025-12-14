@@ -11,7 +11,7 @@ import CodeSnippet from "../../components/CodeSnippet.astro";
 import CellExample from "../../diagrams/CellExample.tsx";
 import config from "../../config/Cell";
 
-export const code = `<Diagram center showGrid>
+export const code = `<Diagram center showGrid unitSize={48}>
     <Flow direction="right">
         <Cell width={2}>
             <Rectangle fill="red" />
@@ -37,13 +37,8 @@ export const code = `<Diagram center showGrid>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="py-4 border-t border-b" />
-  <div
-    slot="right"
-    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
-  >
-    <CellExample client:load />
-  </div>
+  <CodeSnippet code={code} />
+  <CellExample client:load slot="right" />
 </Split>
 
 <Split>

@@ -110,7 +110,50 @@ class PageController extends Controller {
 
 export default () => (
   <cx>
-    <div class="w-full h-full flex flex-col" controller={PageController}>
+    <div
+      class="w-full h-full flex flex-col min-h-[500px] min-w-[600px]  border-t border-b"
+      controller={PageController}
+    >
+      <div class="bg-white px-2 flex justify-center border-b">
+        <LabelsTopLayout class="-mt-2">
+          <Slider
+            value={bind("$page.options.inputs")}
+            min={1}
+            max={5}
+            step={1}
+            label="Inputs"
+            class="w-32"
+            help={bind("$page.options.inputs")}
+          />
+          <Slider
+            value={bind("$page.options.hiddenLayers")}
+            min={1}
+            max={4}
+            step={1}
+            label="Hidden Layers"
+            class="w-32"
+            help={bind("$page.options.hiddenLayers")}
+          />
+          <Slider
+            value={bind("$page.options.hiddenNodes")}
+            min={1}
+            max={8}
+            step={1}
+            label="Hidden Layer Size"
+            class="w-32"
+            help={bind("$page.options.hiddenNodes")}
+          />
+          <Slider
+            value={bind("$page.options.outputs")}
+            min={1}
+            max={5}
+            step={1}
+            label="Outputs"
+            class="w-32"
+            help={bind("$page.options.outputs")}
+          />
+        </LabelsTopLayout>
+      </div>
       <Svg class="w-full flex-grow bg-white">
         <Diagram unitSize={48} showGrid center>
           <Flow gap={2} align="center">
@@ -154,46 +197,6 @@ export default () => (
           </Repeater>
         </Diagram>
       </Svg>
-      <div class="border-t bg-white px-2 flex justify-center">
-        <LabelsTopLayout class="-mt-2">
-          <Slider
-            value={bind("$page.options.inputs")}
-            min={1}
-            max={5}
-            step={1}
-            label="Inputs"
-            class="w-32"
-            help={bind("$page.options.inputs")}
-          />
-          <Slider
-            value={bind("$page.options.hiddenLayers")}
-            min={1}
-            max={4}
-            step={1}
-            label="Hidden Layers"
-            class="w-32"
-            help={bind("$page.options.hiddenLayers")}
-          />
-          <Slider
-            value={bind("$page.options.hiddenNodes")}
-            min={1}
-            max={8}
-            step={1}
-            label="Hidden Layer Size"
-            class="w-32"
-            help={bind("$page.options.hiddenNodes")}
-          />
-          <Slider
-            value={bind("$page.options.outputs")}
-            min={1}
-            max={5}
-            step={1}
-            label="Outputs"
-            class="w-32"
-            help={bind("$page.options.outputs")}
-          />
-        </LabelsTopLayout>
-      </div>
     </div>
   </cx>
 );

@@ -12,8 +12,8 @@ class PageController extends Controller {
 
 export default () => (
   <cx>
-    <div class="flex flex-col w-full h-full" controller={PageController}>
-      <Svg class="w-full flex-grow bg-white">
+    <div class="flex flex-col w-full h-full " controller={PageController}>
+      <Svg class="w-full min-h-[400px] flex-grow bg-white border-t border-b">
         <Diagram center showGrid>
           <Rotate turns={bind("$page.rotate")}>
             <Flow gap={1} p={1} align="center">

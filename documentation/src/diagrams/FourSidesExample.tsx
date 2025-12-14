@@ -13,7 +13,7 @@ class PageController extends Controller {
 export default () => (
   <cx>
     <div class="w-full h-full relative" controller={PageController}>
-      <Svg class="w-full h-full bg-white">
+      <Svg class="w-full h-full min-h-[500px] bg-white  border-t border-b">
         <Diagram center showGrid>
           <FourSides
             slots={computable("$page.order", (order: number) => {

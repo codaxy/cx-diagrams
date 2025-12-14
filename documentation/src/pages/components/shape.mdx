@@ -151,14 +151,9 @@ export const code = `<Diagram unitSize={24} center showGrid>
 <Split>
   <CodeSnippet
     code={code}
-    class="border-b border-t py-4 max-h-[500px] overflow-auto"
+    class="border-b border-t py-4 max-h-[400px] overflow-auto"
   />
-  <div
-    slot="right"
-    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
-  >
-    <ShapeExample client:load />
-  </div>
+  <ShapeExample client:load slot="right" />
 </Split>
 
 <Split>

@@ -3,7 +3,7 @@ import { Diagram, Cell, Shape, Flow, StraightLine } from "cx-diagrams";
 
 export default () => (
   <cx>
-    <Svg class="w-full h-full bg-white">
+    <Svg class="w-full h-full min-h-[200px] bg-white  border-t border-b">
       <Diagram unitSize={32} showGrid center>
         <Flow gap={1}>
           <Cell width={4} height={2}>

@@ -1,8 +1,17 @@
 /** @jsxImportSource react */
-import { TextualBoundedObject } from "cx/svg";
+import { TextualBoundedObject, type TextualBoundedObjectConfig } from "cx/svg";
+import type { StringProp } from "cx/ui";
+
+interface ImageConfig extends TextualBoundedObjectConfig {
+  href: StringProp;
+}
 
 export class Image extends TextualBoundedObject {
   declare data: any;
+
+  constructor(config: ImageConfig) {
+    super(config);
+  }
 
   declareData() {
     super.declareData(...arguments, {

@@ -95,16 +95,13 @@ export const code = `<Diagram center showGrid>
 </Split>
 
 <Split>
-  <CodeSnippet
-    code={code}
-    class="border-b border-t py-4 h-[500px] overflow-auto"
-  />
-  <div slot="right" class="h-[400px] xl:h-full border-t border-b relative">
-    <FourSidesExample client:load />
-  </div>
+  <CodeSnippet code={code} class="h-[500px]" />
+  <FourSidesExample client:load slot="right" />
 </Split>
 
 <Split>
-  <Prose><h2>Configuration</h2></Prose>
+  <Prose>
+    <h2>Configuration</h2>
+  </Prose>
   <ConfigTable config={config} />
 </Split>

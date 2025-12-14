@@ -4,7 +4,7 @@ import { Rectangle, Svg, Text } from "cx/svg";
 
 export default () => (
   <div>
-    <Svg class="h-[440px] min-w-[700px]">
+    <Svg class="h-[440px] min-w-[700px] border-t border-b">
       <Diagram center unitSize={32} fixed showGrid>
         <Flow direction="right" gap={1}>
           <Flow direction="down" gap={0.5} p={1}>

@@ -49,13 +49,8 @@ export const code = `import { Diagram, Cell, Shape, Flow, StraightLine } from "c
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="py-4 border-t border-b" />
-  <div
-    slot="right"
-    class="min-h-[200px] xl:min-h-0 xl:h-full border-t border-b relative"
-  >
-    <GettingStartedExample client:load />
-  </div>
+  <CodeSnippet code={code} />
+  <GettingStartedExample client:load slot="right" />
 </Split>
 
 <Split>

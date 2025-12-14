@@ -71,13 +71,14 @@ export const code = `<Svg class="w-auto h-full bg-white">
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t h-[400px] overflow-auto" />
-  <div slot="right" class="h-[500px] xl:h-full border-t border-b relative">
-    <ArrowHeadExample client:load />
-  </div>
+  <CodeSnippet code={code} class="max-h-[400px]" />
+
+  <ArrowHeadExample client:load slot="right" />
 </Split>
 
 <Split>
-  <Prose><h2>Configuration</h2></Prose>
+  <Prose>
+    <h2>Configuration</h2>
+  </Prose>
   <ConfigTable config={config} />
 </Split>

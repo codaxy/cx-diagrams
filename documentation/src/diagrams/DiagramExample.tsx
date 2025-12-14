@@ -15,32 +15,33 @@ class PageController extends Controller {
 
 export default () => (
   <cx>
-    <div class="w-full h-full relative" controller={PageController}>
-      <Svg class="w-full h-full bg-white">
-        <Diagram
-          unitSize={32}
-          showGrid
-          zoom={bind("$page.view.zoom")}
-          offsetX={bind("$page.view.offsetX")}
-          offsetY={bind("$page.view.offsetY")}
-          center
-        >
-          <Flow gap={1}>
-            <Cell width={4} height={2}>
-              <Shape stroke="red" fill="white" text="Red" />
-            </Cell>
-            <Cell width={4} height={2}>
-              <Shape stroke="blue" fill="white" text="Blue" />
-            </Cell>
-          </Flow>
-        </Diagram>
-      </Svg>
-      <div
-        class="absolute border bottom-2 left-2 bg-white text-[10px] uppercase p-1"
-        text={tpl(
-          "Zoom: {$page.view.zoom:p;0} Center ({$page.view.offsetX:n;0}, {$page.view.offsetY:n;0})"
-        )}
-      />
-    </div>
+    <Svg
+      class="w-full min-h-[200px] h-full bg-white  border-t border-b"
+      controller={PageController}
+    >
+      <Diagram
+        unitSize={32}
+        showGrid
+        zoom={bind("$page.view.zoom")}
+        offsetX={bind("$page.view.offsetX")}
+        offsetY={bind("$page.view.offsetY")}
+        center
+      >
+        <Flow gap={1}>
+          <Cell width={4} height={2}>
+            <Shape stroke="red" fill="white" text="Red" />
+          </Cell>
+          <Cell width={4} height={2}>
+            <Shape stroke="blue" fill="white" text="Blue" />
+          </Cell>
+        </Flow>
+      </Diagram>
+    </Svg>
+    <div
+      class="absolute border bottom-2 left-2 bg-white text-[10px] uppercase p-1"
+      text={tpl(
+        "Zoom: {$page.view.zoom:p;0} Center ({$page.view.offsetX:n;0}, {$page.view.offsetY:n;0})"
+      )}
+    />
   </cx>
 );

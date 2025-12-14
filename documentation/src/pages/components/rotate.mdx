@@ -60,15 +60,12 @@ export const code = `<Diagram center showGrid>
     code={code}
     class="border-b border-t py-4 max-h-[500px] overflow-auto"
   />
-  <div
-    slot="right"
-    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
-  >
-    <RotateExample client:load />
-  </div>
+  <RotateExample client:load slot="right" />
 </Split>
 
 <Split>
-  <Prose><h2>Configuration</h2></Prose>
+  <Prose>
+    <h2>Configuration</h2>
+  </Prose>
   <ConfigTable config={config} />
 </Split>
