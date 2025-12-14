@@ -1,13 +1,6 @@
+import { Cell, Diagram, Flow, FourSides, Rotate, Shape, StraightLine, ThreeSegmentLine } from 'cx-diagrams';
 import { Rectangle, Svg, Text } from 'cx/svg';
-import { ContentPlaceholder, MsgBox, PureContainer, Repeater } from 'cx/widgets';
-import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
-import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
-import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
-import { FourSides } from '../../../../../packages/cx-diagrams/src/FourSides';
-import { Rotate } from '../../../../../packages/cx-diagrams/src/Rotate';
-import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
-import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
-import { ThreeSegmentLine } from '../../../../../packages/cx-diagrams/src/ThreeSegmentLine';
+import { ContentPlaceholder, PureContainer, Repeater } from 'cx/widgets';
 import { CodeSnippet } from '../../../components/CodeSnippet';
 import { Image } from '../../../components/Image';
 import { Md } from '../../../components/Md';

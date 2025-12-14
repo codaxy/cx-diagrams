@@ -1,0 +1,41 @@
+---
+layout: ../layouts/DocsLayout.astro
+title: About
+---
+
+import Split from "../components/Split.astro";
+import Prose from "../components/Prose.astro";
+import AboutDiagram from "../diagrams/AboutDiagram.tsx";
+
+<Split>
+  <Prose>
+    # About CxJS Diagrams
+
+    This library allows you to create interactive diagrams in [CxJS](https://cxjs.io) applications.
+    The [Shape](/components/shape) component is used to represent visual elements such as circles and rectangles and allows
+    rich styling, click handlers, tooltips and context menus. Elements are easily connected with [Lines](/lines/straight-line) by simply specifying
+    identifiers of the beginning and the end shape.
+    Layout components, such as [Flow](/components/flow), make it easy to position elements on the diagram automatically, such as in the example below
+    which represents the tech stack of this documentation project.
+  </Prose>
+</Split>
+
+<Split>
+  <div class="overflow-x-auto border-t border-b">
+    <AboutDiagram client:load />
+  </div>
+</Split>
+
+<Split>
+  <Prose>
+    ## Links
+
+    - [GitHub](https://github.com/codaxy/cx-diagrams)
+    - [npm package](https://www.npmjs.com/package/cx-diagrams)
+    - [CxJS](https://cxjs.io)
+
+    ## License
+
+    This project is licensed under the [MIT license](https://github.com/codaxy/cx-diagrams/blob/master/LICENSE.md).
+  </Prose>
+</Split>

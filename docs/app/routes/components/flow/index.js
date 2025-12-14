@@ -1,8 +1,8 @@
 import { Rectangle, Svg, Text } from 'cx/svg';
-import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
-import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
-import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
-import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
+import { Cell } from 'cx-diagrams/Cell';
+import { Diagram } from 'cx-diagrams/Diagram';
+import { Flow } from 'cx-diagrams/Flow';
+import { Shape } from 'cx-diagrams/Shape';
 import { CodeSnippet } from '../../../components/CodeSnippet';
 import { ConfigTable } from '../../../components/ConfigTable';
 import { ImportPath } from '../../../components/ImportPath';
@@ -29,7 +29,7 @@ export default (
                     Besides fixed margins (`mt`, `mr`, `mb` and `ml`), you can use start (`ms`) and end margins (`me`) to distance elements 
                     in the direction of the flow which will work nicely if you introduce rotation.
 
-                    > Please note the SVG elements such as `Rectangle` do not affect the flow. Only `Cell` elements affect the flow.
+                    &gt; Please note the SVG elements such as `Rectangle` do not affect the flow. Only `Cell` elements affect the flow.
                     
                 </Md>
             </Pad>

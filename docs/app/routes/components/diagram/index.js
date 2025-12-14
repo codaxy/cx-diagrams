@@ -1,13 +1,13 @@
 import { Line, Rectangle, Svg, Text } from 'cx/svg';
-import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
-import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
-import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
-import { Rotate } from '../../../../../packages/cx-diagrams/src/Rotate';
-import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
+import { Diagram } from 'cx-diagrams/Diagram';
+import { Cell } from 'cx-diagrams/Cell';
+import { Flow } from 'cx-diagrams/Flow';
+import { Rotate } from 'cx-diagrams/Rotate';
+import { Shape } from 'cx-diagrams/Shape';
 import Controller from './Controller';
 
-import { StraightLine } from '../../../../../packages/cx-diagrams/src/StraightLine';
-import { TwoSegmentLine } from '../../../../../packages/cx-diagrams/src/TwoSegmentLine';
+import { StraightLine } from 'cx-diagrams/StraightLine';
+import { TwoSegmentLine } from 'cx-diagrams/TwoSegmentLine';
 import { Md } from '../../../components/Md';
 import { Split } from '../../../components/Split';
 import { Pad } from '../../../components/Pad';

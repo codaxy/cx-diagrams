@@ -1,9 +1,9 @@
 import { Svg } from 'cx/svg';
-import { Cell } from '../../../../../packages/cx-diagrams/src/Cell';
-import { Diagram } from '../../../../../packages/cx-diagrams/src/Diagram';
-import { Flow } from '../../../../../packages/cx-diagrams/src/Flow';
-import { Shape } from '../../../../../packages/cx-diagrams/src/Shape';
-import { ThreeSegmentLine } from '../../../../../packages/cx-diagrams/src/ThreeSegmentLine';
+import { Cell } from 'cx-diagrams/Cell';
+import { Diagram } from 'cx-diagrams/Diagram';
+import { Flow } from 'cx-diagrams/Flow';
+import { Shape } from 'cx-diagrams/Shape';
+import { ThreeSegmentLine } from 'cx-diagrams/ThreeSegmentLine';
 import { CodeSnippet } from '../../../components/CodeSnippet';
 import { ConfigTable } from '../../../components/ConfigTable';
 import { ImportPath } from '../../../components/ImportPath';
@@ -12,7 +12,7 @@ import { Pad } from '../../../components/Pad';
 import { Split } from '../../../components/Split';
 import config from '../../../config/ThreeSegmentLine';
 import Controller from './Controller';
-import { ArrowHead } from '../../../../../packages/cx-diagrams/src/ArrowHead';
+import { ArrowHead } from 'cx-diagrams/ArrowHead';
 
 export default (
    <cx>

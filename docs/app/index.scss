@@ -302,4 +302,4 @@ $cx-dropdown-styles: cx-deep-map-merge(
 
 @import 'components/index.scss';
 @import 'layout/index.scss';
-@import '../../packages/cx-diagrams/src/index.scss';
+@import '~cx-diagrams/src/index.scss';

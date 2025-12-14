@@ -1,0 +1,16 @@
+---
+// CodeSnippet component - displays code with syntax highlighting
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  lang?: string;
+  class?: string;
+}
+
+const { code, lang = 'tsx', class: className } = Astro.props;
+---
+
+<div class:list={["codesnippet", className]}>
+  <Code code={code.trim()} lang={lang} theme="github-dark-dimmed" />
+</div>

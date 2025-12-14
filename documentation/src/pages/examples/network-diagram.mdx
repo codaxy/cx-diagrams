@@ -1,0 +1,82 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Network Diagram Example
+---
+
+import Split from "../../components/Split.astro";
+import Prose from "../../components/Prose.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import NetworkDiagramExample from "../../diagrams/NetworkDiagramExample.tsx";
+
+export const code = `<Diagram unitSize={32} showGrid center>
+    <FourSides gap={-3}>
+        <Cell width={7} height={6}>
+            <Shape id="root" margin={50} />
+            <PureContainer putInto="cloud">
+                <Image href="/cloud.png" />
+                <Text value="Internet" class="fill-black" textAnchor="middle" dy="0.5em" />
+            </PureContainer>
+        </Cell>
+        <Repeater records={bind("$page.networks")} recordAlias="$network">
+            <Rotate turns={bind("$index")}>
+                <Flow gap={1} align="center">
+                    <Flow direction="down" gap={1} p={0.5}>
+                        <Rectangle class="fill-gray-100" />
+                        <Repeater records={bind("$network.firewalls")}>
+                            <Cell width={2}>
+                                <Shape text={bind("$record.name")} class="fill-blue-400" id={bind("$record.id")} />
+                            </Cell>
+                            <StraightLine from={bind("$record.id")} to="root" stroke="black" />
+                        </Repeater>
+                    </Flow>
+                    <Flow direction="down" gap={1} p={0.5}>
+                        <Rectangle class="fill-gray-100" />
+                        <Repeater records={bind("$network.switches")}>
+                            <Cell width={2}>
+                                <Shape text={bind("$record.name")} class="fill-green-400" id={bind("$record.id")} />
+                            </Cell>
+                        </Repeater>
+                    </Flow>
+                    <Flow direction="down" gap={1} p={0.5}>
+                        <Rectangle class="fill-gray-100" />
+                        <Repeater records={bind("$network.pcs")}>
+                            <Cell width={2}>
+                                <Shape text={bind("$record.name")} class="fill-orange-400" id={bind("$record.id")} />
+                            </Cell>
+                        </Repeater>
+                    </Flow>
+                </Flow>
+                <Repeater records={bind("$network.connections")} recordAlias="$conn">
+                    <ThreeSegmentLine
+                        from={bind("$conn.from")}
+                        to={bind("$conn.to")}
+                        direction="right"
+                        class="stroke-black"
+                        stroke="black"
+                    />
+                </Repeater>
+            </Rotate>
+        </Repeater>
+    </FourSides>
+    <ContentPlaceholder name="cloud" />
+</Diagram>`;
+
+<Split>
+  <Prose>
+    # Network Diagram Example
+
+    This example demonstrates a network topology diagram with four network segments arranged around a central "Internet" node. It showcases several key features:
+
+    - **[FourSides](/components/four-sides)** and **[Rotate](/components/rotate)** for positioning network segments in four directions
+    - **[Repeater](https://docs.cxjs.io/concepts/repeater)** for dynamically generating shapes from data
+    - **[ThreeSegmentLine](/lines/three-segment-line)** for connecting devices with Z-shaped paths
+    - Grouping related devices with background rectangles
+  </Prose>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="border-b border-t h-[700px] overflow-auto" />
+  <div slot="right" class="h-[700px] xl:h-full border-t border-b relative">
+    <NetworkDiagramExample client:load />
+  </div>
+</Split>

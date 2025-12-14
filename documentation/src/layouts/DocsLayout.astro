@@ -1,0 +1,37 @@
+---
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import '../styles/global.scss';
+
+interface Props {
+  frontmatter?: {
+    title?: string;
+  };
+  title?: string;
+}
+
+const { frontmatter, title: directTitle } = Astro.props;
+const title = frontmatter?.title || directTitle || '';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - CxJS Diagrams</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="h-full grid grid-cols-1 xl:grid-cols-[250px_1fr] xl:grid-rows-[auto_1fr]">
+      <Header />
+      <Sidebar />
+      <main class="bg-gray-50 overflow-auto">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

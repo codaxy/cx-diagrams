@@ -1,6 +1,6 @@
-import { ContentPlaceholder, ContentPlaceholderScope } from 'cx/ui';
+import { ContentPlaceholder, ContentPlaceholderScope, createFunctionalComponent } from 'cx/ui';
 
-export const Split = ({ children, className }) => (
+export const Split = createFunctionalComponent(({ children, className }) => (
    <cx>
       <ContentPlaceholderScope name="right">
          <div class="xl:grid grid-cols-[640px_1fr] 2xl:grid-cols-[768px_1fr] relative" className={className}>
@@ -13,4 +13,4 @@ export const Split = ({ children, className }) => (
          </div>
       </ContentPlaceholderScope>
    </cx>
-);
+));

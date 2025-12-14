@@ -1,0 +1,54 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Cell
+---
+
+import Split from "../../components/Split.astro";
+import Prose from "../../components/Prose.astro";
+import ImportPath from "../../components/ImportPathWrapper.tsx";
+import ConfigTable from "../../components/ConfigTable.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import CellExample from "../../diagrams/CellExample.tsx";
+import config from "../../config/Cell";
+
+export const code = `<Diagram center showGrid>
+    <Flow direction="right">
+        <Cell width={2}>
+            <Rectangle fill="red" />
+        </Cell>
+        <Cell height={2} ms={1}>
+            <Ellipse fill="green" />
+        </Cell>
+        <Cell height={2} ms={1} mt={-1}>
+            <Rectangle stroke="blue" fill="transparent" />
+        </Cell>
+    </Flow>
+</Diagram>`;
+
+<Split>
+  <Prose>
+    # Cell
+
+    <ImportPath path='import { Cell } from "cx-diagrams"' client:load />
+
+    The `Cell` component is used to mark a rectangular area on the diagram using its `width` and `height` properties to provide boundaries to [`Shapes`](/components/shape) and other [CxJS SVG components](https://docs.cxjs.io/svg/svgs). `Cells` participate in layout [`Flows`](/components/flow). Margin properties such as `ms` and `me` are used to add distance between cells.
+
+  </Prose>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="py-4 border-t border-b" />
+  <div
+    slot="right"
+    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
+  >
+    <CellExample client:load />
+  </div>
+</Split>
+
+<Split>
+  <Prose>
+    <h2>Configuration</h2>
+  </Prose>
+  <ConfigTable config={config} />
+</Split>
