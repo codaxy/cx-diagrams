@@ -1,0 +1,56 @@
+---
+interface NavPage {
+  href: string;
+  title: string;
+}
+
+const pages: NavPage[] = [
+  { href: "/", title: "About" },
+  { href: "/getting-started", title: "Getting Started" },
+  { href: "/components/diagram", title: "Diagram" },
+  { href: "/components/cell", title: "Cell" },
+  { href: "/components/shape", title: "Shape" },
+  { href: "/components/flow", title: "Flow" },
+  { href: "/components/rotate", title: "Rotate" },
+  { href: "/components/four-sides", title: "FourSides" },
+  { href: "/components/arrow-head", title: "ArrowHead" },
+  { href: "/lines/straight-line", title: "StraightLine" },
+  { href: "/lines/two-segment-line", title: "TwoSegmentLine" },
+  { href: "/lines/three-segment-line", title: "ThreeSegmentLine" },
+  { href: "/examples/network-diagram", title: "Network Diagram" },
+  { href: "/examples/neural-network", title: "Neural Network" },
+];
+
+const pathname = Astro.url.pathname;
+const normalizedPath = pathname.replace(/\/$/, '') || '/';
+
+const currentIndex = pages.findIndex(p => p.href === normalizedPath);
+const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
+const nextPage = currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
+---
+
+<nav class="flex items-center justify-between px-6 py-6 mt-8 border-t">
+  {prevPage ? (
+    <a href={prevPage.href} class="flex items-center gap-2 text-gray-600 transition-colors hover:text-blue-600">
+      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+      <div>
+        <div class="text-xs text-gray-400">Previous</div>
+        <div class="font-medium">{prevPage.title}</div>
+      </div>
+    </a>
+  ) : <div />}
+
+  {nextPage ? (
+    <a href={nextPage.href} class="flex items-center gap-2 text-right text-gray-600 transition-colors hover:text-blue-600">
+      <div>
+        <div class="text-xs text-gray-400">Next</div>
+        <div class="font-medium">{nextPage.title}</div>
+      </div>
+      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+      </svg>
+    </a>
+  ) : <div />}
+</nav>

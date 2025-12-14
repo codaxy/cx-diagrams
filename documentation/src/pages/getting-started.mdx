@@ -11,22 +11,21 @@ import GettingStartedExample from "../diagrams/GettingStartedExample.tsx";
 export const code = `import { Diagram, Cell, Shape, Flow, StraightLine } from "cx-diagrams";
 
 <Diagram unitSize={32} showGrid center>
-    <Flow gap={1}>
-        <Cell>
-            <Shape text="Hello" fill="lightblue" id="hello" />
-        </Cell>
-        <Cell>
-            <Shape text="World" fill="lightgreen" id="world" />
-        </Cell>
-    </Flow>
-    <StraightLine from="hello" to="world" stroke="black" />
-</Diagram>`;
+  <Flow gap={1}>
+    <Cell width={4} height={2}>
+      <Shape text="Hello" fill="lightblue" id="hello" />
+    </Cell>
+    <Cell width={4} height={2}>
+      <Shape text="World" fill="lightgreen" id="world" />
+    </Cell>
+  </Flow>
+  <StraightLine from="hello" to="world" stroke="black" />
+</Diagram>
+`;
 
 <Split>
   <Prose>
     # Getting Started
-
-    ## Installation
 
     Install the package using npm or yarn:
 
@@ -45,12 +44,16 @@ export const code = `import { Diagram, Cell, Shape, Flow, StraightLine } from "c
     ## Basic Example
 
     Here's a simple example that creates two shapes connected by a line:
+
   </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t py-4" />
-  <div slot="right" class="min-h-[200px] xl:min-h-0 xl:h-full border-t border-b relative">
+  <CodeSnippet code={code} class="py-4 border-t border-b" />
+  <div
+    slot="right"
+    class="min-h-[200px] xl:min-h-0 xl:h-full border-t border-b relative"
+  >
     <GettingStartedExample client:load />
   </div>
 </Split>
@@ -65,10 +68,5 @@ export const code = `import { Diagram, Cell, Shape, Flow, StraightLine } from "c
     - **[Flow](/components/flow)** - Arranges cells in a directional layout (right, down, left, up)
     - **[Lines](/lines/straight-line)** - Connect shapes by referencing their `id` attributes
 
-    ## Next Steps
-
-    - Explore the [Shape](/components/shape) component for styling options, tooltips, and click handlers
-    - Learn about [Flow](/components/flow) layouts for automatic positioning
-    - Check out the [Examples](/examples/network-diagram) for more complex diagrams
   </Prose>
 </Split>

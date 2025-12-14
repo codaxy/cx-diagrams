@@ -303,13 +303,17 @@ $cx-dropdown-styles: cx-deep-map-merge(
 }
 
 .prose h2 {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
-  margin: 1rem 0;
+  margin: 2rem 0 1rem;
   @apply text-gray-900;
 
   &:last-child {
     margin-bottom: 0;
+  }
+
+  &:first-child {
+    margin-top: 0;
   }
 }
 
@@ -322,7 +326,7 @@ $cx-dropdown-styles: cx-deep-map-merge(
   content: none;
 }
 
-.prose code {
+.prose p code {
   font-size: inherit;
   font-weight: 600;
   @apply text-blue-600 bg-gray-100 px-1 rounded;
@@ -424,6 +428,13 @@ $cx-dropdown-styles: cx-deep-map-merge(
       border-radius: 0;
     }
   }
+}
+
+// Background pattern
+.bg-dot-pattern {
+  @apply bg-gray-100;
+  background-image: radial-gradient(circle, #d8dadd 1px, transparent 1px);
+  background-size: 16px 16px;
 }
 
 // ImportPath styles

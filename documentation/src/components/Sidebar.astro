@@ -1,12 +1,11 @@
 ---
 import NavItem from './NavItem.astro';
-import AboutNavItem from './AboutNavItem.astro';
 ---
 
 <nav id="sidebar" class="hidden pt-3 overflow-auto bg-white xl:border-r xl:block">
   <div class="px-6 py-2 text-sm font-bold text-gray-700">Introduction</div>
-  <AboutNavItem text="About" href="/" />
-  <NavItem text="Getting Started" href="/getting-started" />
+  <NavItem text="About" href="/" icon="intro" />
+  <NavItem text="Getting Started" href="/getting-started" icon="intro" />
 
   <div class="px-6 py-2 mt-2 text-sm font-bold text-gray-700">Components</div>
   <NavItem text="Diagram" href="/components/diagram" />

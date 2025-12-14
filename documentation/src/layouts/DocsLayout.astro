@@ -1,7 +1,9 @@
 ---
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
+import PageNav from '../components/PageNav.astro';
 import '../styles/global.scss';
+import Split from '../components/Split.astro';
 
 interface Props {
   frontmatter?: {
@@ -29,8 +31,13 @@ const title = frontmatter?.title || directTitle || '';
     <div class="h-full grid grid-cols-1 xl:grid-cols-[250px_1fr] xl:grid-rows-[auto_1fr]">
       <Header />
       <Sidebar />
-      <main class="bg-gray-50 overflow-auto">
+      <main class="overflow-auto ">
+        <div class="bg-dot-pattern">
         <slot />
+        <Split>
+          <PageNav />
+        </Split>
+        </div>
       </main>
     </div>
   </body>

@@ -8,6 +8,11 @@ import cxjs from './src/integrations/cxjs';
 // https://astro.build/config
 export default defineConfig({
     integrations: [cxjs(), react(), mdx(), tailwind()],
+    markdown: {
+        shikiConfig: {
+            theme: 'github-dark-dimmed',
+        },
+    },
     vite: {
         esbuild: {
             loader: 'tsx',
