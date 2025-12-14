@@ -60,19 +60,24 @@ export const code = `<Diagram unitSize={64} center showGrid>
     <ImportPath path='import { StraightLine } from "cx-diagrams"' client:load />
 
     The `StraightLine` component is used to connect shapes with straight lines. Lines are drawn from shapes edges which allows simple placing of markers.
+
   </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t py-4 max-h-[500px] overflow-auto" />
-  <div slot="right" class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative">
+  <CodeSnippet
+    code={code}
+    class="border-b border-t py-4 max-h-[500px] overflow-auto"
+  />
+  <div
+    slot="right"
+    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
+  >
     <StraightLineExample client:load />
   </div>
 </Split>
 
 <Split>
-  <Prose class="pb-0">
-    ## Configuration
-  </Prose>
+  <Prose><h2>Configuration</h2></Prose>
   <ConfigTable config={config} />
 </Split>

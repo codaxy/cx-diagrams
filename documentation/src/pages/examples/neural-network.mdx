@@ -37,11 +37,19 @@ export const code = `<Diagram unitSize={48} showGrid center>
 <Split>
   <Prose>
     # Neural Network Example
+
+    This example visualizes a simple neural network with input, hidden, and output layers. It demonstrates:
+
+    - [Flow](/components/flow) layouts for arranging layers horizontally and nodes vertically
+    - [Repeater](https://docs.cxjs.io/concepts/repeater) for generating nodes and connections from data
+    - Conditional styling using CxJS expressions to color nodes by layer type
+    - [StraightLine](/lines/straight-line) for connecting all nodes between adjacent layers
+
   </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t h-[700px] overflow-auto" />
+  <CodeSnippet code={code} class="border-b border-t h-[550px] overflow-auto" />
   <div slot="right" class="h-[700px] xl:h-full border-t border-b relative">
     <NeuralNetworkExample client:load />
   </div>

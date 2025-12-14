@@ -51,6 +51,7 @@ export const code = `<Diagram unitSize={48} center showGrid>
         </ThreeSegmentLine>
         ...
     </Flow>
+
 </Diagram>`;
 
 <Split>
@@ -59,20 +60,25 @@ export const code = `<Diagram unitSize={48} center showGrid>
 
     <ImportPath path='import { ThreeSegmentLine } from "cx-diagrams"' client:load />
 
-    The `ThreeSegmentLine` component is used to connect shapes with horizontal and vertical line segments.
+    The `ThreeSegmentLine` component connects shapes using three line segments, creating a "Z-shaped" path. This is useful when shapes need to be connected around obstacles or when a more structured routing is desired. The middle segment runs perpendicular to the `direction` property.
+
   </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t py-4 max-h-[500px] overflow-auto" />
-  <div slot="right" class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative">
+  <CodeSnippet
+    code={code}
+    class="border-b border-t py-4 max-h-[500px] overflow-auto"
+  />
+  <div
+    slot="right"
+    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
+  >
     <ThreeSegmentLineExample client:load />
   </div>
 </Split>
 
 <Split>
-  <Prose class="pb-0">
-    ## Configuration
-  </Prose>
+  <Prose><h2>Configuration</h2></Prose>
   <ConfigTable config={config} />
 </Split>

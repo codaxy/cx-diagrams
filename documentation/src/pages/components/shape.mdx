@@ -21,7 +21,12 @@ export const code = `<Diagram unitSize={24} center showGrid>
                 <Shape stroke="red" text="stroke" />
             </Cell>
             <Cell width={4} height={2}>
-                <Shape fill="lightgray" text="Tooltip" tooltip="Shapes can have tooltips" id="tooltip" />
+                <Shape 
+                    fill="lightgray" 
+                    text="Tooltip" 
+                    tooltip="Shapes can have tooltips" 
+                    id="tooltip" 
+                />
             </Cell>
         </Flow>
 
@@ -75,7 +80,11 @@ export const code = `<Diagram unitSize={24} center showGrid>
                 <StraightLine from="connected" to="tooltip" stroke="black" />
             </Cell>
             <Cell width={4} height={2}>
-                <Shape shapeClass="fill-blue-300 stroke-blue-800" shape="rhombus" text="Rhombus" />
+                <Shape
+                    shapeClass="fill-blue-300 stroke-blue-800"
+                    shape="rhombus"
+                    text="Rhombus"
+                />
             </Cell>
         </Flow>
 
@@ -107,10 +116,10 @@ export const code = `<Diagram unitSize={24} center showGrid>
                         e,
                         <cx>
                             <Menu>
-                                <Link href="/components/diagram">Diagram</Link>
-                                <Link href="/components/cell">Cell</Link>
-                                <Link href="/components/shape">Shape</Link>
-                                <Link href="/components/flow">Flow</Link>
+                                <a href="/components/diagram">Diagram</a>
+                                <a href="/components/cell">Cell</a>
+                                <a href="/components/shape">Shape</a>
+                                <a href="/components/flow">Flow</a>
                             </Menu>
                         </cx>,
                         instance
@@ -134,6 +143,8 @@ export const code = `<Diagram unitSize={24} center showGrid>
     and can represent various things such as network devices and interfaces, departments, roles, etc. Shapes support the `text` property
     and can easily be interconnected using lines. Shapes are clickable and support context menus.
 
+    Shapes can be nested to create connection points or decorators. The `anchors` property positions child shapes relative to the parent using four values: `"top right bottom left"` (0-1 range, where 0.5 is center). For example, `anchors="0.5 1 0.5 1"` positions a shape at the right edge center.
+
   </Prose>
 </Split>
 
@@ -151,6 +162,8 @@ export const code = `<Diagram unitSize={24} center showGrid>
 </Split>
 
 <Split>
-  <Prose class="pb-0">## Configuration</Prose>
+  <Prose>
+    <h2>Configuration</h2>
+  </Prose>
   <ConfigTable config={config} />
 </Split>

@@ -4,10 +4,14 @@ import Sidebar from '../components/Sidebar.astro';
 import '../styles/global.scss';
 
 interface Props {
-  title: string;
+  frontmatter?: {
+    title?: string;
+  };
+  title?: string;
 }
 
-const { title } = Astro.props;
+const { frontmatter, title: directTitle } = Astro.props;
+const title = frontmatter?.title || directTitle || '';
 ---
 
 <!doctype html>

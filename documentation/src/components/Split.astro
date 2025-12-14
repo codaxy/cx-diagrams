@@ -8,9 +8,16 @@
   <div class="bg-white min-h-full">
     <slot />
   </div>
-  <div class="xl:border-l relative">
+  <div class="xl:border-l relative bg-dot-pattern">
     <div class="xl:absolute xl:top-0 xl:right-0 xl:bottom-0 xl:left-0 xl:overflow-auto">
       <slot name="right" />
     </div>
   </div>
 </div>
+
+<style>
+  .bg-dot-pattern {
+    background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+</style>

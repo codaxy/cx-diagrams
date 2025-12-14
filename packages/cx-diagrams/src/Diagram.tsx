@@ -233,7 +233,7 @@ class DiagramComponent extends VDOM.Component<
     this.el = el;
   };
 
-  componentWillReceiveProps(props: DiagramComponentProps) {
+  UNSAFE_componentWillReceiveProps(props: DiagramComponentProps) {
     this.setState({
       zoom: props.data.zoom,
       offsetX: props.data.offsetX,

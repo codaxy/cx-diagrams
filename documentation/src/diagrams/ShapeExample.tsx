@@ -1,12 +1,14 @@
 /** @jsxImportSource cx */
 import { Cell, Diagram, Flow, Shape, StraightLine } from "cx-diagrams";
 import { Svg } from "cx/svg";
-import { Link, Menu, openContextMenu } from "cx/widgets";
+import { Link, Menu, openContextMenu, enableTooltips } from "cx/widgets";
+
+enableTooltips();
 
 export default () => (
   <cx>
     <Svg class="w-full h-full bg-white">
-      <Diagram unitSize={24} center showGrid>
+      <Diagram unitSize={32} center showGrid>
         <Flow direction="right" gap={2}>
           <Flow direction="down" gap={1}>
             <Cell width={4} height={2}>
@@ -105,16 +107,16 @@ export default () => (
                 shapeClass="fill-green-300 stroke-green-800"
                 id="green"
                 text="Context Menu"
-                onContextMenu={(e: MouseEvent, instance: any) => {
+                onContextMenu={(e: React.MouseEvent, instance: any) => {
                   e.preventDefault();
                   openContextMenu(
                     e,
                     <cx>
                       <Menu>
-                        <Link href="/components/diagram">Diagram</Link>
-                        <Link href="/components/cell">Cell</Link>
-                        <Link href="/components/shape">Shape</Link>
-                        <Link href="/components/flow">Flow</Link>
+                        <a href="/components/diagram">Diagram</a>
+                        <a href="/components/cell">Cell</a>
+                        <a href="/components/shape">Shape</a>
+                        <a href="/components/flow">Flow</a>
                       </Menu>
                     </cx>,
                     instance

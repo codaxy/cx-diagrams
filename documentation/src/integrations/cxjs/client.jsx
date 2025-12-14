@@ -7,8 +7,6 @@ export default (element) => {
   return (Component, props, { default: children, ...slotted }, { client }) => {
     const store = new Store();
 
-    console.log(Component, props);
-
     // Recreate widget tree
     let widget;
     if (Component.isComponentType) {

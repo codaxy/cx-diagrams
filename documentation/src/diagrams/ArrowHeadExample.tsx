@@ -13,7 +13,7 @@ import { Svg } from "cx/svg";
 export default () => (
   <cx>
     <Svg class="w-full h-full bg-white">
-      <Diagram unitSize={32} showGrid center>
+      <Diagram unitSize={48} showGrid center>
         <Flow direction="down">
           <Flow direction="down" gap={4}>
             <Flow gap={5}>
@@ -56,7 +56,12 @@ export default () => (
         <StraightLine from="scm" to="ghw" stroke="black">
           <ArrowHead size={7} class="fill-red-600 stroke-black" />
         </StraightLine>
-        <ThreeSegmentLine direction="down" from="ghw" to="docker" stroke="black">
+        <ThreeSegmentLine
+          direction="down"
+          from="ghw"
+          to="docker"
+          stroke="black"
+        >
           <ArrowHead position="middle" stroke="black" fill="white" size={7} />
         </ThreeSegmentLine>
         <StraightLine from="docker" to="publish" stroke="black">

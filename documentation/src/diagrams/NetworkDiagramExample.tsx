@@ -12,6 +12,7 @@ import {
 import { Rectangle, Svg, Text } from "cx/svg";
 import { bind, Controller } from "cx/ui";
 import { ContentPlaceholder, PureContainer, Repeater } from "cx/widgets";
+import { Image } from "../components/Image";
 
 function uid() {
   return Math.random().toString(36).substring(2, 9);
@@ -97,10 +98,7 @@ export default () => (
             <Cell width={7} height={6}>
               <Shape id="root" margin={50} />
               <PureContainer putInto="cloud">
-                <Rectangle
-                  anchors="0.35 0.35 0.65 0.65"
-                  class="fill-gray-200 stroke-gray-400"
-                />
+                <Image href="/cloud.png" />
                 <Text
                   value="Internet"
                   class="fill-black"

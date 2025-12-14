@@ -12,7 +12,7 @@ import ArrowHeadExample from "../../diagrams/ArrowHeadExample.tsx";
 import config from "../../config/ArrowHead";
 
 export const code = `<Svg class="w-auto h-full bg-white">
-    <Diagram unitSize={32} showGrid center>
+    <Diagram unitSize={48} showGrid center>
         <Flow direction="down">
             <Flow direction="down" gap={4}>
                 <Flow gap={5}>
@@ -58,7 +58,15 @@ export const code = `<Svg class="w-auto h-full bg-white">
 
     <ImportPath path='import { ArrowHead } from "cx-diagrams"' client:load />
 
-    The Arrow Head component is a child element for StraightLine, TwoSegmentLine, and ThreeSegmentLine components, adding arrow heads to line ends for visual directionality cues.
+    The `ArrowHead` component is a child element for `StraightLine`, `TwoSegmentLine`, and `ThreeSegmentLine` components, adding arrow heads to line ends for visual directionality cues.
+
+    Available `shape` options:
+    - `"triangle"` (default) - solid triangular arrow
+    - `"line"` - two lines forming a V shape
+    - `"vback"` - triangular arrow with a V-shaped notch
+
+    Use `reverse` to flip the arrow direction, and `position="middle"` to place it at the line's midpoint.
+
   </Prose>
 </Split>
 
@@ -70,8 +78,6 @@ export const code = `<Svg class="w-auto h-full bg-white">
 </Split>
 
 <Split>
-  <Prose class="pb-0">
-    ## Configuration
-  </Prose>
+  <Prose><h2>Configuration</h2></Prose>
   <ConfigTable config={config} />
 </Split>

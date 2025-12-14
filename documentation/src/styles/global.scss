@@ -298,7 +298,7 @@ $cx-dropdown-styles: cx-deep-map-merge(
 .prose h1 {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   @apply text-gray-900;
 }
 
@@ -307,6 +307,10 @@ $cx-dropdown-styles: cx-deep-map-merge(
   font-weight: 600;
   margin: 1rem 0;
   @apply text-gray-900;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .prose h2 a {
@@ -324,12 +328,17 @@ $cx-dropdown-styles: cx-deep-map-merge(
   @apply text-blue-600 bg-gray-100 px-1 rounded;
 }
 
+.prose a:has(code) {
+  @apply text-blue-600;
+}
+
 // ConfigTable styles
 .configtable {
-  margin-top: 16px;
+  //margin-top: 16px;
   position: relative;
   overflow-x: auto;
   font-size: 14px;
+  @apply text-gray-800;
 
   code {
     font-size: inherit;
@@ -408,33 +417,13 @@ $cx-dropdown-styles: cx-deep-map-merge(
     padding: 0 !important;
     margin: 0 !important;
     border-radius: 0 !important;
+    overflow: visible !important;
 
     & > code {
       background: transparent;
       border-radius: 0;
     }
-
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    &::-webkit-scrollbar {
-      height: 6px;
-      background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 3px;
-    }
   }
-}
-
-h1 astro-island:has(.cxb-importpath) {
-  margin-top: -1rem;
 }
 
 // ImportPath styles

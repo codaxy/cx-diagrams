@@ -80,6 +80,7 @@ export const code = `<Diagram center showGrid>
             </Cell>
         </Flow>
     </FourSides>
+
 </Diagram>`;
 
 <Split>
@@ -89,19 +90,21 @@ export const code = `<Diagram center showGrid>
     <ImportPath path='import { FourSides } from "cx-diagrams"' client:load />
 
     The `FourSides` component is used to lay out diagram components into four directions. This is commonly used in combination with [`Rotate`](/components/rotate) to assemble the parts into a single structure.
+
   </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t py-4 h-[500px] overflow-auto" />
+  <CodeSnippet
+    code={code}
+    class="border-b border-t py-4 h-[500px] overflow-auto"
+  />
   <div slot="right" class="h-[400px] xl:h-full border-t border-b relative">
     <FourSidesExample client:load />
   </div>
 </Split>
 
 <Split>
-  <Prose class="pb-0">
-    ## Configuration
-  </Prose>
+  <Prose><h2>Configuration</h2></Prose>
   <ConfigTable config={config} />
 </Split>

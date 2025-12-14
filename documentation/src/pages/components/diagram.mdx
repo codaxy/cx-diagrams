@@ -21,10 +21,10 @@ export const code = `<Svg class="w-auto h-full bg-white">
         center
     >
         <Flow gap={1}>
-            <Cell width={2}>
+            <Cell width={4} height={2}>
                 <Shape stroke="red" fill="white" text="Red" />
             </Cell>
-            <Cell width={2}>
+            <Cell width={4} height={2}>
                 <Shape stroke="blue" fill="white" text="Blue" />
             </Cell>
         </Flow>
@@ -42,6 +42,7 @@ export const code = `<Svg class="w-auto h-full bg-white">
     <ImportPath path='import { Diagram } from "cx-diagrams"' client:load />
 
     The `Diagram` component is used to mark the area of the diagram and provide zooming and panning functions. It's required that all diagrams use this component as a top-level parent element.
+
   </Prose>
 </Split>
 
@@ -53,8 +54,6 @@ export const code = `<Svg class="w-auto h-full bg-white">
 </Split>
 
 <Split>
-  <Prose class="pb-0">
-    ## Configuration
-  </Prose>
+  <Prose><h2>Configuration</h2></Prose>
   <ConfigTable config={config} />
 </Split>

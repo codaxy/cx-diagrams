@@ -48,20 +48,25 @@ export const code = `<Diagram unitSize={64} center showGrid>
 
     <ImportPath path='import { TwoSegmentLine } from "cx-diagrams"' client:load />
 
-    The `TwoSegmentLine` component is used to connect shapes with horizontal and vertical line segments.
+    The `TwoSegmentLine` component connects shapes using exactly two perpendicular line segments - one horizontal and one vertical. This creates an "L-shaped" connection, useful when shapes are offset both horizontally and vertically. The `direction` property controls which segment comes first.
+
   </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t py-4 max-h-[500px] overflow-auto" />
-  <div slot="right" class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative">
+  <CodeSnippet
+    code={code}
+    class="border-b border-t py-4 max-h-[500px] overflow-auto"
+  />
+  <div
+    slot="right"
+    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
+  >
     <TwoSegmentLineExample client:load />
   </div>
 </Split>
 
 <Split>
-  <Prose class="pb-0">
-    ## Configuration
-  </Prose>
+  <Prose><h2>Configuration</h2></Prose>
   <ConfigTable config={config} />
 </Split>

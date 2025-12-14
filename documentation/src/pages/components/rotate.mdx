@@ -50,20 +50,25 @@ export const code = `<Diagram center showGrid>
 
     <ImportPath path='import { Rotate } from "cx-diagrams"' client:load />
 
-    The `Rotate` component is commonly used with network diagrams to lay out repetitive parts in different directions.
+    The `Rotate` component rotates its children by 90-degree increments. The `turns` property accepts values 0-3, where each increment represents a 90° clockwise rotation (0 = 0°, 1 = 90°, 2 = 180°, 3 = 270°). This is commonly used with network diagrams to lay out repetitive parts in different directions, often in combination with [`FourSides`](/components/four-sides).
+
   </Prose>
 </Split>
 
 <Split>
-  <CodeSnippet code={code} class="border-b border-t py-4 max-h-[500px] overflow-auto" />
-  <div slot="right" class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative">
+  <CodeSnippet
+    code={code}
+    class="border-b border-t py-4 max-h-[500px] overflow-auto"
+  />
+  <div
+    slot="right"
+    class="min-h-[300px] xl:min-h-0 xl:h-full border-t border-b relative"
+  >
     <RotateExample client:load />
   </div>
 </Split>
 
 <Split>
-  <Prose class="pb-0">
-    ## Configuration
-  </Prose>
+  <Prose><h2>Configuration</h2></Prose>
   <ConfigTable config={config} />
 </Split>

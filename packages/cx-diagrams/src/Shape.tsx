@@ -56,13 +56,13 @@ export interface ShapeConfig extends BoundedObjectConfig {
   fill?: StringProp;
 
   /** Click handler. */
-  onClick?: string | ((e: MouseEvent, instance: Instance) => void);
+  onClick?: string | ((e: React.MouseEvent, instance: Instance) => void);
 
   /** Double click handler. */
-  onDoubleClick?: string | ((e: MouseEvent, instance: Instance) => void);
+  onDoubleClick?: string | ((e: React.MouseEvent, instance: Instance) => void);
 
   /** Context menu handler. */
-  onContextMenu?: string | ((e: MouseEvent, instance: Instance) => void);
+  onContextMenu?: string | ((e: React.MouseEvent, instance: Instance) => void);
 }
 
 interface ShapeData {
@@ -153,22 +153,21 @@ export class Shape extends BoundedObject<ShapeConfig> {
       onContextMenu?: (e: React.MouseEvent) => void;
     } = {
       onMouseMove: (e) => {
-        tooltipMouseMove(e.nativeEvent, instance, this.tooltip);
+        tooltipMouseMove(e, instance, this.tooltip);
       },
       onMouseLeave: (e) => {
-        tooltipMouseLeave(e.nativeEvent, instance, this.tooltip);
+        tooltipMouseLeave(e, instance, this.tooltip);
       },
     };
 
     if (this.onClick)
-      gProps.onClick = (e) =>
-        instance.invoke("onClick", e.nativeEvent, instance);
+      gProps.onClick = (e) => instance.invoke("onClick", e, instance);
     if (this.onDoubleClick)
       gProps.onDoubleClick = (e) =>
-        instance.invoke("onDoubleClick", e.nativeEvent, instance);
+        instance.invoke("onDoubleClick", e, instance);
     if (this.onContextMenu)
       gProps.onContextMenu = (e) =>
-        instance.invoke("onContextMenu", e.nativeEvent, instance);
+        instance.invoke("onContextMenu", e, instance);
 
     if (this.tooltip) {
       shapeProps.ref = (c) => {

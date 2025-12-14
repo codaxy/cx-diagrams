@@ -26,10 +26,10 @@ export default () => (
           center
         >
           <Flow gap={1}>
-            <Cell width={2}>
+            <Cell width={4} height={2}>
               <Shape stroke="red" fill="white" text="Red" />
             </Cell>
-            <Cell width={2}>
+            <Cell width={4} height={2}>
               <Shape stroke="blue" fill="white" text="Blue" />
             </Cell>
           </Flow>
@@ -37,7 +37,9 @@ export default () => (
       </Svg>
       <div
         class="absolute border bottom-2 left-2 bg-white text-[10px] uppercase p-1"
-        text={tpl("Zoom: {$page.view.zoom:p;0} Center ({$page.view.offsetX:n;0}, {$page.view.offsetY:n;0})")}
+        text={tpl(
+          "Zoom: {$page.view.zoom:p;0} Center ({$page.view.offsetX:n;0}, {$page.view.offsetY:n;0})"
+        )}
       />
     </div>
   </cx>
