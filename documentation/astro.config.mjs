@@ -8,6 +8,9 @@ import cxjs from './src/integrations/cxjs';
 // https://astro.build/config
 export default defineConfig({
     integrations: [cxjs(), react(), mdx(), tailwind()],
+    prefetch: {
+        defaultStrategy: 'hover',
+    },
     markdown: {
         shikiConfig: {
             theme: 'github-dark-dimmed',
