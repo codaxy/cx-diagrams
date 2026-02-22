@@ -1,0 +1,84 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Draggable
+---
+
+import Split from "../../components/Split.astro";
+import Prose from "../../components/Prose.astro";
+import ImportPath from "../../components/ImportPathWrapper.tsx";
+import ConfigTable from "../../components/ConfigTable.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import DraggableExample from "../../diagrams/DraggableExample.tsx";
+import config from "../../config/Draggable";
+
+export const code = `<Diagram center showGrid>
+    <Flow direction="right" gap={2}>
+        <Draggable
+            offsetX={bind("$page.cell1.offsetX")}
+            offsetY={bind("$page.cell1.offsetY")}
+        >
+            <Cell width={3}>
+                <Shape
+                    text="Drag me"
+                    shapeClass="fill-blue-200 stroke-blue-600"
+                />
+            </Cell>
+        </Draggable>
+        <Draggable
+            offsetX={bind("$page.cell2.offsetX")}
+            offsetY={bind("$page.cell2.offsetY")}
+        >
+            <Cell width={3}>
+                <Shape
+                    text="Drag me too"
+                    shapeClass="fill-green-200 stroke-green-600"
+                />
+            </Cell>
+        </Draggable>
+    </Flow>
+    <Draggable
+        offsetX={bind("$page.group.offsetX")}
+        offsetY={bind("$page.group.offsetY")}
+    >
+        <Flow direction="right" gap={1} mt={3}>
+            <Cell width={3}>
+                <Shape
+                    text="Group A"
+                    shapeClass="fill-orange-200 stroke-orange-600"
+                />
+            </Cell>
+            <Cell width={3}>
+                <Shape
+                    text="Group B"
+                    shapeClass="fill-orange-200 stroke-orange-600"
+                />
+            </Cell>
+        </Flow>
+    </Draggable>
+</Diagram>`;
+
+<Split>
+  <Prose>
+    # Draggable
+
+    <ImportPath path='import { Draggable } from "cx-diagrams"' client:load />
+
+    The `Draggable` component wraps child nodes and enables drag-to-move behavior via mouse or touch input.
+    The `offsetX` and `offsetY` properties should be bound to the store to persist drag positions.
+    Each child cell can be made individually draggable, or multiple cells can be grouped inside a single
+    `Draggable` to move them together as a group.
+
+  </Prose>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="max-h-[500px]" />
+  <DraggableExample client:load slot="right" />
+</Split>
+
+<Split>
+  <Prose>
+    <h2>Configuration</h2>
+  </Prose>
+  <ConfigTable config={config} />
+</Split>
