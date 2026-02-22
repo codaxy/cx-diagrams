@@ -1,0 +1,58 @@
+@use "sass:color";
+
+@forward "cx/src/variables" with (
+  $cx-include-global-rules: false !default,
+  $cx-default-icon-size: 16px !default,
+
+  $cx-default-slider-handle-size: 20px !default,
+  $cx-default-progressbar-height: 10px !default,
+
+  $cx-tooltip-background-color: #222 !default,
+  $cx-tooltip-color: white !default,
+  $cx-tooltip-border-radius: 8px !default,
+  $cx-tooltip-padding: 8px 16px !default,
+  $cx-tooltip-background-color-error: #dc2626 !default,
+
+  $cx-default-label-font-weight: inherit !default,
+
+  $cx-default-input-width: 210px !default,
+
+  $cx-default-box-padding: 8px !default,
+  $cx-default-box-font-size: 14px !default,
+  $cx-default-box-line-height: 20px !default,
+  $cx-default-font-size: 14px !default,
+  $cx-default-border-color: rgb(209, 213, 219) !default,
+  $cx-default-border-radius: 3px !default,
+
+  $cx-default-list-item-padding: 8px 12px !default,
+
+  $cx-default-switch-range-background-color: #1f99f8 !default,
+
+  $cx-default-grid-data-padding: 8px 16px !default,
+  $cx-default-grid-header-font-weight: 700 !default,
+  $cx-default-grid-header-font-size: 11px !default,
+  $cx-default-grid-header-background-color: rgba(#eee, 0.25) !default,
+  $cx-default-grid-header-color: rgba(black, 0.6) !default,
+  $cx-default-grid-border-color: rgb(237, 242, 247) !default,
+  $cx-default-grid-header-border-color: #ddd !default,
+
+  $cx-default-window-footer-background-color: transparent !default,
+  $cx-default-window-header-background-color: transparent !default,
+  $cx-default-window-background-color: white !default,
+  $cx-default-window-header-padding: 12px 12px 12px 24px !default,
+  $cx-default-window-footer-padding: 16px 24px !default,
+
+  $cx-default-checkbox-size: 16px !default,
+  $cx-default-radio-size: 16px !default,
+
+  $cx-default-palette-colors: #ef4444 #ea580c #f59e0b #65a30d #16a34a #14b8a6
+    #06b6d4 #0ea5e9 #2563eb #6366f1 #8b5cf6 #a855f7 #d946ef #ec4899 #f43f5e !default,
+
+  $cx-default-palette-fill-whiten: 20% !default,
+  $cx-default-palette-fill-blacken: 0% !default,
+  $cx-default-palette-stroke-whiten: 0% !default,
+  $cx-default-palette-stroke-blacken: 0% !default,
+
+  $cx-grid-pagination-default-outer-border-radius: 6px !default,
+  $cx-grid-pagination-default-border-radius: 6px !default
+);

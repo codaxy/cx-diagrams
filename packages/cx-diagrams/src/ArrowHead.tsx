@@ -106,11 +106,26 @@ export class ArrowHead extends ContainerBase<ArrowHeadConfig> {
   prepare(context: RenderingContext, instance: ArrowHeadInstance) {
     let { data } = instance;
     data.lines = context.getLineSegments?.();
+    let cachedLines = instance.cached?.lines;
+    let changed =
+      !cachedLines ||
+      !data.lines ||
+      cachedLines.length !== data.lines.length ||
+      data.lines.some(
+        (l, i) =>
+          l.x1 !== cachedLines[i].x1 ||
+          l.y1 !== cachedLines[i].y1 ||
+          l.x2 !== cachedLines[i].x2 ||
+          l.y2 !== cachedLines[i].y2,
+      );
+
+    if (instance.cache("lines", changed ? data.lines : cachedLines))
+      instance.markShouldUpdate(context);
   }
 
   calculatePositions(
     context: RenderingContext,
-    instance: ArrowHeadInstance
+    instance: ArrowHeadInstance,
   ): ArrowPosition[] {
     const { data } = instance;
     const { position, size } = data;
@@ -192,7 +207,7 @@ export class ArrowHead extends ContainerBase<ArrowHeadConfig> {
     x: number,
     y: number,
     size: number,
-    aspectRatio: number
+    aspectRatio: number,
   ): string {
     switch (shape) {
       case "vback":
@@ -220,7 +235,7 @@ export class ArrowHead extends ContainerBase<ArrowHeadConfig> {
     const arrowHeadProps = {
       className: this.CSS.expand(
         this.CSS.element(this.baseClass, "arrow-head"),
-        data.class
+        data.class,
       ),
       style: data.style,
       fill: data.fill,
@@ -234,7 +249,7 @@ export class ArrowHead extends ContainerBase<ArrowHeadConfig> {
         p.x,
         p.y,
         data.size,
-        data.aspectRatio
+        data.aspectRatio,
       );
       return (
         <path
