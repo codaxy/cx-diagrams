@@ -1,6 +1,6 @@
 {
   "name": "cx-diagrams",
-  "version": "26.0.1",
+  "version": "26.3.1",
   "description": "A library for creating diagrams within CxJS applications",
   "type": "module",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
     "cx": "^26.0.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.27",
+    "@types/react": "^19.2.14",
     "typescript": "^5.0.0"
   }
 }
