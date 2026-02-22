@@ -9,9 +9,10 @@ import {
   NumberProp,
   StyleProp,
   ClassProp,
+  Prop,
 } from "cx/ui";
 
-type Direction = "right" | "left" | "up" | "down";
+export type Direction = "right" | "left" | "up" | "down";
 
 interface LineSegment {
   x1: number;
@@ -25,7 +26,7 @@ export interface ThreeSegmentLineConfig extends ContainerConfig {
   startOffset?: NumberProp;
 
   /** Direction of the line. */
-  direction?: Direction;
+  direction?: Prop<Direction>;
 
   /** ID of the starting shape. */
   from?: StringProp;
@@ -99,7 +100,7 @@ export class ThreeSegmentLine extends ContainerBase<
 
   calculateBounds(
     context: RenderingContext,
-    instance: ThreeSegmentLineInstance
+    instance: ThreeSegmentLineInstance,
   ): Rect {
     let { data, direction } = instance;
     let { startOffset } = data;
@@ -185,7 +186,7 @@ export class ThreeSegmentLine extends ContainerBase<
 
   prepareCleanup(
     context: RenderingContext,
-    instance: ThreeSegmentLineInstance
+    instance: ThreeSegmentLineInstance,
   ) {
     context.pop("parentRect");
     context.pop("getLineSegments");
@@ -194,7 +195,7 @@ export class ThreeSegmentLine extends ContainerBase<
   render(
     context: RenderingContext,
     instance: ThreeSegmentLineInstance,
-    key: string
+    key: string,
   ) {
     let { data, colorIndex, bounds } = instance;
     let { x1, y1, x2, y2 } = data;
@@ -206,7 +207,7 @@ export class ThreeSegmentLine extends ContainerBase<
           className={this.CSS.element(
             this.baseClass,
             "line",
-            colorIndex != null && "color-" + colorIndex
+            colorIndex != null && "color-" + colorIndex,
           )}
           x1={l}
           y1={t}
@@ -219,7 +220,7 @@ export class ThreeSegmentLine extends ContainerBase<
           className={this.CSS.element(
             this.baseClass,
             "line",
-            colorIndex != null && "color-" + colorIndex
+            colorIndex != null && "color-" + colorIndex,
           )}
           x1={x1}
           y1={y1}
@@ -232,7 +233,7 @@ export class ThreeSegmentLine extends ContainerBase<
           className={this.CSS.element(
             this.baseClass,
             "line",
-            colorIndex != null && "color-" + colorIndex
+            colorIndex != null && "color-" + colorIndex,
           )}
           x1={x2}
           y1={y2}

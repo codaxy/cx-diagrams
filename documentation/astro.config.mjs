@@ -7,6 +7,10 @@ import cxjs from "./src/integrations/cxjs";
 
 // https://astro.build/config
 export default defineConfig({
+  trailingSlash: "never",
+  build: {
+    format: "file",
+  },
   integrations: [cxjs(), react(), mdx(), tailwind()],
   prefetch: {
     defaultStrategy: "hover",

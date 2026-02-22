@@ -7,6 +7,7 @@ import {
   NumberProp,
   ClassProp,
   StyleProp,
+  Prop,
 } from "cx/ui";
 import { parseStyle } from "cx/util";
 import {
@@ -16,6 +17,7 @@ import {
   tooltipParentWillReceiveProps,
   tooltipParentDidMount,
   TooltipParentInstance,
+  TooltipConfig,
 } from "cx/widgets";
 import { BoundedObject, BoundedObjectConfig, Rect } from "cx/svg";
 
@@ -29,10 +31,10 @@ export interface ShapeConfig extends BoundedObjectConfig {
   text?: StringProp;
 
   /** Shape type. */
-  shape?: ShapeType;
+  shape?: Prop<ShapeType>;
 
   /** Tooltip configuration. */
-  tooltip?: any;
+  tooltip?: StringProp | TooltipConfig;
 
   /** CSS class for the text element. */
   textClass?: ClassProp;
@@ -136,7 +138,7 @@ export class Shape extends BoundedObject<ShapeConfig> {
     let shapeProps = {
       className: this.CSS.expand(
         this.CSS.element(this.baseClass, "shape"),
-        data.shapeClass
+        data.shapeClass,
       ),
       style: data.shapeStyle || data.style,
       fill: data.fill,
@@ -261,7 +263,7 @@ export class Shape extends BoundedObject<ShapeConfig> {
     shape: ShapeType,
     bounds: Rect,
     text: string | undefined,
-    data: ShapeData
+    data: ShapeData,
   ) {
     if (!text) return null;
 
@@ -282,7 +284,7 @@ export class Shape extends BoundedObject<ShapeConfig> {
         y={y}
         className={this.CSS.expand(
           this.CSS.element(this.baseClass, "text"),
-          data.textClass
+          data.textClass,
         )}
         style={data.textStyle}
       >
