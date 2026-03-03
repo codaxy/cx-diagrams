@@ -19,12 +19,15 @@ export interface CellConfig extends NodeConfig {
 interface CellData {
     width: number;
     height: number;
-    ml?: number;
-    mr?: number;
-    mt?: number;
-    mb?: number;
-    ms?: number;
-    me?: number;
+    ml: number;
+    mr: number;
+    mt: number;
+    mb: number;
+    ms: number;
+    me: number;
+    grow?: boolean;
+    msAuto?: boolean;
+    meAuto?: boolean;
 }
 
 export interface CellInstance extends NodeInstance {
@@ -68,6 +71,9 @@ export class Cell extends Node {
             mb: data.mb,
             ms: data.ms,
             me: data.me,
+            grow: data.grow,
+            msAuto: data.msAuto,
+            meAuto: data.meAuto,
         };
         super.explore(context, instance);
     }

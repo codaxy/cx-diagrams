@@ -3956,9 +3956,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astro@npm:^5.17.3":
-  version: 5.17.3
-  resolution: "astro@npm:5.17.3"
+"astro@npm:^5.18.0":
+  version: 5.18.0
+  resolution: "astro@npm:5.18.0"
   dependencies:
     "@astrojs/compiler": "npm:^2.13.0"
     "@astrojs/internal-helpers": "npm:0.7.5"
@@ -4029,7 +4029,7 @@ __metadata:
       optional: true
   bin:
     astro: astro.js
-  checksum: 10c0/1fdd88220d886dd95cf334887951c640a71d2f48ed1c8ac6b0bce0f7d18407bf7b8f6ec9948b26c0a7ed04a443332abcd2362cd0341c0732feb18f067b6ebfe4
+  checksum: 10c0/c15981932458033c8fa125bdb36d327bc4d337ae38fdf83b36e563865d3aff64de0aa3fcabf5e875e83565f6e98f63cb604d3876b8563266e6cc59fb10611f07
   languageName: node
   linkType: hard
 
@@ -4084,12 +4084,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.24":
-  version: 10.4.24
-  resolution: "autoprefixer@npm:10.4.24"
+"autoprefixer@npm:^10.4.27":
+  version: 10.4.27
+  resolution: "autoprefixer@npm:10.4.27"
   dependencies:
     browserslist: "npm:^4.28.1"
-    caniuse-lite: "npm:^1.0.30001766"
+    caniuse-lite: "npm:^1.0.30001774"
     fraction.js: "npm:^5.3.4"
     picocolors: "npm:^1.1.1"
     postcss-value-parser: "npm:^4.2.0"
@@ -4097,7 +4097,7 @@ __metadata:
     postcss: ^8.1.0
   bin:
     autoprefixer: bin/autoprefixer
-  checksum: 10c0/16737dfc865afed338f3166718ece0f77539e53c1ba9f064f2e6369b9dec9ea0542f3fb98bcb7ab37e64897dc3304bae6b2004fbf79ada8b2aeaa3db336e4b77
+  checksum: 10c0/698ad9e23436635af1806d4a8b80393020135174d1d4a97eb81887cdddac2f297f198d1d717932db8503b325f9f2dc3accb6e290b2d3ce1a7ddeb947100e5b25
   languageName: node
   linkType: hard
 
@@ -4474,10 +4474,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001766":
-  version: 1.0.30001772
-  resolution: "caniuse-lite@npm:1.0.30001772"
-  checksum: 10c0/62a29a47e4b728f7e927301392733c3982af74293ccf523e63eafc06f70b66fe48d51a6b6272e4fe34e57af9dced8ef7a3c611f21b51b999c6bed793bb7c7ede
+"caniuse-lite@npm:^1.0.30001774":
+  version: 1.0.30001776
+  resolution: "caniuse-lite@npm:1.0.30001776"
+  checksum: 10c0/d5a7624ea50548c6c4381979a2900ac451caa7ecbeafec209309da25d547ba1406355cf66d6c6d537d8532ab5a56f2bbc0bf62300a4c3f66aa6fca5954264735
   languageName: node
   linkType: hard
 
@@ -5236,9 +5236,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cx@npm:^26.3.5":
-  version: 26.3.5
-  resolution: "cx@npm:26.3.5"
+"cx@npm:^26.3.10":
+  version: 26.3.10
+  resolution: "cx@npm:26.3.10"
   dependencies:
     "@types/route-parser": "npm:^0.1.7"
     intl-io: "npm:^0.4.4"
@@ -5249,7 +5249,7 @@ __metadata:
     cx-react: ">=26"
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/abaa85f8443e2ad9d62a849f31df7529fdf738a4d608f8a9f7646f67ed32eb872b6fed2a7fce3e88f8249b84a334d8ecd25c28f51580ce52706648a7c6b86911
+  checksum: 10c0/409cc7064bcbee44de07d37c35026f242113a797df92f2feaa10ca60ed8bf2e80bc80530f9f96ce5d870ff34e1fbf29e1f5255742baf76e5f566104b1fc53d9a
   languageName: node
   linkType: hard
 
@@ -5428,9 +5428,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devcert@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "devcert@npm:1.2.2"
+"devcert@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "devcert@npm:1.2.3"
   dependencies:
     "@types/configstore": "npm:^2.1.1"
     "@types/debug": "npm:^0.0.30"
@@ -5455,7 +5455,7 @@ __metadata:
     sudo-prompt: "npm:^8.2.0"
     tmp: "npm:^0.0.33"
     tslib: "npm:^1.10.0"
-  checksum: 10c0/b5fa04531fb4cb1bb63ef61185b6d6930ac5edb17aadba0b15b6628ca1a27dc3da1ccde1449edfe0e3ef8d526b7b91d197b9e41ec7714ddf01d00048df6c4db1
+  checksum: 10c0/475d5d6b7c549e32ab28ae12cbca4b6d46078e48491e73c15a2f8ad7817a9b5fb8c2ee36574348c249cddc2f50bd0aa176ecab809aace12aa9778edb0489e9de
   languageName: node
   linkType: hard
 
@@ -5536,7 +5536,7 @@ __metadata:
     "@swc/core": "npm:^1.15.4"
     "@tailwindcss/typography": "npm:^0.5.2"
     "@types/react": "npm:19.2.14"
-    autoprefixer: "npm:^10.4.24"
+    autoprefixer: "npm:^10.4.27"
     babel-loader: "npm:^8.2.3"
     babel-preset-cx-env: "npm:^21.3.0"
     clean-webpack-plugin: "npm:^4.0.0"
@@ -5544,11 +5544,11 @@ __metadata:
     core-js: "npm:^3.48.0"
     css-loader: "npm:^7.1.4"
     css-minimizer-webpack-plugin: "npm:^7.0.4"
-    cx: "npm:^26.3.5"
+    cx: "npm:^26.3.10"
     cx-diagrams: "workspace:*"
     cx-react: "npm:^26.1.0"
     cx-scss-manifest-webpack-plugin: "npm:^26.3.1"
-    devcert: "npm:^1.2.2"
+    devcert: "npm:^1.2.3"
     esbuild-loader: "npm:^4.4.2"
     file-loader: "npm:^6.2.0"
     heroicons: "npm:^1.0.6"
@@ -5593,8 +5593,8 @@ __metadata:
     "@tailwindcss/typography": "npm:^0.5.16"
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.3"
-    astro: "npm:^5.17.3"
-    cx: "npm:^26.3.5"
+    astro: "npm:^5.18.0"
+    cx: "npm:^26.3.10"
     cx-diagrams: "workspace:*"
     cx-react: "npm:^26.1.0"
     react: "npm:^19.2.3"

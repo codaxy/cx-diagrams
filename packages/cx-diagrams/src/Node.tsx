@@ -6,6 +6,7 @@ import {
   RenderingContext,
   NumberProp,
   StringProp,
+  BooleanProp,
   PureContainerBase,
 } from "cx/ui";
 import { DiagramState } from "./DiagramState";
@@ -43,20 +44,32 @@ export interface NodeConfig extends PureContainerConfig {
 
   /** End margin (margin after the element in the direction of the flow). */
   me?: NumberProp;
+
+  /** If set, the element will grow to fill available space in the flow direction. */
+  grow?: BooleanProp;
+
+  /** If set, the start margin will be automatically calculated to fill available space. */
+  msAuto?: BooleanProp;
+
+  /** If set, the end margin will be automatically calculated to fill available space. */
+  meAuto?: BooleanProp;
 }
 
 export interface NodeData {
   id?: string;
   margin?: number;
   m?: number;
-  ml?: number;
-  mr?: number;
-  mt?: number;
-  mb?: number;
+  ml: number;
+  mr: number;
+  mt: number;
+  mb: number;
   mx?: number;
   my?: number;
-  ms?: number;
-  me?: number;
+  ms: number;
+  me: number;
+  grow?: boolean;
+  msAuto?: boolean;
+  meAuto?: boolean;
 }
 
 export interface Box {
@@ -64,13 +77,16 @@ export interface Box {
   col: number;
   width: number;
   height: number;
-  ml?: number;
-  mr?: number;
-  mt?: number;
-  mb?: number;
-  ms?: number;
-  me?: number;
+  ml: number;
+  mr: number;
+  mt: number;
+  mb: number;
+  ms: number;
+  me: number;
   selfAlign?: string;
+  grow?: boolean;
+  msAuto?: boolean;
+  meAuto?: boolean;
 }
 
 export interface NodeInstance extends Instance {
@@ -110,15 +126,18 @@ export class Node extends PureContainerBase<NodeConfig> {
       my: undefined,
       ms: undefined,
       me: undefined,
+      grow: undefined,
+      msAuto: undefined,
+      meAuto: undefined,
     });
   }
 
   prepareData(context: RenderingContext, instance: NodeInstance) {
     let { data } = instance;
-    data.ml = data.ml ?? data.mx ?? data.m ?? data.margin;
-    data.mr = data.mr ?? data.mx ?? data.m ?? data.margin;
-    data.mt = data.mt ?? data.my ?? data.m ?? data.margin;
-    data.mb = data.mb ?? data.my ?? data.m ?? data.margin;
+    data.ml = data.ml ?? data.mx ?? data.m ?? data.margin ?? 0;
+    data.mr = data.mr ?? data.mx ?? data.m ?? data.margin ?? 0;
+    data.mt = data.mt ?? data.my ?? data.m ?? data.margin ?? 0;
+    data.mb = data.mb ?? data.my ?? data.m ?? data.margin ?? 0;
     super.prepareData(context, instance);
   }
 

@@ -54,19 +54,22 @@ interface FlowData {
   padding?: number;
   gap: number;
   p?: number;
-  pl?: number;
-  pr?: number;
-  pt?: number;
-  pb?: number;
+  pl: number;
+  pr: number;
+  pt: number;
+  pb: number;
   px?: number;
   py?: number;
   fixed?: boolean;
-  ml?: number;
-  mr?: number;
-  mt?: number;
-  mb?: number;
-  ms?: number;
-  me?: number;
+  ml: number;
+  mr: number;
+  mt: number;
+  mb: number;
+  ms: number;
+  me: number;
+  grow?: boolean;
+  msAuto?: boolean;
+  meAuto?: boolean;
 }
 
 export interface FlowInstance extends NodeInstance {
@@ -111,10 +114,10 @@ export class Flow extends Node {
 
   prepareData(context: RenderingContext, instance: FlowInstance) {
     let { data } = instance;
-    data.pl = data.pl ?? data.px ?? data.p ?? data.padding;
-    data.pr = data.pr ?? data.px ?? data.p ?? data.padding;
-    data.pt = data.pt ?? data.py ?? data.p ?? data.padding;
-    data.pb = data.pb ?? data.py ?? data.p ?? data.padding;
+    data.pl = data.pl ?? data.px ?? data.p ?? data.padding ?? 0;
+    data.pr = data.pr ?? data.px ?? data.p ?? data.padding ?? 0;
+    data.pt = data.pt ?? data.py ?? data.p ?? data.padding ?? 0;
+    data.pb = data.pb ?? data.py ?? data.p ?? data.padding ?? 0;
     super.prepareData(context, instance);
   }
 
@@ -134,75 +137,75 @@ export class Flow extends Node {
 
     let { pl, pr, pt, pb, gap, ml, mr, mt, mb, ms, me } = data;
     if (direction == "right") {
-      width += pl!;
+      width += pl;
       for (let { box } of nodes) {
         if (!box) continue;
-        if (width > pl!) width += gap;
-        width += box.ml!;
-        width += box.ms!;
+        if (width > pl) width += gap;
+        width += box.ml;
+        width += box.ms;
         box.col += width;
-        box.row += pt! + box.mt!;
+        box.row += pt + box.mt;
         width += box.width;
-        width += box.mr!;
-        width += box.me!;
-        height = Math.max(height, box.row + box.height + box.mb! + pb!);
+        width += box.mr;
+        width += box.me;
+        height = Math.max(height, box.row + box.height + box.mb + pb);
         if (box.selfAlign == "stretch") stretchItems.push(box);
       }
-      width += pr!;
+      width += pr;
     }
     if (direction == "left") {
-      width += pr!;
+      width += pr;
       for (let { box } of nodes) {
         if (!box) continue;
-        if (width > pr!) width += gap;
-        width += box.mr!;
-        width += box.ms!;
+        if (width > pr) width += gap;
+        width += box.mr;
+        width += box.ms;
         box.col -= width + box.width;
-        box.row += pt! + box.mt!;
+        box.row += pt + box.mt;
         width += box.width;
-        width += box.ml!;
-        width += box.me!;
-        height = Math.max(height, box.row + box.height + box.mb! + pb!);
+        width += box.ml;
+        width += box.me;
+        height = Math.max(height, box.row + box.height + box.mb + pb);
         if (box.selfAlign == "stretch") stretchItems.push(box);
       }
-      width += pl!;
+      width += pl;
     } else if (direction == "down") {
-      height += pt!;
+      height += pt;
       for (let { box } of nodes) {
         if (!box) continue;
-        if (height > pt!) height += gap;
-        height += box.mt!;
-        height += box.ms!;
-        box.col += pl! + box.ml!;
+        if (height > pt) height += gap;
+        height += box.mt;
+        height += box.ms;
+        box.col += pl + box.ml;
         box.row += height;
         height += box.height;
-        height += box.mb!;
-        width = Math.max(width, box.col + box.width + box.mr! + pr!);
+        height += box.mb;
+        width = Math.max(width, box.col + box.width + box.mr + pr);
         if (box.selfAlign == "stretch") stretchItems.push(box);
       }
-      height += pb!;
+      height += pb;
     } else if (direction == "up") {
-      height += pb!;
+      height += pb;
       for (let { box } of nodes) {
         if (!box) continue;
-        if (height > pb!) height += gap;
-        height += box.mb!;
-        height += box.ms!;
-        box.col += pl! + box.ml!;
+        if (height > pb) height += gap;
+        height += box.mb;
+        height += box.ms;
+        box.col += pl + box.ml;
         box.row -= height + box.height;
         height += box.height;
-        height += box.mt!;
-        height += box.me!;
-        width = Math.max(width, box.col + box.width + box.mr! + pr!);
+        height += box.mt;
+        height += box.me;
+        width = Math.max(width, box.col + box.width + box.mr + pr);
         if (box.selfAlign == "stretch") stretchItems.push(box);
       }
-      height += pt!;
+      height += pt;
     }
 
     if (direction == "left" || direction == "right") {
-      for (let box of stretchItems) box.height = height - pt! - pb!;
+      for (let box of stretchItems) box.height = height - pt - pb;
     } else if (direction == "up" || direction == "down") {
-      for (let box of stretchItems) box.width = width - pl! - pr!;
+      for (let box of stretchItems) box.width = width - pl - pr;
     }
 
     instance.box = {
@@ -217,6 +220,9 @@ export class Flow extends Node {
       ms,
       me,
       selfAlign: this.selfAlign,
+      grow: data.grow,
+      msAuto: data.msAuto,
+      meAuto: data.meAuto,
     };
 
     super.exploreCleanup(context, instance);
@@ -226,8 +232,120 @@ export class Flow extends Node {
     let { box, nodes, data } = instance;
     if (!box) return;
 
-    let innerWidth = box.width - data.pl! - data.pr!;
-    let innerHeight = box.height - data.pt! - data.pb!;
+    let innerWidth = box.width - data.pl - data.pr;
+    let innerHeight = box.height - data.pt - data.pb;
+
+    let horizontal =
+      instance.direction == "left" || instance.direction == "right";
+
+    // Distribute free space to grow items and auto margins
+    let contentSize = 0;
+    let itemCount = 0;
+    let growCount = 0;
+    let autoMarginCount = 0;
+
+    for (let { box } of nodes) {
+      if (!box) continue;
+      if (itemCount > 0) contentSize += data.gap;
+      if (horizontal) {
+        contentSize += box.ml + box.ms + box.width + box.mr + box.me;
+      } else {
+        contentSize += box.mt + box.ms + box.height + box.mb + box.me;
+      }
+      if (box.grow) growCount++;
+      if (box.msAuto) autoMarginCount++;
+      if (box.meAuto) autoMarginCount++;
+      itemCount++;
+    }
+
+    let freeSpace = (horizontal ? innerWidth : innerHeight) - contentSize;
+
+    if (freeSpace > 0 && (growCount > 0 || autoMarginCount > 0)) {
+      let growExtra = 0;
+      let marginExtra = 0;
+
+      if (growCount > 0) {
+        growExtra = freeSpace / growCount;
+        freeSpace = 0;
+      }
+
+      if (freeSpace > 0 && autoMarginCount > 0) {
+        marginExtra = freeSpace / autoMarginCount;
+      }
+
+      let shift = 0;
+      for (let { box } of nodes) {
+        if (!box) continue;
+        switch (instance.direction) {
+          case "right":
+            box.col += shift;
+            if (box.msAuto) {
+              box.ms += marginExtra;
+              box.col += marginExtra;
+              shift += marginExtra;
+            }
+            if (box.grow) {
+              box.width += growExtra;
+              shift += growExtra;
+            }
+            if (box.meAuto) {
+              box.me += marginExtra;
+              shift += marginExtra;
+            }
+            break;
+          case "left":
+            box.col -= shift;
+            if (box.msAuto) {
+              box.ms += marginExtra;
+              box.col -= marginExtra;
+              shift += marginExtra;
+            }
+            if (box.grow) {
+              box.width += growExtra;
+              box.col -= growExtra;
+              shift += growExtra;
+            }
+            if (box.meAuto) {
+              box.me += marginExtra;
+              shift += marginExtra;
+            }
+            break;
+          case "down":
+            box.row += shift;
+            if (box.msAuto) {
+              box.ms += marginExtra;
+              box.row += marginExtra;
+              shift += marginExtra;
+            }
+            if (box.grow) {
+              box.height += growExtra;
+              shift += growExtra;
+            }
+            if (box.meAuto) {
+              box.me += marginExtra;
+              shift += marginExtra;
+            }
+            break;
+          case "up":
+            box.row -= shift;
+            if (box.msAuto) {
+              box.ms += marginExtra;
+              box.row -= marginExtra;
+              shift += marginExtra;
+            }
+            if (box.grow) {
+              box.height += growExtra;
+              box.row -= growExtra;
+              shift += growExtra;
+            }
+            if (box.meAuto) {
+              box.me += marginExtra;
+              shift += marginExtra;
+            }
+            break;
+        }
+      }
+    }
 
     let spacing = 0;
 

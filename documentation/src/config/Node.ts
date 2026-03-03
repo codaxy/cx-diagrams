@@ -36,4 +36,16 @@ export default {
     type: 'number',
     description: 'Vertical margin.',
   },
+  grow: {
+    type: 'boolean',
+    description: 'If set, the element will grow to fill available space in the flow direction.',
+  },
+  msAuto: {
+    type: 'boolean',
+    description: 'If set, the start margin will be automatically calculated to fill available space.',
+  },
+  meAuto: {
+    type: 'boolean',
+    description: 'If set, the end margin will be automatically calculated to fill available space.',
+  },
 };

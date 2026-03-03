@@ -9,6 +9,7 @@ import ImportPath from "../../components/ImportPathWrapper.tsx";
 import ConfigTable from "../../components/ConfigTable.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
 import FlowExample from "../../diagrams/FlowExample.tsx";
+import GrowAutoMarginExample from "../../diagrams/GrowAutoMarginExample.tsx";
 import config from "../../config/Flow";
 
 export const code = `<Diagram center showGrid>
@@ -115,6 +116,62 @@ export const code = `<Diagram center showGrid>
 <Split>
   <CodeSnippet code={code} class="max-h-[500px]" />
   <FlowExample client:load slot="right" />
+</Split>
+
+export const growCode = `<Flow direction="down" gap={1}>
+    {/* Row 1: 3 cells establish reference width */}
+    <Flow direction="right" gap={1} p={0.5}>
+        <Cell w={2}><Shape fill="#e0e7ff" text="A" /></Cell>
+        <Cell w={2}><Shape fill="#e0e7ff" text="B" /></Cell>
+        <Cell w={2}><Shape fill="#e0e7ff" text="C" /></Cell>
+    </Flow>
+    {/* grow: expands to full width */}
+    <Flow direction="right" p={0.5} selfAlign="stretch">
+        <Cell w={2} grow><Shape fill="#bbf7d0" text="D (grow)" /></Cell>
+    </Flow>
+    {/* 2x grow: each gets half */}
+    <Flow direction="right" gap={1} p={0.5} selfAlign="stretch">
+        <Cell w={2} grow><Shape fill="#bbf7d0" text="E (grow)" /></Cell>
+        <Cell w={2} grow><Shape fill="#bbf7d0" text="F (grow)" /></Cell>
+    </Flow>
+    {/* msAuto + meAuto: centered */}
+    <Flow direction="right" p={0.5} selfAlign="stretch">
+        <Cell w={2} msAuto meAuto><Shape fill="#fef08a" text="G" /></Cell>
+    </Flow>
+    {/* msAuto: pushed to end */}
+    <Flow direction="right" p={0.5} selfAlign="stretch">
+        <Cell w={2} msAuto><Shape fill="#fed7aa" text="H" /></Cell>
+    </Flow>
+    {/* meAuto: stays at start */}
+    <Flow direction="right" p={0.5} selfAlign="stretch">
+        <Cell w={2} meAuto><Shape fill="#fed7aa" text="I" /></Cell>
+    </Flow>
+    {/* fixed + grow */}
+    <Flow direction="right" gap={1} p={0.5} selfAlign="stretch">
+        <Cell w={1}><Shape fill="#e0e7ff" text="J" /></Cell>
+        <Cell w={2} grow><Shape fill="#bbf7d0" text="K (grow)" /></Cell>
+    </Flow>
+</Flow>`;
+
+<Split>
+  <Prose>
+    ## Grow & Auto Margins
+
+    Cells and flows support `grow`, `msAuto`, and `meAuto` properties for distributing free space within a flow.
+
+    - **`grow`** — the element expands to fill available space in the flow direction
+    - **`msAuto`** — automatically adds start margin to consume free space (pushes element toward the end)
+    - **`meAuto`** — automatically adds end margin to consume free space (pushes element toward the start)
+    - **`msAuto` + `meAuto`** — centers the element
+
+    Grow items are filled first. Remaining free space is then distributed to auto margins. The parent flow must be larger than its content for these to take effect (e.g. via `selfAlign="stretch"`).
+
+  </Prose>
+</Split>
+
+<Split>
+  <CodeSnippet code={growCode} class="max-h-[500px]" />
+  <GrowAutoMarginExample client:load slot="right" />
 </Split>
 
 <Split>

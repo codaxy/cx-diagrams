@@ -14,12 +14,12 @@ export interface FourSidesConfig extends NodeConfig {
 interface FourSidesData {
     gap: number;
     slots: Slot[];
-    ml?: number;
-    mr?: number;
-    mt?: number;
-    mb?: number;
-    ms?: number;
-    me?: number;
+    ml: number;
+    mr: number;
+    mt: number;
+    mb: number;
+    ms: number;
+    me: number;
 }
 
 export interface FourSidesInstance extends NodeInstance {
