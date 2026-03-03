@@ -1,25 +1,30 @@
 /** @jsxImportSource react */
+import { BoundedObject, BoundedObjectConfig, Rect, Svg } from "cx/svg";
 import {
-  VDOM,
-  RenderingContext,
-  Instance,
-  StringProp,
-  NumberProp,
   ClassProp,
-  StyleProp,
+  Instance,
+  NumberProp,
   Prop,
+  RenderingContext,
+  StringProp,
+  StructuredProp,
+  StyleProp,
+  VDOM,
 } from "cx/ui";
-import { parseStyle } from "cx/util";
+import { getTopLevelBoundingClientRect, parseStyle } from "cx/util";
+import type { DragEvent } from "cx/widgets";
 import {
-  tooltipMouseMove,
-  tooltipMouseLeave,
-  tooltipParentWillUnmount,
-  tooltipParentWillReceiveProps,
-  tooltipParentDidMount,
-  TooltipParentInstance,
+  ddDetect,
+  ddMouseDown,
+  ddMouseUp,
+  initiateDragDrop,
+  registerDropZone,
   TooltipConfig,
+  tooltipMouseLeave,
+  tooltipMouseMove,
+  TooltipParentInstance,
+  tooltipParentWillUnmount,
 } from "cx/widgets";
-import { BoundedObject, BoundedObjectConfig, Rect } from "cx/svg";
 
 type ShapeType = "rectangle" | "circle" | "rhombus";
 
@@ -65,6 +70,33 @@ export interface ShapeConfig extends BoundedObjectConfig {
 
   /** Context menu handler. */
   onContextMenu?: string | ((e: React.MouseEvent, instance: Instance) => void);
+
+  /** Data about the drag source. Enables drag source when set. */
+  dragSource?: StructuredProp;
+
+  /** Callback when drag starts. Return false to cancel. */
+  onDragStart?: string | ((e: DragEvent, instance: Instance) => any);
+
+  /** Callback when drag ends. */
+  onDragEnd?: string | ((e: DragEvent, instance: Instance) => void);
+
+  /** Callback when dropped on this shape. Enables drop zone when set. */
+  onDrop?: string | ((e: DragEvent, instance: Instance) => any);
+
+  /** Test if drag source is acceptable. */
+  onDropTest?: string | ((e: DragEvent, instance: Instance) => boolean);
+
+  /** CSS class on shape element when cursor is over. */
+  overShapeClass?: ClassProp;
+
+  /** Style on shape element when cursor is over. */
+  overShapeStyle?: StyleProp;
+
+  /** CSS class on shape element when drag is active but cursor is not over. */
+  farShapeClass?: ClassProp;
+
+  /** Style on shape element when drag is active but cursor is not over. */
+  farShapeStyle?: StyleProp;
 }
 
 interface ShapeData {
@@ -81,9 +113,14 @@ interface ShapeData {
   fill?: string;
   stroke?: string;
   strokeWidth?: number;
+  dragSource?: any;
+  overShapeClass?: string;
+  overShapeStyle?: any;
+  farShapeClass?: string;
+  farShapeStyle?: any;
 }
 
-export interface ShapeInstance extends Instance, TooltipParentInstance {
+export interface ShapeInstance extends Instance<Shape>, TooltipParentInstance {
   data: ShapeData;
 }
 
@@ -105,6 +142,10 @@ export class Shape extends BoundedObject<ShapeConfig> {
   declare onContextMenu?:
     | string
     | ((e: MouseEvent, instance: Instance) => void);
+  declare onDragStart?: string | ((e: DragEvent, instance: Instance) => any);
+  declare onDragEnd?: string | ((e: DragEvent, instance: Instance) => void);
+  declare onDrop?: string | ((e: DragEvent, instance: Instance) => any);
+  declare onDropTest?: string | ((e: DragEvent, instance: Instance) => boolean);
 
   el: SVGElement | null = null;
 
@@ -126,91 +167,26 @@ export class Shape extends BoundedObject<ShapeConfig> {
       shapeStyle: { structured: true },
       textStyle: { structured: true },
       textClass: { structured: true },
+      dragSource: { structured: true },
+      overShapeClass: { structured: true },
+      overShapeStyle: { structured: true },
+      farShapeClass: { structured: true },
+      farShapeStyle: { structured: true },
     });
   }
 
   render(context: RenderingContext, instance: ShapeInstance, key: string) {
     let { data } = instance;
-    let { bounds, text, shape } = data;
+    let { bounds } = data;
 
     if (!bounds.valid()) return false;
 
-    let shapeProps = {
-      className: this.CSS.expand(
-        this.CSS.element(this.baseClass, "shape"),
-        data.shapeClass,
-      ),
-      style: data.shapeStyle || data.style,
-      fill: data.fill,
-      stroke: data.stroke,
-      strokeWidth: data.strokeWidth,
-      ref: undefined as ((c: SVGElement | null) => void) | undefined,
-    };
-
-    let gProps: React.SVGAttributes<SVGGElement> & {
-      onMouseMove?: (e: React.MouseEvent) => void;
-      onMouseLeave?: (e: React.MouseEvent) => void;
-      onClick?: (e: React.MouseEvent) => void;
-      onDoubleClick?: (e: React.MouseEvent) => void;
-      onContextMenu?: (e: React.MouseEvent) => void;
-    } = {
-      onMouseMove: (e) => {
-        tooltipMouseMove(e, instance, this.tooltip);
-      },
-      onMouseLeave: (e) => {
-        tooltipMouseLeave(e, instance, this.tooltip);
-      },
-    };
-
-    if (this.onClick)
-      gProps.onClick = (e) => instance.invoke("onClick", e, instance);
-    if (this.onDoubleClick)
-      gProps.onDoubleClick = (e) =>
-        instance.invoke("onDoubleClick", e, instance);
-    if (this.onContextMenu)
-      gProps.onContextMenu = (e) =>
-        instance.invoke("onContextMenu", e, instance);
-
-    if (this.tooltip) {
-      shapeProps.ref = (c) => {
-        this.el = c;
-      };
-    }
-
     return (
-      <g
-        key={key}
-        id={data.id}
-        {...gProps}
-        className={data.classNames}
-        style={data.style}
-      >
-        {this.renderShape(shape, bounds, shapeProps)}
-        {this.renderText(shape, bounds, text, data)}
+      <ShapeComponent key={key} instance={instance}>
         {this.renderChildren(context, instance)}
-      </g>
+      </ShapeComponent>
     );
   }
-
-  //   componentWillUnmount() {
-  //     tooltipParentWillUnmount((this as any).props.instance);
-  //   }
-
-  //   componentWillReceiveProps(props: any) {
-  //     tooltipParentWillReceiveProps(
-  //       this.el!,
-  //       props.instance,
-  //       props.instance.widget.tooltip
-  //     );
-  //   }
-
-  //   componentDidMount() {
-  //     tooltipParentDidMount(
-  //       this.el!,
-  //       this.props.instance,
-  //       this.props.instance.widget.tooltip
-  //     );
-  //   }
 
   prepare(context: RenderingContext, instance: ShapeInstance) {
     super.prepare(context, instance);
@@ -297,3 +273,240 @@ export class Shape extends BoundedObject<ShapeConfig> {
 Shape.prototype.baseClass = "shape";
 Shape.prototype.anchors = "0 1 1 0";
 Shape.prototype.shape = "rectangle";
+
+interface ShapeComponentProps {
+  instance: ShapeInstance;
+  children?: any;
+}
+
+interface ShapeComponentState {
+  dropState: false | "over" | "far";
+  dragged: boolean;
+}
+
+class ShapeComponent extends VDOM.Component<
+  ShapeComponentProps,
+  ShapeComponentState
+> {
+  el: SVGGElement | null = null;
+  unregisterDropZone?: () => void;
+
+  constructor(props: ShapeComponentProps) {
+    super(props);
+    this.state = { dropState: false, dragged: false };
+  }
+
+  render() {
+    let { instance, children } = this.props;
+    let { data } = instance;
+    let { widget } = instance;
+    let { bounds, text, shape } = data;
+    let { CSS, baseClass } = widget;
+    let { dropState } = this.state;
+
+    let shapeClassName = CSS.expand(
+      CSS.element(baseClass, "shape"),
+      data.shapeClass,
+    );
+    let shapeStyle = data.shapeStyle || data.style;
+
+    if (dropState === "over") {
+      shapeClassName = CSS.expand(shapeClassName, data.overShapeClass);
+      if (data.overShapeStyle)
+        shapeStyle = { ...shapeStyle, ...data.overShapeStyle };
+    } else if (dropState === "far") {
+      shapeClassName = CSS.expand(shapeClassName, data.farShapeClass);
+      if (data.farShapeStyle)
+        shapeStyle = { ...shapeStyle, ...data.farShapeStyle };
+    }
+
+    let shapeProps = {
+      className: shapeClassName,
+      style: shapeStyle,
+      fill: data.fill,
+      stroke: data.stroke,
+      strokeWidth: data.strokeWidth,
+    };
+
+    return (
+      <g
+        id={data.id}
+        ref={(el: SVGGElement | null) => {
+          this.el = el;
+        }}
+        className={CSS.expand(data.classNames, CSS.state({ dragged: this.state.dragged }))}
+        style={data.style}
+        onMouseMove={this.onMouseMove}
+        onMouseDown={this.onMouseDown}
+        onMouseUp={ddMouseUp}
+        onMouseLeave={this.onMouseLeave}
+        onClick={
+          widget.onClick
+            ? (e: React.MouseEvent) => instance.invoke("onClick", e, instance)
+            : undefined
+        }
+        onDoubleClick={
+          widget.onDoubleClick
+            ? (e: React.MouseEvent) =>
+                instance.invoke("onDoubleClick", e, instance)
+            : undefined
+        }
+        onContextMenu={
+          widget.onContextMenu
+            ? (e: React.MouseEvent) =>
+                instance.invoke("onContextMenu", e, instance)
+            : undefined
+        }
+      >
+        {widget.renderShape(shape, bounds, shapeProps)}
+        {widget.renderText(shape, bounds, text, data)}
+        {children}
+      </g>
+    );
+  }
+
+  onMouseDown = (e: React.MouseEvent) => {
+    let { instance } = this.props;
+    let { data } = instance;
+    if (data.dragSource) {
+      ddMouseDown(e);
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  };
+
+  onMouseMove = (e: React.MouseEvent) => {
+    let { instance } = this.props;
+    let { widget } = instance;
+    tooltipMouseMove(e, instance, widget.tooltip);
+    if (instance.data.dragSource) {
+      e.stopPropagation();
+      e.preventDefault();
+      if (ddDetect(e)) this.beginDragDrop(e);
+    }
+  };
+
+  onMouseLeave = (e: React.MouseEvent) => {
+    let { instance } = this.props;
+    let { widget } = instance;
+    tooltipMouseLeave(e, instance, widget.tooltip);
+  };
+
+  beginDragDrop(e: React.MouseEvent) {
+    let { instance } = this.props;
+    let { data, store } = instance;
+    let { widget } = instance;
+
+    if (
+      widget.onDragStart &&
+      instance.invoke("onDragStart", e, instance) === false
+    )
+      return;
+
+    initiateDragDrop(
+      e,
+      {
+        sourceEl: this.el!,
+        source: {
+          store: store,
+          data: data.dragSource,
+        },
+        clone: {
+          widget: {
+            $type: Svg,
+            style: { width: "100%", height: "100%" },
+            children: [
+              {
+                $type: Shape,
+                anchors: "0 1 1 0",
+                shape: data.shape,
+                fill: data.fill,
+                stroke: data.stroke,
+                strokeWidth: data.strokeWidth,
+                text: data.text,
+                class: data.classNames,
+                style: data.style,
+                shapeClass: data.shapeClass,
+                shapeStyle: data.shapeStyle,
+                textClass: data.textClass,
+                textStyle: data.textStyle,
+              },
+            ],
+          },
+          store: store,
+          matchSize: true,
+          matchCursorOffset: true,
+        },
+      },
+      (dragEvent?: any) => {
+        this.setState({ dragged: false });
+        if (widget.onDragEnd) instance.invoke("onDragEnd", dragEvent, instance);
+      },
+    );
+
+    this.setState({ dragged: true });
+  }
+
+  componentDidMount() {
+    let { widget } = this.props.instance;
+    if (widget.onDrop) {
+      this.unregisterDropZone = registerDropZone(this);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.unregisterDropZone) {
+      this.unregisterDropZone();
+    }
+    tooltipParentWillUnmount(this.props.instance);
+  }
+
+  // IDropZone methods
+
+  onDropTest(e: DragEvent) {
+    let { instance } = this.props;
+    let { widget } = instance;
+    return !widget.onDropTest || instance.invoke("onDropTest", e, instance);
+  }
+
+  onDragStart(e: DragEvent) {
+    this.setState({ dropState: "far" });
+  }
+
+  onDragEnd(e: DragEvent) {
+    this.setState({ dropState: false });
+  }
+
+  onDragEnter(e: DragEvent) {
+    this.setState({ dropState: "over" });
+  }
+
+  onDragLeave(e: DragEvent) {
+    this.setState({ dropState: "far" });
+  }
+
+  onDragMeasure(e: DragEvent) {
+    let rect = getTopLevelBoundingClientRect(this.el!);
+    let { clientX, clientY } = e.cursor;
+    let over =
+      rect.left <= clientX &&
+      clientX < rect.right &&
+      rect.top <= clientY &&
+      clientY < rect.bottom;
+    return {
+      over:
+        over &&
+        Math.abs(clientX - (rect.left + rect.right) / 2) +
+          Math.abs(clientY - (rect.top + rect.bottom) / 2),
+      near: false,
+    };
+  }
+
+  onDrop(e: DragEvent) {
+    let { instance } = this.props;
+    let { widget } = instance;
+    if (this.state.dropState === "over" && widget.onDrop) {
+      instance.invoke("onDrop", e, instance);
+    }
+  }
+}

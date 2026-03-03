@@ -26,6 +26,13 @@ export default () => (
                   id="tooltip"
                 />
               </Cell>
+              <Cell width={4} height={2}>
+                <Shape
+                  shapeClass="fill-purple-300 stroke-purple-800 cursor-grab"
+                  text="Drag Source"
+                  dragSource={{ type: "shape" }}
+                />
+              </Cell>
             </Flow>
 
             <Flow direction="down" gap={1}>
@@ -77,6 +84,7 @@ export default () => (
                 />
                 <StraightLine from="connected" to="tooltip" stroke="black" />
               </Cell>
+
               <Cell width={4} height={2}>
                 <Shape
                   shapeClass="fill-blue-300 stroke-blue-800"
@@ -120,11 +128,23 @@ export default () => (
                           <a href="/components/flow">Flow</a>
                         </Menu>
                       </cx>,
-                      instance
+                      instance,
                     );
                   }}
                 />
                 <StraightLine from="connected" to="green" stroke="black" />
+              </Cell>
+
+              <Cell width={4} height={2}>
+                <Shape
+                  shapeClass="fill-teal-300 stroke-teal-800"
+                  text="Drop Zone"
+                  onDrop={(e: any) => {
+                    alert("Dropped!");
+                  }}
+                  overShapeClass="fill-teal-500 stroke-teal-900"
+                  farShapeClass="!stroke-black"
+                />
               </Cell>
             </Flow>
           </Flow>
