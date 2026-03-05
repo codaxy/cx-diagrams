@@ -32,12 +32,18 @@ type ShapeType = "rectangle" | "circle" | "rhombus";
 
 export interface DragCloneConfig {
   /** Widget configuration to render as the drag clone. */
-  widget: ChildNode;
+  widget?: ChildNode;
 
-  /** Whether to match the size of the source element. Default: true when clone is not set. */
+  /** CSS class for the drag clone. */
+  class?: ClassProp;
+
+  /** CSS style for the drag clone. */
+  style?: StyleProp;
+
+  /** Whether to match the size of the source element. Default: true when clone widget is not set. */
   matchSize?: boolean;
 
-  /** Whether to match the cursor offset from the source element. Default: true when clone is not set. */
+  /** Whether to match the cursor offset from the source element. Default: true when clone widget is not set. */
   matchCursorOffset?: boolean;
 }
 
@@ -134,6 +140,8 @@ interface ShapeData {
   overShapeStyle?: any;
   farShapeClass?: string;
   farShapeStyle?: any;
+  cloneClass?: string;
+  cloneStyle?: any;
 }
 
 export interface ShapeInstance extends Instance<Shape>, TooltipParentInstance {
@@ -166,9 +174,16 @@ export class Shape extends BoundedObject<ShapeConfig> {
 
   el: SVGElement | null = null;
 
+  declare cloneStyle?: any;
+  declare cloneClass?: any;
+
   init() {
     this.textStyle = parseStyle(this.textStyle);
     this.shapeStyle = parseStyle(this.shapeStyle);
+    if (this.clone) {
+      this.cloneStyle = parseStyle(this.clone.style);
+      this.cloneClass = this.clone.class;
+    }
     super.init();
   }
 
@@ -189,6 +204,8 @@ export class Shape extends BoundedObject<ShapeConfig> {
       overShapeStyle: { structured: true },
       farShapeClass: { structured: true },
       farShapeStyle: { structured: true },
+      cloneClass: { structured: true },
+      cloneStyle: { structured: true },
     });
   }
 
@@ -456,6 +473,8 @@ class ShapeComponent extends VDOM.Component<
         clone: {
           widget: widget.clone?.widget ?? defaultCloneWidget,
           store: store,
+          class: data.cloneClass,
+          style: data.cloneStyle,
           matchSize: widget.clone?.matchSize ?? !widget.clone?.widget,
           matchCursorOffset:
             widget.clone?.matchCursorOffset ?? !widget.clone?.widget,
