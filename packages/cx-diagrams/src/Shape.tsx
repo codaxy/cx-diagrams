@@ -1,7 +1,9 @@
 /** @jsxImportSource react */
 import { BoundedObject, BoundedObjectConfig, Rect, Svg } from "cx/svg";
 import {
+  ChildNode,
   ClassProp,
+  Config,
   Instance,
   NumberProp,
   Prop,
@@ -27,6 +29,17 @@ import {
 } from "cx/widgets";
 
 type ShapeType = "rectangle" | "circle" | "rhombus";
+
+export interface DragCloneConfig {
+  /** Widget configuration to render as the drag clone. */
+  widget: ChildNode;
+
+  /** Whether to match the size of the source element. Default: true when clone is not set. */
+  matchSize?: boolean;
+
+  /** Whether to match the cursor offset from the source element. Default: true when clone is not set. */
+  matchCursorOffset?: boolean;
+}
 
 export interface ShapeConfig extends BoundedObjectConfig {
   /** Unique identifier for this shape (used for line connections). */
@@ -97,6 +110,9 @@ export interface ShapeConfig extends BoundedObjectConfig {
 
   /** Style on shape element when drag is active but cursor is not over. */
   farShapeStyle?: StyleProp;
+
+  /** Custom drag clone configuration. If not set, a clone of the shape is used. */
+  clone?: DragCloneConfig;
 }
 
 interface ShapeData {
@@ -146,6 +162,7 @@ export class Shape extends BoundedObject<ShapeConfig> {
   declare onDragEnd?: string | ((e: DragEvent, instance: Instance) => void);
   declare onDrop?: string | ((e: DragEvent, instance: Instance) => any);
   declare onDropTest?: string | ((e: DragEvent, instance: Instance) => boolean);
+  declare clone?: DragCloneConfig;
 
   el: SVGElement | null = null;
 
@@ -334,7 +351,10 @@ class ShapeComponent extends VDOM.Component<
         ref={(el: SVGGElement | null) => {
           this.el = el;
         }}
-        className={CSS.expand(data.classNames, CSS.state({ dragged: this.state.dragged }))}
+        className={CSS.expand(
+          data.classNames,
+          CSS.state({ dragged: this.state.dragged }),
+        )}
         style={data.style}
         onMouseMove={this.onMouseMove}
         onMouseDown={this.onMouseDown}
@@ -403,6 +423,28 @@ class ShapeComponent extends VDOM.Component<
     )
       return;
 
+    let defaultCloneWidget = {
+      $type: Svg,
+      style: { width: "100%", height: "100%" },
+      children: [
+        {
+          $type: Shape,
+          anchors: "0 1 1 0",
+          shape: data.shape,
+          fill: data.fill,
+          stroke: data.stroke,
+          strokeWidth: data.strokeWidth,
+          text: data.text,
+          class: data.classNames,
+          style: data.style,
+          shapeClass: data.shapeClass,
+          shapeStyle: data.shapeStyle,
+          textClass: data.textClass,
+          textStyle: data.textStyle,
+        },
+      ],
+    };
+
     initiateDragDrop(
       e,
       {
@@ -412,33 +454,14 @@ class ShapeComponent extends VDOM.Component<
           data: data.dragSource,
         },
         clone: {
-          widget: {
-            $type: Svg,
-            style: { width: "100%", height: "100%" },
-            children: [
-              {
-                $type: Shape,
-                anchors: "0 1 1 0",
-                shape: data.shape,
-                fill: data.fill,
-                stroke: data.stroke,
-                strokeWidth: data.strokeWidth,
-                text: data.text,
-                class: data.classNames,
-                style: data.style,
-                shapeClass: data.shapeClass,
-                shapeStyle: data.shapeStyle,
-                textClass: data.textClass,
-                textStyle: data.textStyle,
-              },
-            ],
-          },
+          widget: widget.clone?.widget ?? defaultCloneWidget,
           store: store,
-          matchSize: true,
-          matchCursorOffset: true,
+          matchSize: widget.clone?.matchSize ?? !widget.clone?.widget,
+          matchCursorOffset:
+            widget.clone?.matchCursorOffset ?? !widget.clone?.widget,
         },
       },
-      (dragEvent?: any) => {
+      (dragEvent) => {
         this.setState({ dragged: false });
         if (widget.onDragEnd) instance.invoke("onDragEnd", dragEvent, instance);
       },
