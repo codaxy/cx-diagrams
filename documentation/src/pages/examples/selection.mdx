@@ -1,0 +1,57 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Selection
+---
+
+import Split from "../../components/Split.astro";
+import Prose from "../../components/Prose.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import SelectionExample from "../../diagrams/SelectionExample.tsx";
+
+export const code = `<Diagram center showGrid>
+    <Flow direction="right" gap={2}>
+        <Repeater records={shapes} recordAlias="$shape">
+            <Cell width={3} height={2}>
+                <Shape
+                    id={bind("$shape.id")}
+                    text={bind("$shape.text")}
+                    shape={bind("$shape.shape")}
+                    stroke="gray"
+                    fill="white"
+                    selection={{
+                        type: KeySelection,
+                        bind: "selection",
+                        keyField: "id",
+                        multiple: true,
+                        record: { bind: "$shape" },
+                    }}
+                />
+            </Cell>
+        </Repeater>
+    </Flow>
+</Diagram>`;
+
+<Split>
+  <Prose>
+    # Selection
+
+    Selection lives on the `Shape` via its `selection` property, following the
+    same model as CxJS widgets such as `Grid`, `List` and `Marker`. Provide a
+    `record` binding so the selection can identify each shape; a `KeySelection`
+    keyed by `id` is the usual choice. Shapes that bind to the same selection
+    path share a single selection.
+
+    - **Click** a shape to select it.
+    - **Ctrl+Click** to toggle a shape in and out of the selection.
+    - **Shift+Click** to extend the selection (when `multiple` is set).
+
+    The selected keys are written to the store at the bound path
+    (`selection` in this example).
+
+  </Prose>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="max-h-[500px]" />
+  <SelectionExample client:load slot="right" />
+</Split>
