@@ -234,11 +234,16 @@ class DiagramComponent extends VDOM.Component<
   };
 
   UNSAFE_componentWillReceiveProps(props: DiagramComponentProps) {
-    this.setState({
-      zoom: props.data.zoom,
-      offsetX: props.data.offsetX,
-      offsetY: props.data.offsetY,
-    });
+    // Only adopt zoom/pan from the store when the bound value actually changed
+    // externally. Re-renders triggered by unrelated store changes (e.g. shape
+    // selection) must not reset the user's current pan/zoom.
+    let prev = this.props.data;
+    let next = props.data;
+    let newState: Partial<DiagramComponentState> = {};
+    if (next.zoom !== prev.zoom) newState.zoom = next.zoom;
+    if (next.offsetX !== prev.offsetX) newState.offsetX = next.offsetX;
+    if (next.offsetY !== prev.offsetY) newState.offsetY = next.offsetY;
+    if (Object.keys(newState).length > 0) this.setState(newState as DiagramComponentState);
   }
 
   render() {

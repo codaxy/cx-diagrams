@@ -8,6 +8,7 @@ import {
   NumberProp,
   Prop,
   RenderingContext,
+  Selection,
   StringProp,
   StructuredProp,
   StyleProp,
@@ -119,6 +120,15 @@ export interface ShapeConfig extends BoundedObjectConfig {
 
   /** Custom drag clone configuration. If not set, a clone of the shape is used. */
   clone?: DragCloneConfig;
+
+  /**
+   * Selection configuration. When set, the shape becomes selectable and its
+   * selected state is reflected through the `selected` CSS state. Provide the
+   * `record` (and optionally `index`) bindings so the selection can identify
+   * this shape, e.g.
+   * `{ type: KeySelection, bind: "selection", keyField: "id", record: { bind: "$record" } }`.
+   */
+  selection?: any;
 }
 
 interface ShapeData {
@@ -142,6 +152,8 @@ interface ShapeData {
   farShapeStyle?: any;
   cloneClass?: string;
   cloneStyle?: any;
+  selected?: boolean;
+  stateMods?: Record<string, any>;
 }
 
 export interface ShapeInstance extends Instance<Shape>, TooltipParentInstance {
@@ -171,6 +183,7 @@ export class Shape extends BoundedObject<ShapeConfig> {
   declare onDrop?: string | ((e: DragEvent, instance: Instance) => any);
   declare onDropTest?: string | ((e: DragEvent, instance: Instance) => boolean);
   declare clone?: DragCloneConfig;
+  declare selection: Selection;
 
   el: SVGElement | null = null;
 
@@ -184,11 +197,13 @@ export class Shape extends BoundedObject<ShapeConfig> {
       this.cloneStyle = parseStyle(this.clone.style);
       this.cloneClass = this.clone.class;
     }
+    this.selection = Selection.create(this.selection);
     super.init();
   }
 
   declareData(...args: any[]) {
-    super.declareData(...args, {
+    let selection = this.selection.configureWidget(this);
+    super.declareData(...args, selection, {
       id: undefined,
       text: undefined,
       shape: undefined,
@@ -206,6 +221,25 @@ export class Shape extends BoundedObject<ShapeConfig> {
       farShapeStyle: { structured: true },
       cloneClass: { structured: true },
       cloneStyle: { structured: true },
+    });
+  }
+
+  prepareData(context: RenderingContext, instance: ShapeInstance) {
+    let { data } = instance;
+    data.selected = this.selection.isInstanceSelected(instance);
+    data.stateMods = {
+      ...data.stateMods,
+      selected: data.selected,
+      selectable: !this.selection.isDummy,
+    };
+    super.prepareData(context, instance);
+  }
+
+  select(e: React.MouseEvent, instance: ShapeInstance) {
+    if (this.selection.isDummy) return;
+    this.selection.selectInstance(instance, {
+      toggle: e.ctrlKey && !e.shiftKey,
+      add: (e.ctrlKey && e.shiftKey) || (this.selection.multiple && e.shiftKey),
     });
   }
 
@@ -378,8 +412,8 @@ class ShapeComponent extends VDOM.Component<
         onMouseUp={ddMouseUp}
         onMouseLeave={this.onMouseLeave}
         onClick={
-          widget.onClick
-            ? (e: React.MouseEvent) => instance.invoke("onClick", e, instance)
+          !widget.selection.isDummy || widget.onClick
+            ? this.onClick
             : undefined
         }
         onDoubleClick={
@@ -401,6 +435,13 @@ class ShapeComponent extends VDOM.Component<
       </g>
     );
   }
+
+  onClick = (e: React.MouseEvent) => {
+    let { instance } = this.props;
+    let { widget } = instance;
+    if (!widget.selection.isDummy) widget.select(e, instance);
+    if (widget.onClick) instance.invoke("onClick", e, instance);
+  };
 
   onMouseDown = (e: React.MouseEvent) => {
     let { instance } = this.props;

@@ -1,3 +1,6 @@
+// Extra stroke width applied to a selected shape. Override to theme selection.
+$cx-diagram-shape-selected-stroke-width: 2px !default;
+
 .cxb-shape {
    cursor: pointer;
    stroke-width: 1;
@@ -16,4 +19,10 @@
 
 .cxb-shape.cxs-dragged {
    opacity: 0.5;
+}
+
+// Mirrors how CxJS charts (Bar/Column/Pie) indicate selection: thicken the
+// stroke via a variable and keep the shape's own colors. No hard-coded color.
+.cxb-shape.cxs-selected .cxe-shape-shape {
+   stroke-width: $cx-diagram-shape-selected-stroke-width;
 }
