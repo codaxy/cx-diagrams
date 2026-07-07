@@ -1,4 +1,6 @@
 import { Line, Rectangle, Svg, Text } from 'cx/svg';
+import { LabelsTopLayout } from 'cx/ui';
+import { NumberField } from 'cx/widgets';
 import { Diagram } from 'cx-diagrams/Diagram';
 import { Cell } from 'cx-diagrams/Cell';
 import { Flow } from 'cx-diagrams/Flow';
@@ -38,13 +40,16 @@ export default (
          <Split>
             {/* prettier-ignore */}
             <CodeSnippet class="border-b border-t h-[400px] overflow-auto" >{`
-            <Svg class="w-auto h-full bg-white">
+            <Svg class="w-auto flex-grow bg-white">
                 <Diagram
                     unitSize={32}
                     showGrid
                     zoom-bind="$page.view.zoom"
                     offsetX-bind="$page.view.offsetX"
                     offsetY-bind="$page.view.offsetY"
+                    zoomStep-bind="$page.view.zoomStep"
+                    minZoom-bind="$page.view.minZoom"
+                    maxZoom-bind="$page.view.maxZoom"
                     center
                 >
                     <Flow gap={1}>
@@ -58,19 +63,47 @@ export default (
                 </Diagram>
             </Svg>
             <div
-                class="absolute border bottom-2 left-2 bg-white text-[10px] uppercase p-1"
+                class="absolute border bottom-14 left-2 bg-white text-[10px] uppercase p-1"
                 text-tpl="Zoom: {$page.view.zoom:p;0} Center ({$page.view.offsetX:n;0},  {$page.view.offsetY:n;0})"
             />
+            <div class="border-t bg-white px-2 flex justify-center">
+                <LabelsTopLayout class="-mt-2">
+                    <NumberField
+                        value-bind="$page.view.zoomStep"
+                        label="Zoom Step"
+                        step={0.01}
+                        minValue={0.01}
+                        class="w-24"
+                    />
+                    <NumberField
+                        value-bind="$page.view.minZoom"
+                        label="Min Zoom"
+                        step={0.05}
+                        minValue={0.05}
+                        class="w-24"
+                    />
+                    <NumberField
+                        value-bind="$page.view.maxZoom"
+                        label="Max Zoom"
+                        step={0.5}
+                        minValue={1}
+                        class="w-24"
+                    />
+                </LabelsTopLayout>
+            </div>
             `}</CodeSnippet>
 
-            <div class="h-[500px] xl:h-full xl:border-t border-b relative" putInto="right">
-               <Svg class="w-auto h-full bg-white">
+            <div class="h-[500px] xl:h-full xl:border-t border-b relative flex flex-col" putInto="right">
+               <Svg class="w-auto flex-grow bg-white">
                   <Diagram
                      unitSize={32}
                      showGrid
                      zoom-bind="$page.view.zoom"
                      offsetX-bind="$page.view.offsetX"
                      offsetY-bind="$page.view.offsetY"
+                     zoomStep-bind="$page.view.zoomStep"
+                     minZoom-bind="$page.view.minZoom"
+                     maxZoom-bind="$page.view.maxZoom"
                      center
                   >
                      <Flow gap={1}>
@@ -84,9 +117,34 @@ export default (
                   </Diagram>
                </Svg>
                <div
-                  class="absolute border bottom-2 left-2 bg-white text-[10px] uppercase p-1"
+                  class="absolute border bottom-14 left-2 bg-white text-[10px] uppercase p-1"
                   text-tpl="Zoom: {$page.view.zoom:p;0} Center ({$page.view.offsetX:n;0},  {$page.view.offsetY:n;0})"
                />
+               <div class="border-t bg-white px-2 flex justify-center">
+                  <LabelsTopLayout class="-mt-2">
+                     <NumberField
+                        value-bind="$page.view.zoomStep"
+                        label="Zoom Step"
+                        step={0.01}
+                        minValue={0.01}
+                        class="w-24"
+                     />
+                     <NumberField
+                        value-bind="$page.view.minZoom"
+                        label="Min Zoom"
+                        step={0.05}
+                        minValue={0.05}
+                        class="w-24"
+                     />
+                     <NumberField
+                        value-bind="$page.view.maxZoom"
+                        label="Max Zoom"
+                        step={0.5}
+                        minValue={1}
+                        class="w-24"
+                     />
+                  </LabelsTopLayout>
+               </div>
             </div>
          </Split>
          <Split>

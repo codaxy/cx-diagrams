@@ -68,4 +68,31 @@ export default {
          </cx>
       ),
    },
+
+   zoomStep: {
+      type: 'number',
+      description: (
+         <cx>
+            <Md>Zoom factor applied on each wheel step. Default value is 0.05.</Md>
+         </cx>
+      ),
+   },
+
+   minZoom: {
+      type: 'number',
+      description: (
+         <cx>
+            <Md>Minimum allowed zoom level. Default value is 0.25.</Md>
+         </cx>
+      ),
+   },
+
+   maxZoom: {
+      type: 'number',
+      description: (
+         <cx>
+            <Md>Maximum allowed zoom level. Default value is 4.</Md>
+         </cx>
+      ),
+   },
 };
