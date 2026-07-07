@@ -372,7 +372,13 @@ class DiagramComponent extends VDOM.Component<
       }
     }
 
+    // Guard against degenerate bounds (negative, zero, NaN, inverted) which
+    // would otherwise get the zoom permanently stuck at 0, mirror the diagram,
+    // or write NaN back to the store.
     let { minZoom, maxZoom } = this.props.data;
+    if (!Number.isFinite(minZoom) || minZoom <= 0) minZoom = 0.01;
+    if (!(maxZoom > 0)) maxZoom = Infinity;
+    if (minZoom > maxZoom) [minZoom, maxZoom] = [maxZoom, minZoom];
     zoom = Math.max(minZoom, Math.min(maxZoom, zoom));
 
     let offsetX =
