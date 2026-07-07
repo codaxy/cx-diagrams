@@ -1,6 +1,6 @@
 import { Line, Rectangle, Svg, Text } from 'cx/svg';
 import { LabelsTopLayout } from 'cx/ui';
-import { NumberField } from 'cx/widgets';
+import { Slider } from 'cx/widgets';
 import { Diagram } from 'cx-diagrams/Diagram';
 import { Cell } from 'cx-diagrams/Cell';
 import { Flow } from 'cx-diagrams/Flow';
@@ -68,26 +68,32 @@ export default (
             />
             <div class="border-t bg-white px-2 flex justify-center">
                 <LabelsTopLayout class="-mt-2">
-                    <NumberField
+                    <Slider
                         value-bind="$page.view.zoomStep"
                         label="Zoom Step"
+                        min={0.01}
+                        max={0.5}
                         step={0.01}
-                        minValue={0.01}
-                        class="w-24"
+                        class="w-32"
+                        help-tpl="{$page.view.zoomStep:n;2}"
                     />
-                    <NumberField
+                    <Slider
                         value-bind="$page.view.minZoom"
                         label="Min Zoom"
+                        min={0.05}
+                        max={1}
                         step={0.05}
-                        minValue={0.05}
-                        class="w-24"
+                        class="w-32"
+                        help-tpl="{$page.view.minZoom:n;2}"
                     />
-                    <NumberField
+                    <Slider
                         value-bind="$page.view.maxZoom"
                         label="Max Zoom"
+                        min={1}
+                        max={10}
                         step={0.5}
-                        minValue={1}
-                        class="w-24"
+                        class="w-32"
+                        help-tpl="{$page.view.maxZoom:n;1}"
                     />
                 </LabelsTopLayout>
             </div>
@@ -122,26 +128,32 @@ export default (
                />
                <div class="border-t bg-white px-2 flex justify-center">
                   <LabelsTopLayout class="-mt-2">
-                     <NumberField
+                     <Slider
                         value-bind="$page.view.zoomStep"
                         label="Zoom Step"
+                        min={0.01}
+                        max={0.5}
                         step={0.01}
-                        minValue={0.01}
-                        class="w-24"
+                        class="w-32"
+                        help-tpl="{$page.view.zoomStep:n;2}"
                      />
-                     <NumberField
+                     <Slider
                         value-bind="$page.view.minZoom"
                         label="Min Zoom"
+                        min={0.05}
+                        max={1}
                         step={0.05}
-                        minValue={0.05}
-                        class="w-24"
+                        class="w-32"
+                        help-tpl="{$page.view.minZoom:n;2}"
                      />
-                     <NumberField
+                     <Slider
                         value-bind="$page.view.maxZoom"
                         label="Max Zoom"
+                        min={1}
+                        max={10}
                         step={0.5}
-                        minValue={1}
-                        class="w-24"
+                        class="w-32"
+                        help-tpl="{$page.view.maxZoom:n;1}"
                      />
                   </LabelsTopLayout>
                </div>
