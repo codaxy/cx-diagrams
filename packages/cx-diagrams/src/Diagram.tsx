@@ -34,6 +34,15 @@ export interface DiagramConfig extends BoundedObjectConfig {
 
   /** Set to true to disable zooming and panning. */
   fixed?: BooleanProp;
+
+  /** Zoom factor applied on each wheel step. Defaults to 0.05. */
+  zoomStep?: NumberProp;
+
+  /** Minimum allowed zoom level. Defaults to 0.25. */
+  minZoom?: NumberProp;
+
+  /** Maximum allowed zoom level. Defaults to 4. */
+  maxZoom?: NumberProp;
 }
 
 interface DiagramData {
@@ -43,6 +52,9 @@ interface DiagramData {
   unitSize: number;
   showGrid?: boolean;
   fixed?: boolean;
+  zoomStep: number;
+  minZoom: number;
+  maxZoom: number;
   bounds: Rect;
   classNames: string;
   style?: any;
@@ -72,6 +84,9 @@ export class Diagram extends BoundedObject<DiagramConfig> {
   declare center: boolean;
   declare showGrid: boolean;
   declare fixed: boolean;
+  declare zoomStep: number;
+  declare minZoom: number;
+  declare maxZoom: number;
 
   init() {
     if (this.center) {
@@ -89,6 +104,9 @@ export class Diagram extends BoundedObject<DiagramConfig> {
       unitSize: undefined,
       showGrid: undefined,
       fixed: undefined,
+      zoomStep: undefined,
+      minZoom: undefined,
+      maxZoom: undefined,
     });
   }
 
@@ -172,10 +190,9 @@ Diagram.prototype.centerY = false;
 Diagram.prototype.center = false;
 Diagram.prototype.showGrid = false;
 Diagram.prototype.fixed = false;
-
-const defaultZoomStep = 0.05;
-const minZoom = 0.25;
-const maxZoom = 4;
+Diagram.prototype.zoomStep = 0.05;
+Diagram.prototype.minZoom = 0.25;
+Diagram.prototype.maxZoom = 4;
 
 interface DiagramComponentProps {
   data: DiagramData;
@@ -326,7 +343,7 @@ class DiagramComponent extends VDOM.Component<
     e: MouseEvent | TouchEvent,
     factor: number,
     center = true,
-    zoomStep = defaultZoomStep,
+    zoomStep = this.props.data.zoomStep,
     pinchPoint?: { x: number; y: number }
   ) {
     let nzoom = (1 + factor * zoomStep) * this.state.zoom;
@@ -355,6 +372,13 @@ class DiagramComponent extends VDOM.Component<
       }
     }
 
+    // Guard against degenerate bounds (negative, zero, NaN, inverted) which
+    // would otherwise get the zoom permanently stuck at 0, mirror the diagram,
+    // or write NaN back to the store.
+    let { minZoom, maxZoom } = this.props.data;
+    if (!Number.isFinite(minZoom) || minZoom <= 0) minZoom = 0.01;
+    if (!(maxZoom > 0)) maxZoom = Infinity;
+    if (minZoom > maxZoom) [minZoom, maxZoom] = [maxZoom, minZoom];
     zoom = Math.max(minZoom, Math.min(maxZoom, zoom));
 
     let offsetX =
