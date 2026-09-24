@@ -556,7 +556,7 @@ class ShapeComponent extends VDOM.Component<
     this.setState({ dropState: "far" });
   }
 
-  onDragEnd(e: DragEvent) {
+  onDragEnd() {
     this.setState({ dropState: false });
   }
 

@@ -3,7 +3,7 @@
 import { Rect } from "cx/svg";
 import { VDOM, RenderingContext, NumberProp, Instance } from "cx/ui";
 import { captureMouseOrTouch, getCursorPos } from "cx/widgets";
-import { Node, NodeConfig, NodeInstance } from "cx-diagrams";
+import { Node, NodeConfig, NodeInstance } from "./Node";
 
 export interface DraggableConfig extends NodeConfig {
   offsetX?: NumberProp;
