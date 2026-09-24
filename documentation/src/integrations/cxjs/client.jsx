@@ -18,5 +18,8 @@ export default (element) => {
     // Hydrate
     const root = createRoot(element);
     root.render(React.createElement(Cx, { widget, store, subscribe: true }));
+
+    // Client-side navigation removes the island; unmount so controllers are destroyed
+    element.addEventListener("astro:unmount", () => root.unmount(), { once: true });
   };
 };

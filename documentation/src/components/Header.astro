@@ -89,15 +89,21 @@
 </header>
 
 <script>
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-  const sidebar = document.getElementById('sidebar');
+  // With client-side navigation the header is replaced on every page change,
+  // so the handler is attached again after each navigation.
+  function initHamburger() {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const sidebar = document.getElementById('sidebar');
 
-  hamburgerBtn?.addEventListener('click', () => {
-    const isOpen = sidebar?.classList.contains('!block');
-    if (isOpen) {
-      sidebar?.classList.remove('fixed', 'top-14', 'left-0', 'right-0', 'bottom-0', '!block', 'z-[1000]', 'border-t');
-    } else {
-      sidebar?.classList.add('fixed', 'top-14', 'left-0', 'right-0', 'bottom-0', '!block', 'z-[1000]', 'border-t');
-    }
-  });
+    hamburgerBtn?.addEventListener('click', () => {
+      const isOpen = sidebar?.classList.contains('!block');
+      if (isOpen) {
+        sidebar?.classList.remove('fixed', 'top-14', 'left-0', 'right-0', 'bottom-0', '!block', 'z-[1000]', 'border-t');
+      } else {
+        sidebar?.classList.add('fixed', 'top-14', 'left-0', 'right-0', 'bottom-0', '!block', 'z-[1000]', 'border-t');
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initHamburger);
 </script>

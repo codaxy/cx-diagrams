@@ -36,7 +36,7 @@ export default defineConfig({
   vite: {
     esbuild: {
       loader: "tsx",
-      include: /.*\.(js|tsx)$/,
+      include: /.*\.(js|ts|tsx)$/,
       jsx: "automatic",
       jsxImportSource: "cx",
     },
