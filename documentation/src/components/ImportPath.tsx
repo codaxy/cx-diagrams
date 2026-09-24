@@ -1,5 +1,9 @@
 /** @jsxImportSource react */
-import { Widget, VDOM, Instance, RenderingContext } from "cx/ui";
+import { Widget, VDOM, Instance, RenderingContext, type WidgetConfig } from "cx/ui";
+
+interface ImportPathConfig extends WidgetConfig {
+  path: string;
+}
 
 interface InputWithButtonProps {
   path: string;
@@ -43,7 +47,9 @@ class InputWithButton extends VDOM.Component<
     return (
       <div className="cxb-importpath">
         <code
-          ref={(input) => (this.textInput = input)}
+          ref={(input) => {
+            this.textInput = input;
+          }}
           onClick={this.copyToClipboard.bind(this)}
           onMouseLeave={this.resetTooltipText.bind(this)}
         >
@@ -69,9 +75,13 @@ class InputWithButton extends VDOM.Component<
   }
 }
 
-export class ImportPath extends Widget {
+export class ImportPath extends Widget<ImportPathConfig> {
   declare path: string;
   declare className: string;
+
+  constructor(config?: ImportPathConfig) {
+    super(config);
+  }
 
   init() {
     super.init();
