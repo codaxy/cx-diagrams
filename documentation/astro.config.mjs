@@ -4,14 +4,27 @@ import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
 import cxjs from "./src/integrations/cxjs";
+import llmsTxt from "./src/integrations/llms-txt";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://diagrams.cxjs.io",
   trailingSlash: "never",
   build: {
     format: "file",
   },
-  integrations: [cxjs(), react(), mdx(), tailwind()],
+  integrations: [
+    cxjs(),
+    react(),
+    mdx(),
+    tailwind(),
+    llmsTxt({
+      title: "CxJS Diagrams",
+      description:
+        "CxJS Diagrams (cx-diagrams) is a CxJS library for building interactive diagrams — flowcharts, network topologies, org charts — from shapes laid out on a grid and connected with lines.",
+      site: "https://diagrams.cxjs.io",
+    }),
+  ],
   prefetch: {
     defaultStrategy: "hover",
   },
