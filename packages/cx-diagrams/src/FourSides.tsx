@@ -1,14 +1,14 @@
-import { RenderingContext, NumberProp } from "cx/ui";
+import { RenderingContext, NumberProp, Prop } from "cx/ui";
 import { Node, NodeConfig, NodeInstance } from "./Node";
 
-type Slot = "center" | "right" | "down" | "left" | "up";
+export type Slot = "center" | "right" | "down" | "left" | "up";
 
 export interface FourSidesConfig extends NodeConfig {
     /** Gap between center and side elements. */
     gap?: NumberProp;
 
     /** Slot assignments for children. */
-    slots?: Slot[];
+    slots?: Prop<Slot[]>;
 }
 
 interface FourSidesData {
