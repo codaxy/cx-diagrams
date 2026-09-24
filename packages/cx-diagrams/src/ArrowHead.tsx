@@ -97,7 +97,7 @@ export class ArrowHead extends ContainerBase<ArrowHeadConfig> {
       fill: undefined,
       size: undefined,
       stroke: undefined,
-      width: undefined,
+      strokeWidth: undefined,
       aspectRatio: undefined,
       reverse: undefined,
     });
