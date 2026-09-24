@@ -180,6 +180,7 @@ export class Flow extends Node {
         box.row += height;
         height += box.height;
         height += box.mb;
+        height += box.me;
         width = Math.max(width, box.col + box.width + box.mr + pr);
         if (box.selfAlign == "stretch") stretchItems.push(box);
       }
