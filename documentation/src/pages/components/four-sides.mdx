@@ -11,20 +11,22 @@ import CodeSnippet from "../../components/CodeSnippet.astro";
 import FourSidesExample from "../../diagrams/FourSidesExample.tsx";
 import config from "../../config/FourSides";
 
-export const code = `<Diagram center showGrid>
+export const code = `interface Model {
+    order: number;
+}
+
+const m = createModel<Model>();
+
+const setups: Slot[][] = [
+    ['center', 'right', 'down', 'left', 'up'],
+    ['center', 'down', 'left', 'up', 'right'],
+    ['center', 'left', 'up', 'right', 'down'],
+    ['center', 'up', 'right', 'down', 'left'],
+];
+
+<Diagram center showGrid>
     <FourSides
-        slots={computable('$page.order', (order) => {
-            switch (order) {
-                case 0:
-                    return ['center', 'right', 'down', 'left', 'up'];
-                case 1:
-                    return ['center', 'down', 'left', 'up', 'right'];
-                case 2:
-                    return ['center', 'left', 'up', 'right', 'down'];
-                case 3:
-                    return ['center', 'up', 'right', 'down', 'left'];
-            }
-        })}
+        slots={computable(m.order, (order) => setups[order])}
     >
         <Cell width={2} height={2}>
             <Shape text="center" fill="lightgreen" />

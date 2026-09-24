@@ -20,11 +20,6 @@ export default {
   stroke: {
     type: 'string',
     key: true,
-    description: 'Color of the line.',
-  },
-  strokeWidth: {
-    type: 'string',
-    key: true,
-    description: 'Line thickness.',
+    description: 'Color of the line. Set the thickness with <code>style</code> (e.g. <code>stroke-width: 2px</code>) or a CSS class.',
   },
 };

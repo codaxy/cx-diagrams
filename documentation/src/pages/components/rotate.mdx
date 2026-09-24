@@ -11,8 +11,14 @@ import CodeSnippet from "../../components/CodeSnippet.astro";
 import RotateExample from "../../diagrams/RotateExample.tsx";
 import config from "../../config/Rotate";
 
-export const code = `<Diagram center showGrid>
-    <Rotate turns={bind("$page.rotate")}>
+export const code = `interface Model {
+    rotate: number;
+}
+
+const m = createModel<Model>();
+
+<Diagram center showGrid>
+    <Rotate turns={m.rotate}>
         <Flow gap={1} p={0.5} align="center">
             <Rectangle stroke="red" />
             <Cell>

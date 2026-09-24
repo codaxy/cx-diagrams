@@ -11,11 +11,24 @@ import CodeSnippet from "../../components/CodeSnippet.astro";
 import DraggableExample from "../../diagrams/DraggableExample.tsx";
 import config from "../../config/Draggable";
 
-export const code = `<Diagram center showGrid>
+export const code = `interface Position {
+    offsetX: number;
+    offsetY: number;
+}
+
+interface Model {
+    cell1: Position;
+    cell2: Position;
+    group: Position;
+}
+
+const m = createModel<Model>();
+
+<Diagram center showGrid>
     <Flow direction="right" gap={2}>
         <Draggable
-            offsetX={bind("$page.cell1.offsetX")}
-            offsetY={bind("$page.cell1.offsetY")}
+            offsetX={m.cell1.offsetX}
+            offsetY={m.cell1.offsetY}
         >
             <Cell width={3}>
                 <Shape
@@ -25,8 +38,8 @@ export const code = `<Diagram center showGrid>
             </Cell>
         </Draggable>
         <Draggable
-            offsetX={bind("$page.cell2.offsetX")}
-            offsetY={bind("$page.cell2.offsetY")}
+            offsetX={m.cell2.offsetX}
+            offsetY={m.cell2.offsetY}
         >
             <Cell width={3}>
                 <Shape
@@ -37,8 +50,8 @@ export const code = `<Diagram center showGrid>
         </Draggable>
     </Flow>
     <Draggable
-        offsetX={bind("$page.group.offsetX")}
-        offsetY={bind("$page.group.offsetY")}
+        offsetX={m.group.offsetX}
+        offsetY={m.group.offsetY}
     >
         <Flow direction="right" gap={1} mt={3}>
             <Cell width={3}>

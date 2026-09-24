@@ -1,12 +1,19 @@
 /** @jsxImportSource cx */
 import { Cell, Diagram, Flow, Rotate, Shape, StraightLine } from "cx-diagrams";
+import { createModel } from "cx/data";
 import { Rectangle, Svg } from "cx/svg";
-import { bind, tpl, Controller } from "cx/ui";
+import { tpl, Controller } from "cx/ui";
 import { Slider } from "cx/widgets";
+
+interface Model {
+  rotate: number;
+}
+
+const m = createModel<Model>();
 
 class PageController extends Controller {
   onInit() {
-    this.store.init("$page.rotate", 0);
+    this.store.init(m.rotate, 0);
   }
 }
 
@@ -15,7 +22,7 @@ export default () => (
     <div class="flex flex-col w-full h-full " controller={PageController}>
       <Svg class="w-full min-h-[400px] flex-grow bg-white border-t border-b">
         <Diagram center showGrid>
-          <Rotate turns={bind("$page.rotate")}>
+          <Rotate turns={m.rotate}>
             <Flow gap={1} p={1} align="center">
               <Rectangle stroke="red" />
 
@@ -50,12 +57,12 @@ export default () => (
       </Svg>
       <div class="absolute left-2 bottom-2">
         <Slider
-          value={bind("$page.rotate")}
+          value={m.rotate}
           increment={1}
           minValue={0}
           maxValue={4}
           step={1}
-          help={tpl("{$page.rotate} turn(s)")}
+          help={tpl(m.rotate, "{0} turn(s)")}
         />
       </div>
     </div>

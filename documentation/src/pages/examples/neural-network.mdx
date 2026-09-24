@@ -8,20 +8,29 @@ import Prose from "../../components/Prose.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
 import NeuralNetworkExample from "../../diagrams/NeuralNetworkExample.tsx";
 
-export const code = `<Diagram unitSize={48} showGrid center>
+export const code = `interface Model {
+    network: Network;
+    $layer: NetworkLayer;
+    $record: { id: string; name: string };
+    $conn: { from: string; to: string };
+}
+
+const m = createModel<Model>();
+
+<Diagram unitSize={48} showGrid center>
     <Flow gap={2} align="center">
-        <Repeater records={bind("$page.network.layers")} recordAlias="$layer">
+        <Repeater records={m.network.layers} recordAlias={m.$layer}>
             <Flow direction="down" gap={0.5}>
-                <Repeater records={bind("$layer.nodes")}>
+                <Repeater records={m.$layer.nodes}>
                     <Cell>
                         <Shape
-                            text={bind("$record.name")}
-                            id={bind("$record.id")}
+                            text={m.$record.name}
+                            id={m.$record.id}
                             shape="circle"
                             class={{
-                                'fill-blue-200 stroke-blue-600': expr('{$layer.type} == "input"'),
-                                'fill-orange-200 stroke-orange-600': expr('{$layer.type} == "hidden"'),
-                                'fill-green-200 stroke-green-600': expr('{$layer.type} == "output"'),
+                                'fill-blue-200 stroke-blue-600': equal(m.$layer.type, "input"),
+                                'fill-orange-200 stroke-orange-600': equal(m.$layer.type, "hidden"),
+                                'fill-green-200 stroke-green-600': equal(m.$layer.type, "output"),
                             }}
                         />
                     </Cell>
@@ -29,8 +38,8 @@ export const code = `<Diagram unitSize={48} showGrid center>
             </Flow>
         </Repeater>
     </Flow>
-    <Repeater records={bind("$page.network.connections")} recordAlias="$conn">
-        <StraightLine from={bind("$conn.from")} to={bind("$conn.to")} stroke="black" />
+    <Repeater records={m.network.connections} recordAlias={m.$conn}>
+        <StraightLine from={m.$conn.from} to={m.$conn.to} stroke="black" />
     </Repeater>
 </Diagram>`;
 

@@ -11,13 +11,19 @@ import CodeSnippet from "../../components/CodeSnippet.astro";
 import DiagramExample from "../../diagrams/DiagramExample.tsx";
 import config from "../../config/Diagram";
 
-export const code = `<Svg class="w-auto h-full bg-white">
+export const code = `interface Model {
+    view: { zoom: number; offsetX: number; offsetY: number };
+}
+
+const m = createModel<Model>();
+
+<Svg class="w-auto h-full bg-white">
     <Diagram
         unitSize={32}
         showGrid
-        zoom={bind("$page.view.zoom")}
-        offsetX={bind("$page.view.offsetX")}
-        offsetY={bind("$page.view.offsetY")}
+        zoom={m.view.zoom}
+        offsetX={m.view.offsetX}
+        offsetY={m.view.offsetY}
         center
     >
         <Flow gap={1}>
@@ -32,7 +38,7 @@ export const code = `<Svg class="w-auto h-full bg-white">
 </Svg>
 <div
     class="absolute border bottom-2 left-2 bg-white text-[10px] uppercase p-1"
-    text={tpl("Zoom: {$page.view.zoom:p;0} Center ({$page.view.offsetX:n;0}, {$page.view.offsetY:n;0})")}
+    text={tpl(m.view.zoom, m.view.offsetX, m.view.offsetY, "Zoom: {0:p;0} Center ({1:n;0}, {2:n;0})")}
 />`;
 
 <Split>

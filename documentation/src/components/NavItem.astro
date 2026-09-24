@@ -8,9 +8,13 @@ interface Props {
 const { href, text, icon = 'component' } = Astro.props;
 const pathname = Astro.url.pathname;
 
-// Normalize paths for comparison (remove trailing slashes)
-const normalizedHref = href.replace(/\/$/, '') || '/';
-const normalizedPath = pathname.replace(/\/$/, '') || '/';
+// Normalize paths for comparison. With build.format "file", pages are
+// generated as /components/shape.html and /index.html, so drop the extension,
+// a trailing "index" and trailing slashes.
+const normalize = (path: string) =>
+  path.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/\/$/, '') || '/';
+const normalizedHref = normalize(href);
+const normalizedPath = normalize(pathname);
 
 // Check if this nav item is active
 const isActive = normalizedHref === '/'

@@ -1,7 +1,21 @@
 /** @jsxImportSource cx */
 import { Cell, Diagram, Draggable, Flow, Shape } from "cx-diagrams";
+import { createModel } from "cx/data";
 import { Rectangle, Svg } from "cx/svg";
 import { bind } from "cx/ui";
+
+interface Position {
+  offsetX: number;
+  offsetY: number;
+}
+
+interface Model {
+  cell1: Position;
+  cell2: Position;
+  group: Position;
+}
+
+const m = createModel<Model>();
 
 export default () => (
   <cx>
@@ -9,8 +23,8 @@ export default () => (
       <Diagram center showGrid>
         <Flow direction="down" gap={2} align="center">
           <Draggable
-            offsetX={bind("$page.cell1.offsetX", 0)}
-            offsetY={bind("$page.cell1.offsetY", 0)}
+            offsetX={bind(m.cell1.offsetX, 0)}
+            offsetY={bind(m.cell1.offsetY, 0)}
           >
             <Cell width={3}>
               <Shape
@@ -20,8 +34,8 @@ export default () => (
             </Cell>
           </Draggable>
           <Draggable
-            offsetX={bind("$page.cell2.offsetX", 0)}
-            offsetY={bind("$page.cell2.offsetY", 0)}
+            offsetX={bind(m.cell2.offsetX, 0)}
+            offsetY={bind(m.cell2.offsetY, 0)}
           >
             <Cell width={3}>
               <Shape
@@ -31,8 +45,8 @@ export default () => (
             </Cell>
           </Draggable>
           <Draggable
-            offsetX={bind("$page.group.offsetX", 0)}
-            offsetY={bind("$page.group.offsetY", 0)}
+            offsetX={bind(m.group.offsetX, 0)}
+            offsetY={bind(m.group.offsetY, 0)}
           >
             <Flow direction="right" gap={1} p={0.5}>
               <Rectangle class="fill-gray-100 stroke-gray-300" />

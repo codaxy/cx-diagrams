@@ -9,8 +9,9 @@ import {
   StraightLine,
   ThreeSegmentLine,
 } from "cx-diagrams";
+import { createModel } from "cx/data";
 import { Rectangle, Svg, Text } from "cx/svg";
-import { bind, Controller } from "cx/ui";
+import { Controller } from "cx/ui";
 import { ContentPlaceholder, PureContainer, Repeater } from "cx/widgets";
 import { Image } from "../components/Image";
 
@@ -78,9 +79,21 @@ function generateNetwork() {
   };
 }
 
+type Network = ReturnType<typeof generateNetwork>;
+
+interface Model {
+  networks: Network[];
+  $network: Network;
+  $index: number;
+  $record: { id: string; name: string };
+  $conn: { from: string; to: string };
+}
+
+const m = createModel<Model>();
+
 class PageController extends Controller {
   onInit() {
-    this.store.init("$page.networks", [
+    this.store.init(m.networks, [
       generateNetwork(),
       generateNetwork(),
       generateNetwork(),
@@ -107,21 +120,21 @@ export default () => (
                 />
               </PureContainer>
             </Cell>
-            <Repeater records={bind("$page.networks")} recordAlias="$network">
-              <Rotate turns={bind("$index")}>
+            <Repeater records={m.networks} recordAlias={m.$network}>
+              <Rotate turns={m.$index}>
                 <Flow gap={1} align="center">
                   <Flow direction="down" gap={1} p={0.5}>
                     <Rectangle class="fill-gray-100" />
-                    <Repeater records={bind("$network.firewalls")}>
+                    <Repeater records={m.$network.firewalls}>
                       <Cell width={2}>
                         <Shape
-                          text={bind("$record.name")}
+                          text={m.$record.name}
                           class="fill-blue-400"
-                          id={bind("$record.id")}
+                          id={m.$record.id}
                         />
                       </Cell>
                       <StraightLine
-                        from={bind("$record.id")}
+                        from={m.$record.id}
                         to="root"
                         stroke="black"
                       />
@@ -129,36 +142,36 @@ export default () => (
                   </Flow>
                   <Flow direction="down" gap={1} p={0.5}>
                     <Rectangle class="fill-gray-100" />
-                    <Repeater records={bind("$network.switches")}>
+                    <Repeater records={m.$network.switches}>
                       <Cell width={2}>
                         <Shape
-                          text={bind("$record.name")}
+                          text={m.$record.name}
                           class="fill-green-400"
-                          id={bind("$record.id")}
+                          id={m.$record.id}
                         />
                       </Cell>
                     </Repeater>
                   </Flow>
                   <Flow direction="down" gap={1} p={0.5}>
                     <Rectangle class="fill-gray-100" />
-                    <Repeater records={bind("$network.pcs")}>
+                    <Repeater records={m.$network.pcs}>
                       <Cell width={2}>
                         <Shape
-                          text={bind("$record.name")}
+                          text={m.$record.name}
                           class="fill-orange-400"
-                          id={bind("$record.id")}
+                          id={m.$record.id}
                         />
                       </Cell>
                     </Repeater>
                   </Flow>
                 </Flow>
                 <Repeater
-                  records={bind("$network.connections")}
-                  recordAlias="$conn"
+                  records={m.$network.connections}
+                  recordAlias={m.$conn}
                 >
                   <ThreeSegmentLine
-                    from={bind("$conn.from")}
-                    to={bind("$conn.to")}
+                    from={m.$conn.from}
+                    to={m.$conn.to}
                     direction="right"
                     class="stroke-black"
                     stroke="black"

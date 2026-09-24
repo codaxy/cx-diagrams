@@ -1,12 +1,26 @@
 /** @jsxImportSource cx */
-import { Cell, Diagram, Flow, FourSides, Shape } from "cx-diagrams";
+import { Cell, Diagram, Flow, FourSides, Shape, type Slot } from "cx-diagrams";
+import { createModel } from "cx/data";
 import { Rectangle, Svg } from "cx/svg";
-import { bind, computable, Controller } from "cx/ui";
+import { computable, Controller } from "cx/ui";
 import { Label, Radio } from "cx/widgets";
+
+interface Model {
+  order: number;
+}
+
+const m = createModel<Model>();
+
+const setups: Slot[][] = [
+  ["center", "right", "down", "left", "up"],
+  ["center", "down", "left", "up", "right"],
+  ["center", "left", "up", "right", "down"],
+  ["center", "up", "right", "down", "left"],
+];
 
 class PageController extends Controller {
   onInit() {
-    this.store.init("$page.order", 0);
+    this.store.init(m.order, 0);
   }
 }
 
@@ -16,18 +30,7 @@ export default () => (
       <Svg class="w-full h-full min-h-[500px] bg-white  border-t border-b">
         <Diagram center showGrid>
           <FourSides
-            slots={computable("$page.order", (order: number) => {
-              switch (order) {
-                case 0:
-                  return ["center", "right", "down", "left", "up"];
-                case 1:
-                  return ["center", "down", "left", "up", "right"];
-                case 2:
-                  return ["center", "left", "up", "right", "down"];
-                case 3:
-                  return ["center", "up", "right", "down", "left"];
-              }
-            })}
+            slots={computable(m.order, (order) => setups[order])}
           >
             <Cell width={2} height={2}>
               <Shape text="center" fill="lightgreen" />
@@ -87,16 +90,16 @@ export default () => (
       </Svg>
       <div class="absolute bottom-2 left-2 border px-2 bg-white shadow-sm space-x-2">
         <Label>Setup: </Label>
-        <Radio value={bind("$page.order")} option={0}>
+        <Radio value={m.order} option={0}>
           1
         </Radio>
-        <Radio value={bind("$page.order")} option={1}>
+        <Radio value={m.order} option={1}>
           2
         </Radio>
-        <Radio value={bind("$page.order")} option={2}>
+        <Radio value={m.order} option={2}>
           3
         </Radio>
-        <Radio value={bind("$page.order")} option={3}>
+        <Radio value={m.order} option={3}>
           4
         </Radio>
       </div>

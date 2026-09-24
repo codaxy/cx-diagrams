@@ -8,22 +8,29 @@ import Prose from "../../components/Prose.astro";
 import CodeSnippet from "../../components/CodeSnippet.astro";
 import SelectionExample from "../../diagrams/SelectionExample.tsx";
 
-export const code = `<Diagram center showGrid>
+export const code = `interface Model {
+    selection: string[];
+    $shape: { id: string; text: string; shape: "rectangle" | "circle" | "rhombus" };
+}
+
+const m = createModel<Model>();
+
+<Diagram center showGrid>
     <Flow direction="right" gap={2}>
-        <Repeater records={shapes} recordAlias="$shape">
+        <Repeater records={shapes} recordAlias={m.$shape}>
             <Cell width={3} height={2}>
                 <Shape
-                    id={bind("$shape.id")}
-                    text={bind("$shape.text")}
-                    shape={bind("$shape.shape")}
+                    id={m.$shape.id}
+                    text={m.$shape.text}
+                    shape={m.$shape.shape}
                     stroke="gray"
                     fill="white"
                     selection={{
                         type: KeySelection,
-                        bind: "selection",
+                        bind: m.selection,
                         keyField: "id",
                         multiple: true,
-                        record: { bind: "$shape" },
+                        record: m.$shape,
                     }}
                 />
             </Cell>
