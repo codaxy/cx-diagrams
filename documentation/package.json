@@ -18,7 +18,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.18.0",
-    "cx": "^26.3.10",
+    "cx": "^26.9.3",
     "cx-diagrams": "workspace:*",
     "cx-react": "^26.1.0",
     "react": "^19.2.3",

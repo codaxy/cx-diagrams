@@ -5236,20 +5236,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cx@npm:^26.3.10":
-  version: 26.3.10
-  resolution: "cx@npm:26.3.10"
+"cx@npm:^26.9.3":
+  version: 26.9.3
+  resolution: "cx@npm:26.9.3"
   dependencies:
     "@types/route-parser": "npm:^0.1.7"
     intl-io: "npm:^0.4.4"
-    route-parser-ts: "npm:^1.1.0"
+    route-parser-ts: "npm:^1.1.2"
   peerDependencies:
     "@types/react": ">=18"
     "@types/react-dom": ">=18"
     cx-react: ">=26"
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/409cc7064bcbee44de07d37c35026f242113a797df92f2feaa10ca60ed8bf2e80bc80530f9f96ce5d870ff34e1fbf29e1f5255742baf76e5f566104b1fc53d9a
+  checksum: 10c0/1edbb69717559fed69bc4a361affa8dbca8d7635bc104205c4f62b3e6dfe1e9a6175dc31dd28175f5a7c938396936d0ff0f2f5a73a34677795ec000999c677bd
   languageName: node
   linkType: hard
 
@@ -5544,7 +5544,7 @@ __metadata:
     core-js: "npm:^3.48.0"
     css-loader: "npm:^7.1.4"
     css-minimizer-webpack-plugin: "npm:^7.0.4"
-    cx: "npm:^26.3.10"
+    cx: "npm:^26.9.3"
     cx-diagrams: "workspace:*"
     cx-react: "npm:^26.1.0"
     cx-scss-manifest-webpack-plugin: "npm:^26.3.1"
@@ -5594,7 +5594,7 @@ __metadata:
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.3"
     astro: "npm:^5.18.0"
-    cx: "npm:^26.3.10"
+    cx: "npm:^26.9.3"
     cx-diagrams: "workspace:*"
     cx-react: "npm:^26.1.0"
     react: "npm:^19.2.3"
@@ -10969,10 +10969,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"route-parser-ts@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "route-parser-ts@npm:1.1.0"
-  checksum: 10c0/320a740a28fcf4f83a4b9cf18b58723662a40b7ef4fabb822a034e09a19252da30a737155468002d67d2dfe3b2be64f86becc02240c93ab90ec65f58f62a4b79
+"route-parser-ts@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "route-parser-ts@npm:1.1.2"
+  checksum: 10c0/2e07ca334c1f423cbf3a499eb6e4399e4818df2ccceb81dfae8a98f1d3154e35084f28b6763215a7f4ce32c2a808a4d3ee6d122c316424391797bc74ef5da45c
   languageName: node
   linkType: hard
 

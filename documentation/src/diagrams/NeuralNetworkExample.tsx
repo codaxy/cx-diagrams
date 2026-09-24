@@ -2,7 +2,7 @@
 import { Cell, Diagram, Flow, Shape, StraightLine } from "cx-diagrams";
 import { createModel } from "cx/data";
 import { Svg } from "cx/svg";
-import { bind, equal, LabelsTopLayout, Controller } from "cx/ui";
+import { equal, LabelsTopLayout, Controller } from "cx/ui";
 import { Repeater, Slider } from "cx/widgets";
 
 function uid() {
@@ -134,7 +134,7 @@ export default () => (
             step={1}
             label="Inputs"
             class="w-32"
-            help={bind(m.options.inputs)}
+            help={m.options.inputs}
           />
           <Slider
             value={m.options.hiddenLayers}
@@ -143,7 +143,7 @@ export default () => (
             step={1}
             label="Hidden Layers"
             class="w-32"
-            help={bind(m.options.hiddenLayers)}
+            help={m.options.hiddenLayers}
           />
           <Slider
             value={m.options.hiddenNodes}
@@ -152,7 +152,7 @@ export default () => (
             step={1}
             label="Hidden Layer Size"
             class="w-32"
-            help={bind(m.options.hiddenNodes)}
+            help={m.options.hiddenNodes}
           />
           <Slider
             value={m.options.outputs}
@@ -161,7 +161,7 @@ export default () => (
             step={1}
             label="Outputs"
             class="w-32"
-            help={bind(m.options.outputs)}
+            help={m.options.outputs}
           />
         </LabelsTopLayout>
       </div>
