@@ -1,7 +1,6 @@
 import { RenderingContext, NumberProp } from "cx/ui";
 import { Node, NodeConfig, NodeInstance, NodeData } from "./Node";
-
-type Direction = "right" | "down" | "left" | "up";
+import { Direction } from "./types";
 
 export interface RotateConfig extends NodeConfig {
     /** Number of 90-degree turns. */

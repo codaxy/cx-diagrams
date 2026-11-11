@@ -28,8 +28,7 @@ import {
   TooltipParentInstance,
   tooltipParentWillUnmount,
 } from "cx/widgets";
-
-type ShapeType = "rectangle" | "circle" | "rhombus";
+import { ShapeType } from "./types";
 
 export interface DragCloneConfig {
   /** Widget configuration to render as the drag clone. */

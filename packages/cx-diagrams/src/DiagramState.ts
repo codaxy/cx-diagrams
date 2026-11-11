@@ -1,6 +1,5 @@
 import { Rect } from "cx/svg";
-
-type ShapeType = "circle" | "rectangle" | "rhombus";
+import { ShapeType } from "./types";
 
 interface ShapeData {
     bounds?: Rect;

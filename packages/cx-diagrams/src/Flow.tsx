@@ -1,7 +1,7 @@
 import { RenderingContext, NumberProp, BooleanProp } from "cx/ui";
 import { Node, NodeConfig, NodeInstance, Box } from "./Node";
+import { Direction } from "./types";
 
-type Direction = "right" | "left" | "up" | "down";
 type Align = "start" | "center";
 type Justify = "space-between";
 type SelfAlign = "stretch";

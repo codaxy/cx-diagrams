@@ -10,15 +10,8 @@ import {
   StyleProp,
   ClassProp,
 } from "cx/ui";
-
-type Direction = "right" | "left" | "up" | "down";
-
-interface LineSegment {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-}
+import { Direction, LineSegment, Point } from "./types";
+import { getLineSegments, getPolylinePath } from "./util/linePaths";
 
 export interface TwoSegmentLineConfig extends ContainerConfig {
   /** Offset from start position. */
@@ -36,6 +29,9 @@ export interface TwoSegmentLineConfig extends ContainerConfig {
   /** Stroke color. */
   stroke?: StringProp;
 
+  /** Corner radius. Use it to round the corners of the line. */
+  cornerRadius?: NumberProp;
+
   /** CSS class. */
   class?: ClassProp;
 
@@ -49,6 +45,7 @@ interface TwoSegmentLineData {
   from?: string;
   to?: string;
   stroke?: string;
+  cornerRadius: number;
   classNames: string;
   style?: any;
   x?: number;
@@ -59,6 +56,7 @@ export interface TwoSegmentLineInstance extends Instance {
   data: TwoSegmentLineData;
   direction?: Direction;
   bounds: Rect;
+  points?: Point[];
   lines?: LineSegment[];
   colorIndex?: number;
   cached: { bounds?: Rect };
@@ -76,6 +74,7 @@ export class TwoSegmentLine extends ContainerBase<
   declare styled: boolean;
   declare startOffset: number;
   declare direction: Direction;
+  declare cornerRadius: number;
 
   declareData(...args: any[]) {
     super.declareData(...args, {
@@ -84,6 +83,7 @@ export class TwoSegmentLine extends ContainerBase<
       from: undefined,
       to: undefined,
       stroke: undefined,
+      cornerRadius: undefined,
     });
   }
 
@@ -158,10 +158,12 @@ export class TwoSegmentLine extends ContainerBase<
         b = data.y!;
       }
     }
-    instance.lines = [
-      { x1: l, y1: data.y!, x2: r, y2: data.y! },
-      { x1: data.x!, y1: t, x2: data.x!, y2: b },
+    instance.points = [
+      { x: l, y: t },
+      { x: data.x!, y: data.y! },
+      { x: r, y: b },
     ];
+    instance.lines = getLineSegments(instance.points);
     return new Rect({ t, r, b, l });
   }
 
@@ -181,37 +183,20 @@ export class TwoSegmentLine extends ContainerBase<
   render(
     context: RenderingContext,
     instance: TwoSegmentLineInstance,
-    key: string
+    key: string,
   ) {
-    let { data, colorIndex, bounds } = instance;
-    let { x, y } = data;
-    let { t, l, b, r } = bounds;
+    let { data, colorIndex } = instance;
 
     return (
       <g key={key} className={data.classNames}>
-        <line
+        <path
           className={this.CSS.element(
             this.baseClass,
             "line",
-            colorIndex != null && "color-" + colorIndex
+            colorIndex != null && "color-" + colorIndex,
           )}
-          x1={l}
-          y1={y}
-          x2={r}
-          y2={y}
-          style={data.style}
-          stroke={data.stroke}
-        />
-        <line
-          className={this.CSS.element(
-            this.baseClass,
-            "line",
-            colorIndex != null && "color-" + colorIndex
-          )}
-          x1={x}
-          y1={t}
-          x2={x}
-          y2={b}
+          d={getPolylinePath(instance.points ?? [], data.cornerRadius)}
+          fill="none"
           style={data.style}
           stroke={data.stroke}
         />
@@ -223,5 +208,6 @@ export class TwoSegmentLine extends ContainerBase<
 
 TwoSegmentLine.prototype.startOffset = 0;
 TwoSegmentLine.prototype.direction = "right";
+TwoSegmentLine.prototype.cornerRadius = 0;
 TwoSegmentLine.prototype.baseClass = "line";
 TwoSegmentLine.prototype.styled = true;

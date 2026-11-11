@@ -11,15 +11,8 @@ import {
   ClassProp,
   Prop,
 } from "cx/ui";
-
-export type Direction = "right" | "left" | "up" | "down";
-
-interface LineSegment {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-}
+import { Direction, LineSegment, Point } from "./types";
+import { getLineSegments, getPolylinePath } from "./util/linePaths";
 
 export interface ThreeSegmentLineConfig extends ContainerConfig {
   /** Offset from start position. */
@@ -37,6 +30,9 @@ export interface ThreeSegmentLineConfig extends ContainerConfig {
   /** Stroke color. */
   stroke?: StringProp;
 
+  /** Corner radius. Use it to round the corners of the line. */
+  cornerRadius?: NumberProp;
+
   /** CSS class. */
   class?: ClassProp;
 
@@ -50,6 +46,7 @@ interface ThreeSegmentLineData {
   from?: string;
   to?: string;
   stroke?: string;
+  cornerRadius: number;
   classNames: string;
   style?: any;
   x1?: number;
@@ -62,6 +59,7 @@ export interface ThreeSegmentLineInstance extends Instance {
   data: ThreeSegmentLineData;
   direction?: Direction;
   bounds: Rect;
+  points?: Point[];
   lines?: LineSegment[];
   colorIndex?: number;
   cached: { bounds?: Rect };
@@ -79,6 +77,7 @@ export class ThreeSegmentLine extends ContainerBase<
   declare styled: boolean;
   declare startOffset: number;
   declare direction: Direction;
+  declare cornerRadius: number;
 
   declareData(...args: any[]) {
     super.declareData(...args, {
@@ -87,6 +86,7 @@ export class ThreeSegmentLine extends ContainerBase<
       from: undefined,
       to: undefined,
       stroke: undefined,
+      cornerRadius: undefined,
     });
   }
 
@@ -152,26 +152,13 @@ export class ThreeSegmentLine extends ContainerBase<
       data.x2 = r;
     }
 
-    instance.lines = [
-      {
-        x1: l,
-        y1: t,
-        x2: data.x1!,
-        y2: data.y1!,
-      },
-      {
-        x1: data.x1!,
-        y1: data.y1!,
-        x2: data.x2!,
-        y2: data.y2!,
-      },
-      {
-        x1: data.x2!,
-        y1: data.y2!,
-        x2: r,
-        y2: b,
-      },
+    instance.points = [
+      { x: l, y: t },
+      { x: data.x1!, y: data.y1! },
+      { x: data.x2!, y: data.y2! },
+      { x: r, y: b },
     ];
+    instance.lines = getLineSegments(instance.points);
 
     return new Rect({ t, r, b, l });
   }
@@ -197,48 +184,18 @@ export class ThreeSegmentLine extends ContainerBase<
     instance: ThreeSegmentLineInstance,
     key: string,
   ) {
-    let { data, colorIndex, bounds } = instance;
-    let { x1, y1, x2, y2 } = data;
-    let { t, l, b, r } = bounds;
+    let { data, colorIndex } = instance;
 
     return (
       <g key={key} className={data.classNames}>
-        <line
+        <path
           className={this.CSS.element(
             this.baseClass,
             "line",
             colorIndex != null && "color-" + colorIndex,
           )}
-          x1={l}
-          y1={t}
-          x2={x1}
-          y2={y1}
-          style={data.style}
-          stroke={data.stroke}
-        />
-        <line
-          className={this.CSS.element(
-            this.baseClass,
-            "line",
-            colorIndex != null && "color-" + colorIndex,
-          )}
-          x1={x1}
-          y1={y1}
-          x2={x2}
-          y2={y2}
-          style={data.style}
-          stroke={data.stroke}
-        />
-        <line
-          className={this.CSS.element(
-            this.baseClass,
-            "line",
-            colorIndex != null && "color-" + colorIndex,
-          )}
-          x1={x2}
-          y1={y2}
-          x2={r}
-          y2={b}
+          d={getPolylinePath(instance.points ?? [], data.cornerRadius)}
+          fill="none"
           style={data.style}
           stroke={data.stroke}
         />
@@ -250,5 +207,6 @@ export class ThreeSegmentLine extends ContainerBase<
 
 ThreeSegmentLine.prototype.startOffset = 0;
 ThreeSegmentLine.prototype.direction = "right";
+ThreeSegmentLine.prototype.cornerRadius = 0;
 ThreeSegmentLine.prototype.baseClass = "line";
 ThreeSegmentLine.prototype.styled = true;

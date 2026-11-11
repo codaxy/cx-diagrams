@@ -1,3 +1,5 @@
+export type { Direction, LineSegment, Point } from "./types";
+export * from "./util/linePaths";
 export * from "./Diagram";
 export * from "./DiagramState";
 export * from "./Cell";
@@ -8,6 +10,7 @@ export * from "./Rotate";
 export * from "./TwoSegmentLine";
 export * from "./ThreeSegmentLine";
 export * from "./StraightLine";
+export * from "./ElbowLine";
 export * from "./FourSides";
 export * from "./ArrowHead";
 export * from "./Draggable";

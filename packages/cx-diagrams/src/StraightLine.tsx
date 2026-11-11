@@ -10,15 +10,7 @@ import {
   ClassProp,
 } from "cx/ui";
 import { getLinesIntersectionPoint } from "./util/getLinesIntersectionPoint";
-
-type ShapeType = "circle" | "rectangle" | "rhombus";
-
-interface LineSegment {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-}
+import { LineSegment, ShapeType } from "./types";
 
 export interface StraightLineConfig extends ContainerConfig {
   /** ID of the starting shape. */

@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+**Features**
+
+- `ElbowLine` is a new line which connects two shapes given a `startDirection` and an `endDirection`. It works out the route on its own, using one to five horizontal and vertical segments, and goes around the two shapes when needed. `startOffset` and `endOffset` move the endpoints along the side of the shape. `cornerRadius` rounds the corners and `smooth` draws a curve instead. `minStartLength` and `minEndLength` keep the first and the last segment long enough for an arrow head and default to 8 pixels
+- `TwoSegmentLine` and `ThreeSegmentLine` take `cornerRadius` to round their corners
+- `getPolylinePath`, `getCurve` and `getLineSegments` are exported for building custom lines. `getPolylinePath` turns a list of points into an SVG path with optionally rounded corners, `getCurve` returns a smooth curve between two points, and `getLineSegments` converts points into the segments which `ArrowHead` uses
+
+**Fixes**
+
+- `TwoSegmentLine` and `ThreeSegmentLine` are drawn as a single path, so their segments join cleanly at the corners instead of leaving a notch
+- An `ArrowHead` at the end of a `TwoSegmentLine` with `direction` set to `up` or `down` is placed at the end of the line; it was placed at the corner
+
+**Other**
+
+- The `Direction`, `ShapeType` and `LineSegment` types are declared once in `types.ts` instead of in every component. `Direction`, `LineSegment` and `Point` are exported from the package
+
 ## 26.9.0
 
 **Features**

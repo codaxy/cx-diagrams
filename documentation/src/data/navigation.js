@@ -31,6 +31,7 @@ export const navigation = [
       { text: "StraightLine", href: "/lines/straight-line", description: "Straight connection between two shapes" },
       { text: "TwoSegmentLine", href: "/lines/two-segment-line", description: "L-shaped connection" },
       { text: "ThreeSegmentLine", href: "/lines/three-segment-line", description: "Z-shaped connection" },
+      { text: "ElbowLine", href: "/lines/elbow-line", description: "Auto-routed connection with start and end directions, optionally smooth" },
     ],
   },
   {

@@ -10,16 +10,10 @@ import {
   StringProp,
   StyleProp,
 } from "cx/ui";
+import { LineSegment } from "./types";
 
 type Position = "start" | "end" | "middle";
 type ArrowShape = "triangle" | "vback" | "line";
-
-interface LineSegment {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-}
 
 interface ArrowPosition {
   x: number;

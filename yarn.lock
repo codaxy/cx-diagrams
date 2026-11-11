@@ -5211,7 +5211,7 @@ __metadata:
     "@types/react": "npm:^19.2.14"
     typescript: "npm:^5.0.0"
   peerDependencies:
-    cx: ^26.0.1
+    cx: ^26.3.10
   languageName: unknown
   linkType: soft
 

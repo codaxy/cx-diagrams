@@ -17,6 +17,11 @@ export default {
     key: true,
     description: 'Direction of the first segment. Available values are <code>up</code>, <code>down</code>, <code>left</code>, <code>right</code>.',
   },
+  cornerRadius: {
+    type: 'number',
+    key: true,
+    description: 'Radius used to round the corners of the line. Default value is <code>0</code>.',
+  },
   stroke: {
     type: 'string',
     key: true,

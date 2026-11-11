@@ -1,0 +1,115 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: ElbowLine
+---
+
+import Split from "../../components/Split.astro";
+import Prose from "../../components/Prose.astro";
+import ImportPath from "../../components/ImportPathWrapper.tsx";
+import ConfigTable from "../../components/ConfigTable.astro";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import ElbowLineExample from "../../diagrams/ElbowLineExample.tsx";
+import config from "../../config/ElbowLine";
+
+export const code = `<Diagram unitSize={48} center showGrid>
+    <Flow direction="down" gap={2} align="center">
+        <Flow gap={2}>
+            <Draggable offsetX={bind(m.s1.offsetX, 0)} offsetY={bind(m.s1.offsetY, 0)}>
+                <Cell>
+                    <Shape fill="lightgray" text="1" id="1" />
+                </Cell>
+            </Draggable>
+            <Draggable offsetX={bind(m.s2.offsetX, 0)} offsetY={bind(m.s2.offsetY, 0)}>
+                <Cell>
+                    <Shape fill="lightgray" text="2" id="2" />
+                </Cell>
+            </Draggable>
+            <Draggable offsetX={bind(m.s3.offsetX, 0)} offsetY={bind(m.s3.offsetY, 0)}>
+                <Cell>
+                    <Shape fill="lightgray" text="3" id="3" />
+                </Cell>
+            </Draggable>
+        </Flow>
+        <Flow gap={2}>
+            <Draggable offsetX={bind(m.s4.offsetX, 0)} offsetY={bind(m.s4.offsetY, 0)}>
+                <Cell>
+                    <Shape fill="lightgray" text="4" id="4" />
+                </Cell>
+            </Draggable>
+            <Draggable offsetX={bind(m.s5.offsetX, 0)} offsetY={bind(m.s5.offsetY, 0)}>
+                <Cell>
+                    <Shape fill="lightgray" text="5" id="5" />
+                </Cell>
+            </Draggable>
+        </Flow>
+    </Flow>
+
+    {/* one segment */}
+    <ElbowLine from="4" to="5" stroke="black">
+        <ArrowHead size={7} fill="black" />
+    </ElbowLine>
+
+    {/* two segments */}
+    <ElbowLine from="1" to="4" startDirection="down" endDirection="right" stroke="green">
+        <ArrowHead size={7} fill="green" />
+    </ElbowLine>
+
+    {/* three segments */}
+    <ElbowLine from="2" to="5" startDirection="down" startOffset={8} stroke="blue">
+        <ArrowHead size={7} fill="blue" />
+    </ElbowLine>
+    <ElbowLine from="2" to="3" startDirection="up" endDirection="down" stroke="purple" cornerRadius={8}>
+        <ArrowHead size={7} fill="purple" />
+    </ElbowLine>
+
+    {/* four segments */}
+    <ElbowLine from="5" to="3" startDirection="down" endDirection="left" stroke="red" cornerRadius={8}>
+        <ArrowHead size={7} fill="red" />
+    </ElbowLine>
+
+    {/* five segments */}
+    <ElbowLine from="4" to="1" startDirection="down" endDirection="down" stroke="orange" cornerRadius={8}>
+        <ArrowHead size={7} fill="orange" />
+    </ElbowLine>
+
+    {/* smooth */}
+    <ElbowLine from="2" to="4" startDirection="down" endDirection="left" startOffset={-8} stroke="teal" smooth>
+        <ArrowHead size={7} fill="teal" />
+    </ElbowLine>
+</Diagram>`;
+
+<Split>
+  <Prose>
+    # ElbowLine
+
+    <ImportPath path='import { ElbowLine } from "cx-diagrams"' client:load />
+
+    The `ElbowLine` component connects two shapes with horizontal and vertical segments and figures out the number of segments on its own. You only tell it where the line should leave the first shape (`startDirection`) and in which direction it should be traveling when it enters the second shape (`endDirection`).
+
+    The line starts in the middle of the side that `startDirection` points to and ends in the middle of the side that `endDirection` points into. For example, `endDirection="right"` enters the shape on its left side and `endDirection="down"` enters it at the top.
+
+    Depending on the directions and the position of the shapes, the result is a straight line, an L-shaped, Z-shaped or U-shaped line, or a line with four or five segments which goes around the shapes. The route with the fewest corners is always used and it never crosses either of the two shapes. Other shapes in the diagram are not taken into account.
+
+    The shapes in the example below are wrapped in [Draggable](/components/draggable). Drag them around to see how the lines change.
+
+    Lines start and end in the middle of the side. Use `startOffset` and `endOffset` to move the endpoints along the side, e.g. to separate lines which share the same side of a shape, like the two lines leaving the bottom of shape 2 in the example.
+
+    When a shape is only a few pixels off, the first or the last segment can get too short to fit an arrow head. To prevent this, both segments are kept at least 8 pixels long and the line takes a small detour instead. Use `minStartLength` and `minEndLength` to change that, e.g. for larger arrow heads.
+
+    Use `cornerRadius` to round the corners, or set `smooth` to draw a curve which leaves and enters the shapes in the given directions.
+
+  </Prose>
+</Split>
+
+<Split>
+  <CodeSnippet code={code} class="max-h-[500px]" />
+
+  <ElbowLineExample client:load slot="right" />
+</Split>
+
+<Split>
+  <Prose>
+    <h2>Configuration</h2>
+  </Prose>
+  <ConfigTable config={config} />
+</Split>
