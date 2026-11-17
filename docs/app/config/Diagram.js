@@ -95,16 +95,4 @@ export default {
          </cx>
       ),
    },
-
-   panThreshold: {
-      type: 'number',
-      description: (
-         <cx>
-            <Md>
-               Distance in pixels the pointer has to move from the press point before panning starts. Smaller
-               movements are treated as part of a click. Default value is 4.
-            </Md>
-         </cx>
-      ),
-   },
 };

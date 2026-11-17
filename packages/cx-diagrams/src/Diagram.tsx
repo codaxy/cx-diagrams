@@ -3,7 +3,7 @@ import { RenderingContext, Instance, NumberProp, BooleanProp } from "cx/ui";
 import { BoundedObject, BoundedObjectConfig, Rect } from "cx/svg";
 import { DiagramState } from "./DiagramState";
 import { addEventListenerWithOptions, debounce } from "cx/util";
-import { getCursorPos, captureMouseOrTouch, CursorPosition } from "cx/widgets";
+import { getCursorPos, captureMouseOrTouch } from "cx/widgets";
 import { VDOM } from "cx/ui";
 import { NodeInstance, Box } from "./Node";
 
@@ -43,12 +43,6 @@ export interface DiagramConfig extends BoundedObjectConfig {
 
   /** Maximum allowed zoom level. Defaults to 4. */
   maxZoom?: NumberProp;
-
-  /**
-   * Distance in pixels the pointer has to move from the press point before panning starts.
-   * Smaller movements are treated as part of a click, so clicks on shapes are not lost. Defaults to 4.
-   */
-  panThreshold?: number;
 }
 
 interface DiagramData {
@@ -93,7 +87,6 @@ export class Diagram extends BoundedObject<DiagramConfig> {
   declare zoomStep: number;
   declare minZoom: number;
   declare maxZoom: number;
-  declare panThreshold: number;
 
   init() {
     if (this.center) {
@@ -200,7 +193,6 @@ Diagram.prototype.fixed = false;
 Diagram.prototype.zoomStep = 0.05;
 Diagram.prototype.minZoom = 0.25;
 Diagram.prototype.maxZoom = 4;
-Diagram.prototype.panThreshold = 4;
 
 interface DiagramComponentProps {
   data: DiagramData;
@@ -232,10 +224,9 @@ class DiagramComponent extends VDOM.Component<
   el: SVGGElement | null = null;
   touchOperation: number = 0;
   offWheel?: () => void;
+  releaseCapture?: () => void;
   saveState: () => void;
   refs: any;
-  pressPoint: CursorPosition | null = null;
-  offPressEnd?: () => void;
 
   constructor(props: DiagramComponentProps) {
     super(props);
@@ -254,7 +245,6 @@ class DiagramComponent extends VDOM.Component<
     }, 100);
 
     this.handleInitialMouseMove = this.handleInitialMouseMove.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
   }
 
   elRef = (el: SVGGElement | null) => {
@@ -308,7 +298,6 @@ class DiagramComponent extends VDOM.Component<
       <g
         className={data.classNames}
         ref={this.elRef}
-        onMouseDown={this.handleMouseDown}
         onMouseMove={this.handleInitialMouseMove}
       >
         <rect
@@ -340,7 +329,8 @@ class DiagramComponent extends VDOM.Component<
 
   componentWillUnmount() {
     if (this.offWheel) this.offWheel();
-    this.endPress();
+    // a pan in progress would otherwise leave the capture surface on the page and update an unmounted component
+    this.releaseCapture?.();
   }
 
   handleWheel(ev: WheelEvent) {
@@ -421,54 +411,14 @@ class DiagramComponent extends VDOM.Component<
     this.zoom(e, -1, center);
   }
 
-  // Remember where the press started, so that small movements during a click don't start panning.
-  // Panning covers the page with a mouse capture surface, which would receive the mouseup instead of the shape.
-  handleMouseDown(e: React.MouseEvent) {
-    this.endPress();
-    if (e.button !== 0 || this.props.data.fixed) return;
-
-    this.pressPoint = getCursorPos(e.nativeEvent);
-
-    let doc = (e.target as Element).ownerDocument;
-    // the button can be released anywhere, also outside of the diagram
-    let onMouseUp = () => this.endPress();
-    // Without this, the movement below the threshold would start selecting text on the page. Before the
-    // threshold was introduced, the capture surface appeared on the first move and prevented that.
-    let onSelectStart = (ev: Event) => ev.preventDefault();
-    doc.addEventListener("mouseup", onMouseUp, true);
-    doc.addEventListener("selectstart", onSelectStart, true);
-    this.offPressEnd = () => {
-      doc.removeEventListener("mouseup", onMouseUp, true);
-      doc.removeEventListener("selectstart", onSelectStart, true);
-    };
-  }
-
-  endPress() {
-    this.pressPoint = null;
-    if (this.offPressEnd) {
-      this.offPressEnd();
-      this.offPressEnd = undefined;
-    }
-  }
-
   handleInitialMouseMove(e: React.MouseEvent) {
-    if (e.buttons != 1) {
-      this.endPress();
-      return;
-    }
+    if (e.buttons != 1) return;
     if (this.props.data.fixed) return;
+    // Some environments (e.g. sharing a single window in Microsoft Teams) send a mousemove which didn't move
+    // between mousedown and mouseup. Panning would cover the page with the capture surface, which would receive
+    // the mouseup, and the click on the shape would be lost.
+    if (e.movementX == 0 && e.movementY == 0) return;
     let cursor = getCursorPos(e.nativeEvent);
-
-    // A press which started inside the diagram becomes a pan only after the pointer moved far enough.
-    // A press which started outside (no press point) pans right away.
-    let pressPoint = this.pressPoint;
-    if (pressPoint) {
-      let threshold = (this.props.instance.widget as Diagram).panThreshold;
-      let dx = cursor.clientX - pressPoint.clientX;
-      let dy = cursor.clientY - pressPoint.clientY;
-      if (dx * dx + dy * dy < threshold * threshold) return;
-      this.pressPoint = null;
-    }
     let nativeEvent = e.nativeEvent as MouseEvent & { touches?: TouchList };
     let mode: "pan" | "zoom" =
       nativeEvent.touches && nativeEvent.touches.length >= 2 ? "zoom" : "pan";
@@ -478,10 +428,8 @@ class DiagramComponent extends VDOM.Component<
     };
 
     if (mode == "pan") {
-      // measure from the press point, so that the point grabbed by the user stays under the cursor
-      let start = pressPoint ?? cursor;
-      captureData.dx = this.state.offsetX - start.clientX;
-      captureData.dy = this.state.offsetY - start.clientY;
+      captureData.dx = this.state.offsetX - cursor.clientX;
+      captureData.dy = this.state.offsetY - cursor.clientY;
     } else if (nativeEvent.touches) {
       captureData.cx =
         (nativeEvent.touches[0].clientX + nativeEvent.touches[1].clientX) / 2;
@@ -500,18 +448,18 @@ class DiagramComponent extends VDOM.Component<
       );
     }
 
-    captureMouseOrTouch(
+    this.releaseCapture?.();
+    this.releaseCapture = captureMouseOrTouch(
       e.nativeEvent,
       (ev: MouseEvent | TouchEvent, data: CaptureData) => {
         this.handleMouseMove(ev, data);
       },
-      () => {},
+      () => {
+        this.releaseCapture = undefined;
+      },
       captureData,
       "grabbing"
     );
-
-    // catch up with the movement absorbed by the threshold
-    if (pressPoint && mode == "pan") this.handleMouseMove(e.nativeEvent, captureData);
 
     e.stopPropagation();
     (document.activeElement as HTMLElement)?.blur();
