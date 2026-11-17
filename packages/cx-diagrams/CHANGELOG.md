@@ -1,5 +1,12 @@
 # Changelog
 
+## 26.11.1
+
+**Fixes**
+
+- Clicking a shape inside a `Diagram` works in environments which send a `mousemove` with no movement between `mousedown` and `mouseup`, such as sharing a single window in Microsoft Teams. The diagram treated such a press as the start of a pan and the click was lost ([#10](https://github.com/codaxy/cx-diagrams/pull/10))
+- A `Diagram` which is unmounted in the middle of a pan releases the mouse capture, instead of leaving the capture surface over the page
+
 ## 26.11.0
 
 **Features**
