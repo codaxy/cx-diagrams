@@ -224,6 +224,7 @@ class DiagramComponent extends VDOM.Component<
   el: SVGGElement | null = null;
   touchOperation: number = 0;
   offWheel?: () => void;
+  releaseCapture?: () => void;
   saveState: () => void;
   refs: any;
 
@@ -328,6 +329,8 @@ class DiagramComponent extends VDOM.Component<
 
   componentWillUnmount() {
     if (this.offWheel) this.offWheel();
+    // a pan in progress would otherwise leave the capture surface on the page and update an unmounted component
+    this.releaseCapture?.();
   }
 
   handleWheel(ev: WheelEvent) {
@@ -411,6 +414,10 @@ class DiagramComponent extends VDOM.Component<
   handleInitialMouseMove(e: React.MouseEvent) {
     if (e.buttons != 1) return;
     if (this.props.data.fixed) return;
+    // Some environments (e.g. sharing a single window in Microsoft Teams) send a mousemove which didn't move
+    // between mousedown and mouseup. Panning would cover the page with the capture surface, which would receive
+    // the mouseup, and the click on the shape would be lost.
+    if (e.movementX == 0 && e.movementY == 0) return;
     let cursor = getCursorPos(e.nativeEvent);
     let nativeEvent = e.nativeEvent as MouseEvent & { touches?: TouchList };
     let mode: "pan" | "zoom" =
@@ -441,12 +448,15 @@ class DiagramComponent extends VDOM.Component<
       );
     }
 
-    captureMouseOrTouch(
+    this.releaseCapture?.();
+    this.releaseCapture = captureMouseOrTouch(
       e.nativeEvent,
       (ev: MouseEvent | TouchEvent, data: CaptureData) => {
         this.handleMouseMove(ev, data);
       },
-      () => {},
+      () => {
+        this.releaseCapture = undefined;
+      },
       captureData,
       "grabbing"
     );
